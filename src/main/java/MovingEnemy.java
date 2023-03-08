@@ -4,9 +4,7 @@ public class MovingEnemy extends Enemy {
     private int speed; // speed of enemy
 
     public MovingEnemy(int x, int y, int speed, int damage) {
-        super(damage);
-        this.x = x;
-        this.y = y;
+        super(x, y, damage);
         this.speed = speed;
     }
 

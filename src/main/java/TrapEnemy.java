@@ -1,7 +1,7 @@
 public class TrapEnemy extends Enemy {
 
-    public TrapEnemy(int damage) {
-        super(damage);
+    public TrapEnemy(int x, int y,int damage) {
+        super(x,y,damage);
     }
 
     // override the abstract method to handle trap enemy behavior

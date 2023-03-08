@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 
-public class Player extends Entity {
+public class Player {
     // Attributes
     private int score = 0;
     private int lives = 5;
-    private ArrayList<Weapon> inventory;
+    //private ArrayList<Weapon> inventory;
     private int x; // x coordinate of player
     private int y; // y coordinate of player
     private int vx; // velocity along x axis
@@ -18,16 +18,16 @@ public class Player extends Entity {
         this.vx = 0;
         this.vy = 0;
         this.lives= lives;
-        inventory = new ArrayList<Weapon>();
+        //inventory = new ArrayList<Weapon>();
     }
 
     // Getters
     public int  getScore(){ return this.score;}
     public int getLives(){ return this.lives;}
 
-    public ArrayList getInventory() {
-        return inventory;
-    }
+    //public ArrayList getInventory() {
+        //return inventory;
+    //}
 
     // Setters
     public void setScore(int value){ this.score = value;}
