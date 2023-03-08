@@ -4,7 +4,7 @@ public class Player extends Entity {
     // Attributes
     private int score = 0;
     private int lives = 5;
-    private ArrayList<> inventory;
+    private ArrayList<Weapon> inventory;
     private int x; // x coordinate of player
     private int y; // y coordinate of player
     private int vx; // velocity along x axis
