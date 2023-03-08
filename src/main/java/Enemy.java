@@ -1,6 +1,17 @@
-public class Enemy extends Entity{
-    private int punishment;
-    private int speed;
+public abstract class Enemy extends Entity{
+        protected int damage; // amount of damage the enemy does to the player
 
-    // Constructor
-}
+        public Enemy(int damage) {
+            this.damage = damage;
+        }
+
+        public int getDamage() {
+            return damage;
+        }
+
+        // abstract method to handle enemy behavior
+        public abstract void handleCollision(Player player);
+    }
+
+
+

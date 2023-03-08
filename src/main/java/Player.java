@@ -12,11 +12,12 @@ public class Player extends Entity {
 
 
     // constructor
-    public Player(int x, int y) {
+    public Player(int x, int y, int lives) {
         this.x = x;
         this.y = y;
         this.vx = 0;
         this.vy = 0;
+        this.lives= lives;
         inventory = new ArrayList<Weapon>();
     }
 
@@ -115,6 +116,13 @@ public class Player extends Entity {
     // TODO : Object collision
 
     // TODO : enemy collision
+    public void takeDamage(int damage) {
+        lives -= damage;
+        if (lives <= 0) {
+            // TODO: player has died, handle game over condition
+            //
+        }
+    }
 
     // TODO : see if dead
 

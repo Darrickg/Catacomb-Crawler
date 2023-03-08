@@ -17,11 +17,16 @@ public class Game {
             } else {
                 Player.stopX();
             }
+            // TODO: handle collisions
+
 
             // update game objects
             Player.move();
 
+
             // render the game
+
+
         }
     }
 
