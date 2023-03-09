@@ -3,20 +3,35 @@ import java.awt.Graphics;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.beans.SimpleBeanInfo;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Timer;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import javax.swing.*;
+import javax.imageio.ImageIO;
+import java.io.IOException;
+import java.io.File;
 
 
 public class SimpleGame extends JPanel implements Runnable, KeyListener {
     private Player player;
     private ArrayList<Enemy> enemies;
     private Thread gameThread;
-
-    public SimpleGame() {
+    private BufferedImage playerImage;
+    public SimpleGame()  {
+        // Load the player image using ImageIO
+        try {
+            playerImage = ImageIO.read(new File("assets/__Idle.gif"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         // Set up player
-        player = new Player(100, 100, 5);
+        player = new Player(100, 100,5);
 
         // Set up enemies
         enemies = new ArrayList<>();
@@ -53,8 +68,7 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         // Draw player
-        g.setColor(Color.RED);
-        g.fillRect(player.getX(), player.getY(), 20, 20);
+        g.drawImage(playerImage, player.getX(), player.getY(), null);
 
         // Draw enemies
         g.setColor(Color.BLUE);
@@ -107,7 +121,8 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
     }
 
 
-    public static void main(String[] args) {
+
+    public static void main(String[] args) throws IOException {
        new SimpleGame();
     }
 }

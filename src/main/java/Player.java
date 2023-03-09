@@ -1,3 +1,8 @@
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Player {
@@ -11,14 +16,16 @@ public class Player {
     private int vy; // velocity along y axis
 
 
+
     // constructor
-    public Player(int x, int y, int lives) {
+    public Player(int x, int y, int lives)  {
         this.x = x;
-        this.y = y;
+        this.y =y;
         this.vx = 0;
         this.vy = 0;
         this.lives= lives;
-        //inventory = new ArrayList<Weapon>();
+
+
     }
 
     // Getters
