@@ -1,5 +1,3 @@
-import Entity.Player;
-
 public abstract class Enemy extends Entity{
         protected int damage; // amount of damage the enemy does to the player
 

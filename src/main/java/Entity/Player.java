@@ -4,6 +4,7 @@ public class Player extends Entity {
     // Attributes
     private int score = 0;
     private int lives = 5;
+    private ArrayList<Weapon> inventory;
     private int x; // x coordinate of player
     private int y; // y coordinate of player
     private int vx; // velocity along x axis
@@ -17,16 +18,23 @@ public class Player extends Entity {
         this.vx = 0;
         this.vy = 0;
         this.lives= lives;
+        inventory = new ArrayList<Weapon>();
     }
 
     // Getters
     public int  getScore(){ return this.score;}
     public int getLives(){ return this.lives;}
 
+    public ArrayList getInventory() {
+        return inventory;
+    }
+
     // Setters
     public void setScore(int value){ this.score = value;}
     public void setLives(int value){ this.lives = value;}
-
+    public void setInventory(ArrayList inventory) {
+        inventory = inventory;
+    }
     // Adders
     public void addScore(int dif){ this.score += dif;}
     public void addLives(int dif){ this.lives += dif;}
@@ -117,7 +125,6 @@ public class Player extends Entity {
     }
 
     // TODO : see if dead
-
 
 
 

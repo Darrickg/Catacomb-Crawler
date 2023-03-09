@@ -1,13 +1,29 @@
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
 public class MovingEnemy extends Enemy {
     private int x; // x coordinate of enemy
     private int y; // y coordinate of enemy
     private int speed; // speed of enemy
+    private BufferedImage[] sprites;
+
+    private int currentFrame;
 
     public MovingEnemy(int x, int y, int speed, int damage) {
-        super(damage);
-        this.x = x;
-        this.y = y;
+        super(x, y, damage);
         this.speed = speed;
+        currentFrame = 0;
+        sprites = new BufferedImage[1];
+        try {
+            sprites[0] = ImageIO.read(new File("assets/enemyLeft.png"));
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // override the abstract method to handle moving enemy behavior
@@ -55,6 +71,11 @@ public class MovingEnemy extends Enemy {
     public void setSpeed(int speed) {
         this.speed = speed;
     }
+
+    public void draw(Graphics2D g2d){
+        g2d.drawImage(sprites[currentFrame], x, y, null);
+    }
+
 
     // TODO: other methods for moving enemies
     //
