@@ -7,12 +7,17 @@ import java.io.IOException;
 public abstract class Enemy {
     private int x;
     private int y;
+    private int width, height;
+    private Rectangle hitbox;
     protected int damage; // amount of damage the enemy does to the player
 
-    public Enemy(int x, int y,int damage) {
+    public Enemy(int x, int y,int enemyWidth, int enemyHeight,int damage) {
         this.damage = damage;
         this.x =x;
         this.y=y;
+        width = enemyWidth;
+        height = enemyHeight;
+        hitbox = new Rectangle(x, y, width, height);
 
         }
 
@@ -39,6 +44,27 @@ public abstract class Enemy {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public Rectangle getHitbox(){
+        return hitbox;
+
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
     }
 
     public void draw(Graphics2D g2d) {

@@ -10,13 +10,17 @@ public class MovingEnemy extends Enemy {
     private int speed; // speed of enemy
     private BufferedImage[] sprites;
 
+    private int width, height;
+    private Rectangle hitbox;
+
     private int currentFrame;
 
-    public MovingEnemy(int x, int y, int speed, int damage) {
-        super(x, y, damage);
+    public MovingEnemy(int x, int y, int enemyWidth, int enemyHeight, int speed, int damage) {
+        super(x, y, enemyWidth, enemyHeight, damage);
         this.speed = speed;
         currentFrame = 0;
         sprites = new BufferedImage[1];
+        hitbox = new Rectangle(x, y, width, height);
         try {
             sprites[0] = ImageIO.read(new File("assets/enemyLeft.png"));
 
@@ -45,6 +49,7 @@ public class MovingEnemy extends Enemy {
             x += (int) (directionX * speed);
             y += (int) (directionY * speed);
         }
+        hitbox.setLocation(x,y);
     }
 
     // getters and setters
@@ -74,6 +79,9 @@ public class MovingEnemy extends Enemy {
 
     public void draw(Graphics2D g2d){
         g2d.drawImage(sprites[currentFrame], x, y, null);
+    }
+    public Rectangle getHitbox(){
+        return hitbox;
     }
 
 

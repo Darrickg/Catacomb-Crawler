@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import java.awt.Rectangle;
 
 
 public class Player {
@@ -23,19 +24,26 @@ public class Player {
     private int y; // y coordinate of player
     private int vx; // velocity along x axis
     private int vy; // velocity along y axis
+    private int width;
+    private int height;
+    private Rectangle hitbox;
+
 
     private BufferedImage[] sprites;
     private int currentFrame;
 
 
     // constructor
-    public Player(int x, int y, int lives) {
+    public Player(int x, int y , int playerWidth, int PlayerHeight, int lives) {
         this.x = x;
         this.y = y;
         this.vx = 0;
         this.vy = 0;
         this.lives = lives;
         currentFrame =0;
+        width = playerWidth;
+        height = PlayerHeight;
+        hitbox = new Rectangle(x,y,width,height);
 
         //Load Sprite Images
         sprites = new BufferedImage[2];
@@ -73,6 +81,10 @@ public class Player {
     public void move() {
         x += vx;
         y += vy;
+        hitbox.setLocation(getX(),getY());
+    }
+    public Rectangle getHitbox(){
+        return hitbox;
     }
 
     // move player up
@@ -159,7 +171,21 @@ public class Player {
         }
     }
 
+    public int getWidth() {
+        return width;
+    }
 
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
 
     // TODO : see if dead
 
