@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import Entity.Player;
 
 public class MovingEnemy extends Enemy {
     private int x; // x coordinate of enemy

@@ -1,10 +1,13 @@
+import Entity.Entity;
+import Entity.Player;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public abstract class Enemy {
+public abstract class Enemy extends Entity {
     private int x;
     private int y;
     protected int damage; // amount of damage the enemy does to the player
@@ -23,7 +26,9 @@ public abstract class Enemy {
     }
 
     // override the abstract method to handle moving enemy behavior
-    public abstract void handleCollision(Player player);
+    public void handleCollision(Player player) {
+        //abstract
+    }
 
     public int getX() {
         return x;

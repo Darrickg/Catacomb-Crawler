@@ -1,14 +1,33 @@
-import java.util.ArrayList;
+package Entity;
 
-public class Player extends Entity {
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+
+
+public class Player extends Entity{
     // Attributes
     private int score = 0;
     private int lives = 5;
-    private ArrayList<Weapon> inventory;
+    //private ArrayList<Weapon> inventory;
     private int x; // x coordinate of player
     private int y; // y coordinate of player
     private int vx; // velocity along x axis
     private int vy; // velocity along y axis
+
+    private BufferedImage[] sprites;
+    private int currentFrame;
 
 
     // constructor
@@ -17,17 +36,27 @@ public class Player extends Entity {
         this.y = y;
         this.vx = 0;
         this.vy = 0;
-        this.lives= lives;
-        inventory = new ArrayList<Weapon>();
+        this.lives = lives;
+        currentFrame =0;
+
+        //Load Sprite Images
+        sprites = new BufferedImage[2];
+        try {
+            sprites[0] = ImageIO.read(new File("assets/runRight.gif"));
+            sprites[1] = ImageIO.read(new File("assets/runLeft.gif"));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // Getters
     public int  getScore(){ return this.score;}
     public int getLives(){ return this.lives;}
 
-    public ArrayList getInventory() {
-        return inventory;
-    }
+    //public ArrayList getInventory() {
+    //return inventory;
+    //}
 
     // Setters
     public void setScore(int value){ this.score = value;}
@@ -50,22 +79,24 @@ public class Player extends Entity {
 
     // move player up
     public void moveUp() {
-        vy = -1;
+        vy = -2;
     }
 
     // move player down
     public void moveDown() {
-        vy = 1;
+        vy = 2;
     }
 
     // move player left
     public void moveLeft() {
-        vx = -1;
+        vx = -2;
+        currentFrame = 1;
     }
 
     // move player right
     public void moveRight() {
-        vx = 1;
+        vx = 2;
+        currentFrame = 0;
     }
 
     // stop player movement in x axis
@@ -111,8 +142,14 @@ public class Player extends Entity {
         this.vy = vy;
     }
 
-    // TODO: Draw player
+    public void setCurrentFrame(int currentFrame) {
+        this.currentFrame = currentFrame;
+    }
 
+    // TODO: Draw player
+    public void draw(Graphics2D g2d){
+        g2d.drawImage(sprites[currentFrame], x, y, null);
+    }
     // TODO : Object collision
 
     // TODO : enemy collision
@@ -120,9 +157,11 @@ public class Player extends Entity {
         lives -= damage;
         if (lives <= 0) {
             // TODO: player has died, handle game over condition
-            //
+            //  change to deaath frame
         }
     }
+
+
 
     // TODO : see if dead
 
