@@ -31,12 +31,12 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
     public SimpleGame()  {
 
         // Set up player
-        player = new Player(100, 100,5);
+        player = new Player(100, 100, 10,10,5);
 
         // Set up enemies
         enemies = new ArrayList<>();
-        enemies.add(new MovingEnemy(200, 200, 2, 10));
-        enemies.add(new TrapEnemy(300,300,20));
+        enemies.add(new MovingEnemy(200, 200, 10,10, 2, 10));
+        enemies.add(new TrapEnemy(300,300,10,10,20));
 
         // Start game loop thread
         gameThread = new Thread(this);
@@ -65,6 +65,34 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
     }
 
     @Override
+    public void run() {
+        while (true) {
+            for (Enemy enemy : enemies) {
+                if (enemy instanceof MovingEnemy ) {
+                    if(enemy.getHitbox().intersects(player.getHitbox())){
+                        System.out.println(" player collided with moving enemy");
+                    }
+
+                }
+                if (enemy instanceof TrapEnemy ) {
+                    if(enemy.getHitbox().intersects(player.getHitbox())){
+                        System.out.println(" player collided with trap enemy");
+                    }
+
+                }
+                // Call other movement methods for other enemy types
+            }
+
+            try {
+                update();
+                repaint();
+                Thread.sleep(16);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
@@ -79,21 +107,26 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
             //g.fillRect(enemy.getX(), enemy.getY(), 20, 20);
             enemy.draw(g2d);
         }
-    }
+        //TODO:  HITBOXES
+        g.setColor(Color.GREEN);
+        g.fillRect(player.getX(), player.getY(), player.getWidth(), player.getHeight());
 
-    @Override
-    public void run() {
-        while (true) {
-            try {
-                update();
-                repaint();
-                Thread.sleep(16);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        // Draw player hitbox
+        g.setColor(Color.RED);
+        Rectangle playerHitbox = player.getHitbox();
+        g.drawRect(playerHitbox.x, playerHitbox.y, playerHitbox.width, playerHitbox.height);
+
+        // Draw enemies
+        g.setColor(Color.BLUE);
+        for (Enemy enemy : enemies) {
+            g.fillRect(enemy.getX(), enemy.getY(), enemy.getWidth(), enemy.getHeight());
+
+            // Draw enemy hitbox
+            g.setColor(Color.RED);
+            Rectangle enemyHitbox = enemy.getHitbox();
+            g.drawRect(enemyHitbox.x, enemyHitbox.y, enemyHitbox.width, enemyHitbox.height);
         }
     }
-
     @Override
     public void keyPressed(KeyEvent e) {
         int keyCode = e.getKeyCode();
