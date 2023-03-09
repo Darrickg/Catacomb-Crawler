@@ -24,12 +24,7 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
     private Thread gameThread;
     private BufferedImage playerImage;
     public SimpleGame()  {
-        // Load the player image using ImageIO
-        try {
-            playerImage = ImageIO.read(new File("assets/__Idle.gif"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
         // Set up player
         player = new Player(100, 100,5);
 
@@ -44,7 +39,7 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
 
         JFrame frame = new JFrame("Simple Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500, 500);
+        frame.setSize(800, 600);
         frame.setResizable(false);
         frame.addKeyListener(this);
         frame.add(this);
@@ -67,8 +62,11 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setColor(Color.WHITE);
+        g2d.fillRect(0,0,getWidth(),getHeight());
         // Draw player
-        g.drawImage(playerImage, player.getX(), player.getY(), null);
+        player.draw(g2d);
 
         // Draw enemies
         g.setColor(Color.BLUE);
@@ -96,15 +94,21 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
         switch (keyCode) {
             case KeyEvent.VK_UP:
                 player.setY(player.getY()-5);
+
                 break;
             case KeyEvent.VK_DOWN:
                 player.setY(player.getY()+5);
+
                 break;
             case KeyEvent.VK_LEFT:
                 player.setX(player.getX()-5);
+                player.setCurrentFrame(1);
+
                 break;
             case KeyEvent.VK_RIGHT:
                 player.setX(player.getX()+5);
+                player.setCurrentFrame(0);
+
                 break;
         }
         repaint();

@@ -1,9 +1,17 @@
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 public class Player {
     // Attributes
@@ -15,17 +23,28 @@ public class Player {
     private int vx; // velocity along x axis
     private int vy; // velocity along y axis
 
+    private BufferedImage[] sprites;
+    private int currentFrame;
 
 
     // constructor
-    public Player(int x, int y, int lives)  {
+    public Player(int x, int y, int lives) {
         this.x = x;
-        this.y =y;
+        this.y = y;
         this.vx = 0;
         this.vy = 0;
-        this.lives= lives;
+        this.lives = lives;
+        currentFrame =0;
 
+        //Load Sprite Images
+        sprites = new BufferedImage[2];
+        try {
+            sprites[0] = ImageIO.read(new File("assets/runRight.gif"));
+            sprites[1] = ImageIO.read(new File("assets/runLeft.gif"));
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // Getters
@@ -68,11 +87,13 @@ public class Player {
     // move player left
     public void moveLeft() {
         vx = -1;
+        currentFrame = 1;
     }
 
     // move player right
     public void moveRight() {
         vx = 1;
+        currentFrame = 0;
     }
 
     // stop player movement in x axis
@@ -118,8 +139,14 @@ public class Player {
         this.vy = vy;
     }
 
-    // TODO: Draw player
+    public void setCurrentFrame(int currentFrame) {
+        this.currentFrame = currentFrame;
+    }
 
+    // TODO: Draw player
+     public void draw(Graphics2D g2d){
+         g2d.drawImage(sprites[currentFrame], x, y, null);
+     }
     // TODO : Object collision
 
     // TODO : enemy collision
@@ -130,6 +157,8 @@ public class Player {
             //
         }
     }
+
+
 
     // TODO : see if dead
 
