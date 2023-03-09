@@ -1,3 +1,4 @@
+/*
 public class Game {
 
     public void gameLoop() {
@@ -31,3 +32,4 @@ public class Game {
     }
 
 }
+*/
