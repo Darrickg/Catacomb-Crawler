@@ -18,6 +18,9 @@ import java.io.IOException;
 import java.io.File;
 
 
+
+
+
 public class SimpleGame extends JPanel implements Runnable, KeyListener {
     private Player player;
     private ArrayList<Enemy> enemies;
@@ -71,7 +74,8 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
         // Draw enemies
         g.setColor(Color.BLUE);
         for (Enemy enemy : enemies) {
-            g.fillRect(enemy.getX(), enemy.getY(), 20, 20);
+            //g.fillRect(enemy.getX(), enemy.getY(), 20, 20);
+            enemy.draw(g2d);
         }
     }
 

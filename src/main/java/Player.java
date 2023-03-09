@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
+
 public class Player {
     // Attributes
     private int score = 0;
@@ -76,23 +77,23 @@ public class Player {
 
     // move player up
     public void moveUp() {
-        vy = -1;
+        vy = -2;
     }
 
     // move player down
     public void moveDown() {
-        vy = 1;
+        vy = 2;
     }
 
     // move player left
     public void moveLeft() {
-        vx = -1;
+        vx = -2;
         currentFrame = 1;
     }
 
     // move player right
     public void moveRight() {
-        vx = 1;
+        vx = 2;
         currentFrame = 0;
     }
 
@@ -154,7 +155,7 @@ public class Player {
         lives -= damage;
         if (lives <= 0) {
             // TODO: player has died, handle game over condition
-            //
+            //  change to deaath frame
         }
     }
 

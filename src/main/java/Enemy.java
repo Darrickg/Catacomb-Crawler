@@ -1,3 +1,9 @@
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
 public abstract class Enemy {
     private int x;
     private int y;
@@ -7,7 +13,9 @@ public abstract class Enemy {
         this.damage = damage;
         this.x =x;
         this.y=y;
+
         }
+
 
 
     public int getDamage() {
@@ -31,6 +39,9 @@ public abstract class Enemy {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public void draw(Graphics2D g2d) {
     }
 }
 
