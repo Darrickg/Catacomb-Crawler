@@ -20,8 +20,8 @@ public class TileManager {
         tile = new Tile[10];
         mapTileNum = new int[gp.cellCol][gp.cellRow];
         getTileImage();
-        loadMap("/maps/map01.txt");
-        //TODO not sure the file path "/maps/map01.txt"
+        loadMap("assets/maps/map01.txt");
+
     }
 
     //load tile from disk and save it into tile[]
@@ -29,12 +29,12 @@ public class TileManager {
         try{
             tile[0]= new Tile();
             //put grass tile into array[0]
-            tile[0].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Grass.png"));
-            //TODO not sure the file path "/tiles/Grass.png"
+            tile[0].image = ImageIO.read(getClass().getResourceAsStream("assets/tiles/Grass.png"));
+
             tile[1]= new Tile();
             //put wall tile into array[1]
-            tile[1].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Wall.png"));
-            //TODO not sure the file path "/tiles/Wall.png"
+            tile[1].image = ImageIO.read(getClass().getResourceAsStream("assets/tiles/Wall.png"));
+
 
         }catch (IOException e){
             e.printStackTrace();
