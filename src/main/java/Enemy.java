@@ -69,6 +69,10 @@ public abstract class Enemy {
 
     public void draw(Graphics2D g2d) {
     }
+
+    public void setHitbox(Rectangle hitbox) {
+        this.hitbox = hitbox;
+    }
 }
 
 
