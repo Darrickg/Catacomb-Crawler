@@ -74,6 +74,10 @@ public abstract class Enemy extends Entity {
 
     public void draw(Graphics2D g2d) {
     }
+
+    public void setHitbox(Rectangle hitbox) {
+        this.hitbox = hitbox;
+    }
 }
 
 

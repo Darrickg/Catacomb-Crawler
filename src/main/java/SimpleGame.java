@@ -35,8 +35,8 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
 
         // Set up enemies
         enemies = new ArrayList<>();
-        enemies.add(new MovingEnemy(200, 200, 10,10, 2, 10));
-        enemies.add(new TrapEnemy(300,300,10,10,20));
+        enemies.add(new MovingEnemy(100, 100, 10,10, 2, 10));
+        enemies.add(new TrapEnemy(400,400,10,10,20));
 
         // Start game loop thread
         gameThread = new Thread(this);
@@ -67,21 +67,22 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
     @Override
     public void run() {
         while (true) {
-            for (Enemy enemy : enemies) {
-                if (enemy instanceof MovingEnemy ) {
+                for(Enemy enemy : enemies){
+                    if(enemy instanceof MovingEnemy){
                     if(enemy.getHitbox().intersects(player.getHitbox())){
                         System.out.println(" player collided with moving enemy");
                     }
-
-                }
-                if (enemy instanceof TrapEnemy ) {
-                    if(enemy.getHitbox().intersects(player.getHitbox())){
-                        System.out.println(" player collided with trap enemy");
                     }
 
-                }
-                // Call other movement methods for other enemy types
-            }
+                if(enemy instanceof TrapEnemy){
+                    if(enemy.getHitbox().intersects(player.getHitbox())) {
+                        System.out.println(" player collided with trap enemy");
+                    }
+        }}
+
+
+
+                // Call other movement methods for other enemy
 
             try {
                 update();
@@ -90,8 +91,8 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }
-    }
+        }}
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

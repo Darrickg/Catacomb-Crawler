@@ -11,7 +11,6 @@ public class MovingEnemy extends Enemy {
     private int speed; // speed of enemy
     private BufferedImage[] sprites;
 
-    private int width, height;
     private Rectangle hitbox;
 
     private int currentFrame;
@@ -21,7 +20,9 @@ public class MovingEnemy extends Enemy {
         this.speed = speed;
         currentFrame = 0;
         sprites = new BufferedImage[1];
-        hitbox = new Rectangle(x, y, width, height);
+        hitbox = new Rectangle(x, y, enemyWidth, enemyHeight);
+        this.x=x;
+        this.y=y;
         try {
             sprites[0] = ImageIO.read(new File("assets/enemyLeft.png"));
 
@@ -50,7 +51,8 @@ public class MovingEnemy extends Enemy {
             x += (int) (directionX * speed);
             y += (int) (directionY * speed);
         }
-        hitbox.setLocation(x,y);
+        hitbox.setLocation(getX(),getY());
+
     }
 
     // getters and setters
