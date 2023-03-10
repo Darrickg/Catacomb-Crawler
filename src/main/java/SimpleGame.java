@@ -1,5 +1,6 @@
 import Entity.Player;
 import Item.Items;
+import Rewards.bonus;
 import Rewards.regular;
 
 import java.awt.Color;
@@ -26,6 +27,7 @@ import java.io.File;
 
 
 public class SimpleGame extends JPanel implements Runnable, KeyListener {
+
     private Player player;
     private ArrayList<Enemy> enemies;
     private Thread gameThread;
@@ -69,6 +71,9 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
             }
             // Call other movement methods for other enemy types
         }
+
+        // Update the bonus reward timer TODO
+
     }
 
     @Override
@@ -94,7 +99,7 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
                         }
                     }
                 }
-
+                // TODO: sth with bonus rewards
 
                 // Call other movement methods for other enemy
 
