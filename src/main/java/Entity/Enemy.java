@@ -1,3 +1,5 @@
+package Entity;
+
 import Entity.Entity;
 import Entity.Player;
 

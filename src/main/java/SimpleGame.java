@@ -1,29 +1,20 @@
+import Entity.Enemy;
+import Entity.MovingEnemy;
 import Entity.Player;
+import Entity.TrapEnemy;
 import Item.Items;
-import Rewards.bonus;
 import Rewards.regular;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.beans.SimpleBeanInfo;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Timer;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.*;
-import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import javax.swing.*;
-import javax.imageio.ImageIO;
-import java.io.IOException;
-import java.io.File;
-
-
-
 
 
 public class SimpleGame extends JPanel implements Runnable, KeyListener {
