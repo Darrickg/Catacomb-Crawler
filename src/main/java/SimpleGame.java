@@ -1,4 +1,6 @@
 import Entity.Player;
+import Item.Items;
+import Rewards.regular;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -28,6 +30,8 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
     private ArrayList<Enemy> enemies;
     private Thread gameThread;
     private BufferedImage playerImage;
+    private ArrayList<Items> items;
+    private volatile boolean running = true;
     public SimpleGame()  {
 
         // Set up player
@@ -37,6 +41,9 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
         enemies = new ArrayList<>();
         enemies.add(new MovingEnemy(100, 100, 27,15, 2, 10));
         enemies.add(new TrapEnemy(400,400,28,15,20));
+
+        items = new ArrayList<>();
+        items.add(new regular(250,200,10,10,500));
 
         // Start game loop thread
         gameThread = new Thread(this);
@@ -66,7 +73,7 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
 
     @Override
     public void run() {
-        while (true) {
+        while (running) {
                 for(Enemy enemy : enemies){
                     if(enemy instanceof MovingEnemy){
                     if(enemy.getHitbox().intersects(player.getHitbox())){
@@ -78,8 +85,15 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
                     if(enemy.getHitbox().intersects(player.getHitbox())) {
                         System.out.println(" player collided with trap enemy");
                     }
-        }}
-
+        }
+                }
+                for( Items item : items){
+                    if(item instanceof regular){
+                        if(((regular) item).getHitbox().intersects(player.getHitbox())){
+                            System.out.println("player picked up regular reward");
+                        }
+                    }
+                }
 
 
                 // Call other movement methods for other enemy
@@ -107,6 +121,9 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
         for (Enemy enemy : enemies) {
             //g.fillRect(enemy.getX(), enemy.getY(), 20, 20);
             enemy.draw(g2d);
+        }
+        for( Items item: items){
+            item.draw(g2d);
         }
         //TODO:  HITBOXES
         g.setColor(Color.GREEN);
