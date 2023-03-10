@@ -31,12 +31,12 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
     public SimpleGame()  {
 
         // Set up player
-        player = new Player(100, 100, 10,10,5);
+        player = new Player(100, 100, 26,35,5);
 
         // Set up enemies
         enemies = new ArrayList<>();
-        enemies.add(new MovingEnemy(100, 100, 10,10, 2, 10));
-        enemies.add(new TrapEnemy(400,400,10,10,20));
+        enemies.add(new MovingEnemy(100, 100, 27,15, 2, 10));
+        enemies.add(new TrapEnemy(400,400,28,15,20));
 
         // Start game loop thread
         gameThread = new Thread(this);
