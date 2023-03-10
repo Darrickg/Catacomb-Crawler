@@ -50,8 +50,8 @@ public class Player extends Entity{
         //Load Sprite Images
         sprites = new BufferedImage[2];
         try {
-            sprites[0] = ImageIO.read(new File("assets/runRight.gif"));
-            sprites[1] = ImageIO.read(new File("assets/runLeft.gif"));
+            sprites[0] = ImageIO.read(new File("assets/entity/runRight.gif"));
+            sprites[1] = ImageIO.read(new File("assets/entity/runLeft.gif"));
 
         } catch (IOException e) {
             e.printStackTrace();

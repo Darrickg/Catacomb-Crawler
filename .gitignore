@@ -1,2 +1,7 @@
 
 /.idea/
+/target/classes/TrapEnemy.class
+/target/classes/SimpleGame.class
+/target/classes/MovingEnemy.class
+/target/classes/GameKeyListener.class
+/target/classes/Enemy.class

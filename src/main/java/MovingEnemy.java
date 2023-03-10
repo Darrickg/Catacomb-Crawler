@@ -24,7 +24,7 @@ public class MovingEnemy extends Enemy {
         this.x=x;
         this.y=y;
         try {
-            sprites[0] = ImageIO.read(new File("assets/enemyLeft.png"));
+            sprites[0] = ImageIO.read(new File("assets/entity/enemyLeft.png"));
 
 
         } catch (IOException e) {
