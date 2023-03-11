@@ -4,6 +4,7 @@ import Entity.Player;
 import Entity.TrapEnemy;
 import Item.Items;
 import Rewards.regular;
+import tile.TileManager;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -25,7 +26,21 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
     private BufferedImage playerImage;
     private ArrayList<Items> items;
     private volatile boolean running = true;
-    public SimpleGame()  {
+    private TileManager tileManager;
+
+    private static final int SCREEN_WIDTH = 800;
+    private static final int SCREEN_HEIGHT = 600;
+    private static final int TILE_SIZE = 100;
+    public SimpleGame() {
+        setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
+
+        // calculate the number of rows and columns needed to cover the entire screen
+        int cellCol = (int) Math.ceil((double) SCREEN_WIDTH / TILE_SIZE);
+        int cellRow = (int) Math.ceil((double) SCREEN_HEIGHT / TILE_SIZE);
+
+        // adjust the TileManager accordingly
+        tileManager = new TileManager(this, cellCol, cellRow, TILE_SIZE);
+
 
         // Set up player
         player = new Player(100, 100, 26,35,5);
@@ -109,6 +124,9 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(Color.WHITE);
         g2d.fillRect(0,0,getWidth(),getHeight());
+
+        tileManager.draw((Graphics2D) g);
+
         // Draw player
         player.draw(g2d);
 
