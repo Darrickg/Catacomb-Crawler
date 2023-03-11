@@ -1,11 +1,12 @@
-package Main;
+/*package Main;
 
 import tile.TileManager;
+import javax.swing.JFrame;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class GamePanel extends JPanel implements Runnable{
+public class GamePanel extends JFrame{
     //create screen panel
     final int defaultTileSize = 16; // tile:16*16
     final int scale = 3;
@@ -41,4 +42,4 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
 
-}
+}*/

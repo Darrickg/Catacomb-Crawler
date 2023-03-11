@@ -1,4 +1,4 @@
-package Main;
+/*package Main;
 
 import javax.swing.*;
 
@@ -18,3 +18,4 @@ public class Main {
         window.setVisible(true);
     }
 }
+ */
