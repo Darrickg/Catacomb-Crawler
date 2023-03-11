@@ -33,8 +33,16 @@ public class regular extends rewards {
         if(super.getHitbox().intersects(player.getHitbox())){
             pickedUp = true;
             System.out.println("player picked up item");
-            // TODO : remove reward from screen
+            this.remove();
         }
+    }
+
+    @Override
+    public void remove() {
+        // this.setHeight(0);
+        // this.setWidth(0);
+
+        System.out.println("does this work");
     }
 
     public void draw(Graphics2D g2d){

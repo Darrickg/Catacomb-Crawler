@@ -38,7 +38,16 @@ public class bonus extends rewards {
             pickedUp = true;
             System.out.println("player picked up item");
             // TODO : remove reward from screen
+            this.remove();
         }
+    }
+
+    @Override
+    public void remove() {
+        // this.setHeight(0);
+        // this.setWidth(0);
+
+        System.out.println("does this work");
     }
 
     public void draw(Graphics2D g2d){
@@ -99,6 +108,20 @@ public class bonus extends rewards {
 
     // TODO: handle lifetime
     public void decrease_life_time(){
-        life_time --;
+        
+        while (this.getLife_time() != 0) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                System.out.println("it should not be going here");
+            }
+
+            this.setLife_time(this.life_time--);
+        }
+
+        if (this.getLife_time() == 0)
+        {
+            this.dissapear();
+        }
     }
 }
