@@ -20,10 +20,6 @@ public class rewards extends Items {
         hitbox = new Rectangle(x,y,width,height);
     }
 
-    public void remove() {
-
-    }
-
     // Getters and setters
     public int getValue() {
         return value;

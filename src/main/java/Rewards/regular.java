@@ -29,18 +29,11 @@ public class regular extends rewards {
     }
 
     @Override
-    public void remove() {
-        this.setHeight(0);
-        this.setWidth(0);
-    }
-
-    @Override
     public void handleCollision(Player player){
         if(super.getHitbox().intersects(player.getHitbox())){
             pickedUp = true;
             System.out.println("player picked up item");
-            // TODO: remove reward from screen
-            this.remove();
+            // TODO : remove reward from screen
         }
     }
 
