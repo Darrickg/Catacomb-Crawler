@@ -3,6 +3,7 @@ import Entity.MovingEnemy;
 import Entity.Player;
 import Entity.TrapEnemy;
 import Item.Items;
+import Rewards.bonus;
 import Rewards.regular;
 
 import java.awt.Color;
@@ -35,8 +36,14 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
         enemies.add(new MovingEnemy(100, 100, 27,15, 2, 10));
         enemies.add(new TrapEnemy(400,400,28,15,20));
 
+        // setting up normal rewards
         items = new ArrayList<>();
         items.add(new regular(250,200,10,10,500));
+
+        // setting up bonus rewards
+        items.add(new bonus(300, 250, 10, 10, 500, 10));
+        items.add(new bonus(350, 300, 10, 10, 500, 10));
+        items.add(new bonus(400, 350, 10, 10, 500, 10));
 
         // Start game loop thread
         gameThread = new Thread(this);
@@ -87,6 +94,12 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
                     if(item instanceof regular){
                         if(((regular) item).getHitbox().intersects(player.getHitbox())){
                             System.out.println("player picked up regular reward");
+                        }
+                    }
+
+                    if(item instanceof bonus){
+                        if(((bonus) item).getHitbox().intersects(player.getHitbox())){
+                            System.out.println("player picked up bonus reward");
                         }
                     }
                 }

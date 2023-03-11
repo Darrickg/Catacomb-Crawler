@@ -29,6 +29,8 @@ public class bonus extends rewards {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        // this.decrease_life_time();
     }
 
     @Override
