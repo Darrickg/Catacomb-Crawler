@@ -10,6 +10,7 @@ public class rewards extends Items {
     private int x,y;
     private int width,height;
     private Rectangle hitbox;
+    private boolean visible;
 
     public rewards(int x, int y, int rewardWidth, int rewardHeight, int value){
         this.x = x;
@@ -79,4 +80,9 @@ public class rewards extends Items {
         // still need to do
         System.out.println("updated score");
     }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
 }

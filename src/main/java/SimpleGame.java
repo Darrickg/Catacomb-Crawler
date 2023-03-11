@@ -94,12 +94,14 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
                     if(item instanceof regular){
                         if(((regular) item).getHitbox().intersects(player.getHitbox())){
                             System.out.println("player picked up regular reward");
+
                         }
                     }
 
                     if(item instanceof bonus){
                         if(((bonus) item).getHitbox().intersects(player.getHitbox())){
                             System.out.println("player picked up bonus reward");
+                            item.remove();
                         }
                     }
                 }

@@ -42,11 +42,11 @@ public class bonus extends rewards {
         }
     }
 
-    @Override
-    public void remove() {
-        // this.setHeight(0);
-        // this.setWidth(0);
 
+    public void remove() {
+        this.setHeight(0);
+        this.setWidth(0);
+        setVisible(false);
         System.out.println("does this work");
     }
 
