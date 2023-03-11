@@ -30,12 +30,20 @@ public class bonus extends rewards {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void remove() {
+        this.setHeight(0);
+        this.setWidth(0);
+    }
+
     @Override
     public void handleCollision(Player player){
         if(super.getHitbox().intersects(player.getHitbox())){
             pickedUp = true;
             System.out.println("player picked up item");
-            // TODO : remove reward from screen
+            // TODO: remove reward from screen
+            this.remove();
         }
     }
 
@@ -97,6 +105,18 @@ public class bonus extends rewards {
 
     // TODO: handle lifetime
     public void decrease_life_time(){
-        life_time --;
+        while (this.life_time != 0)
+        {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            
+            this.setLife_time(this.life_time--);
+        }
+
+        this.dissapear();
     }
 }
