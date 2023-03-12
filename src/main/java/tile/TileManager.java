@@ -23,7 +23,7 @@ public class TileManager {
         tileImages = new BufferedImage[10];
         mapTileNum = new int[cellCol][cellRow];
         getTileImage();
-        loadMap("C:\\Users\\Mahyar\\Desktop\\cmpt276\\276-project\\assets\\maps\\map02.txt");
+        loadMap("assets/maps/map01.txt");
     }
 
     //load tile from disk and save it into tile[]
