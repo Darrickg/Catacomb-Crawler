@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class TileManager {
@@ -23,7 +24,7 @@ public class TileManager {
         tileImages = new BufferedImage[10];
         mapTileNum = new int[cellCol][cellRow];
         getTileImage();
-        loadMap("assets/maps/map01.txt");
+        loadMap("assets/maps/map03.txt");
     }
 
     //load tile from disk and save it into tile[]
@@ -94,17 +95,19 @@ public class TileManager {
         this.mapTileNum = mapTileNum;
     }
 
-    public boolean isSolid(int x, int y) {
+    public boolean isSolid(double x, double y) {
         int tileX = (int) (x / tileSize);
         int tileY = (int) (y / tileSize);
 
-        /*if (tileX < 0 || tileX >= mapTileNum[0].length || tileY < 0 || tileY >= mapTileNum.length) {
+        if (tileX < 0 || tileX >= mapTileNum[0].length || tileY < 0 || tileY >= mapTileNum[1].length) {
             // Out of bounds
+            System.out.println(" out of bounds" + tileX + " is " + tileY );
+            System.out.println(Arrays.deepToString(getMapTileNum()));
             return true;
-        }*/
+        }
 
         // Check if the tile at the player's position is a solid wall
-        if (mapTileNum[tileY][tileX] == 1) {
+        if (mapTileNum[tileX][tileY] == 1) {
             return true;
         }
 

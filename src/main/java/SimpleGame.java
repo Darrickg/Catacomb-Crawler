@@ -30,16 +30,16 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
 
     private static final int SCREEN_WIDTH = 800;
     private static final int SCREEN_HEIGHT = 600;
-    private static final int TILE_SIZE = 20;
+    private static final int TILE_SIZE = 32;
     public SimpleGame() {
         setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
 
         // calculate the number of rows and columns needed to cover the entire screen
-        int cellCol = (int) Math.ceil((double) SCREEN_WIDTH / TILE_SIZE);
-        int cellRow = (int) Math.ceil((double) SCREEN_HEIGHT / TILE_SIZE);
+        //int cellCol = (int) Math.ceil((double) SCREEN_WIDTH / TILE_SIZE);
+        //int cellRow = (int) Math.ceil((double) SCREEN_HEIGHT / TILE_SIZE);
 
         // adjust the TileManager accordingly
-        tileManager = new TileManager(this, cellCol, cellRow, TILE_SIZE);
+        tileManager = new TileManager(this, 60, 33, TILE_SIZE);
 
 
         // Set up player
@@ -59,7 +59,7 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
 
         JFrame frame = new JFrame("Simple Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 600);
+        frame.setSize(1600, 1200);
         frame.setResizable(false);
         frame.addKeyListener(this);
         frame.add(this);
