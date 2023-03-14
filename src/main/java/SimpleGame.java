@@ -28,9 +28,9 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
     private volatile boolean running = true;
     private TileManager tileManager;
 
-    private static final int SCREEN_WIDTH = 800;
-    private static final int SCREEN_HEIGHT = 600;
-    private static final int TILE_SIZE = 100;
+    private static final int SCREEN_WIDTH = 1920;
+    private static final int SCREEN_HEIGHT = 1080;
+    private static final int TILE_SIZE = 32;
     public SimpleGame() {
         setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
 
@@ -59,7 +59,7 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
 
         JFrame frame = new JFrame("Simple Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 600);
+        frame.setSize(1920, 1080);
         frame.setResizable(false);
         frame.addKeyListener(this);
         frame.add(this);
