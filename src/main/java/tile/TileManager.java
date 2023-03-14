@@ -23,7 +23,7 @@ public class TileManager {
         tileImages = new BufferedImage[10];
         mapTileNum = new int[cellCol][cellRow];
         getTileImage();
-        loadMap("assets/maps/map03.txt");
+        loadMap("assets/maps/map01.txt");
     }
 
     //load tile from disk and save it into tile[]
@@ -85,4 +85,29 @@ public class TileManager {
             }
         }
     }
-}
+
+    public int[][] getMapTileNum() {
+        return mapTileNum;
+    }
+
+    public void setMapTileNum(int[][] mapTileNum) {
+        this.mapTileNum = mapTileNum;
+    }
+
+    public boolean isSolid(int x, int y) {
+        int tileX = (int) (x / tileSize);
+        int tileY = (int) (y / tileSize);
+
+        /*if (tileX < 0 || tileX >= mapTileNum[0].length || tileY < 0 || tileY >= mapTileNum.length) {
+            // Out of bounds
+            return true;
+        }*/
+
+        // Check if the tile at the player's position is a solid wall
+        if (mapTileNum[tileY][tileX] == 1) {
+            return true;
+        }
+
+        // Player is not colliding with a wall
+        return false;
+}}

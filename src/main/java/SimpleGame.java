@@ -28,9 +28,9 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
     private volatile boolean running = true;
     private TileManager tileManager;
 
-    private static final int SCREEN_WIDTH = 1920;
-    private static final int SCREEN_HEIGHT = 1080;
-    private static final int TILE_SIZE = 32;
+    private static final int SCREEN_WIDTH = 800;
+    private static final int SCREEN_HEIGHT = 600;
+    private static final int TILE_SIZE = 20;
     public SimpleGame() {
         setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
 
@@ -47,7 +47,7 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
 
         // Set up enemies
         enemies = new ArrayList<>();
-        enemies.add(new MovingEnemy(100, 100, 27,15, 2, 10));
+        enemies.add(new MovingEnemy(500, 500, 27,15, 2, 10));
         enemies.add(new TrapEnemy(400,400,28,15,20));
 
         items = new ArrayList<>();
@@ -59,7 +59,7 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
 
         JFrame frame = new JFrame("Simple Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1920, 1080);
+        frame.setSize(800, 600);
         frame.setResizable(false);
         frame.addKeyListener(this);
         frame.add(this);
@@ -67,9 +67,11 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
     }
 
     private void update() {
+
+
+
         // Move player
         player.move();
-
         // Move enemies towards player
         for (Enemy enemy : enemies) {
             if (enemy instanceof MovingEnemy ) {
@@ -80,34 +82,51 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
 
         // Update the bonus reward timer TODO
 
+
+
     }
 
     @Override
     public void run() {
         while (running) {
-                for(Enemy enemy : enemies){
-                    if(enemy instanceof MovingEnemy){
+
+            for(Enemy enemy : enemies){
+                if(enemy instanceof MovingEnemy){
                     if(enemy.getHitbox().intersects(player.getHitbox())){
                         System.out.println(" player collided with moving enemy");
                     }
-                    }
+                }
 
                 if(enemy instanceof TrapEnemy){
                     if(enemy.getHitbox().intersects(player.getHitbox())) {
                         System.out.println(" player collided with trap enemy");
                     }
-        }
                 }
-                for( Items item : items){
-                    if(item instanceof regular){
-                        if(((regular) item).getHitbox().intersects(player.getHitbox())){
-                            System.out.println("player picked up regular reward");
-                        }
+            }
+            for( Items item : items){
+                if(item instanceof regular){
+                    if(((regular) item).getHitbox().intersects(player.getHitbox())){
+                        System.out.println("player picked up regular reward");
                     }
                 }
-                // TODO: sth with bonus rewards
+            }
+            // Update player position
+            synchronized (player) {
 
-                // Call other movement methods for other enemy
+                player.update();
+
+            }
+
+            // Check for collision with solid tiles
+            synchronized (tileManager) {
+                if (tileManager.isSolid(player.getX(), player.getY())) {
+                    // Player is colliding with a solid tile, so revert to previous position
+                    System.out.println("wall collide");;
+                    synchronized (player) {
+                        // TODO: don't let player pass the wall
+                    }
+                }
+            }
 
             try {
                 update();
@@ -116,7 +135,12 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }}
+        }
+
+    }
+    public void stop() {
+        running = false;
+    }
 
     @Override
     protected void paintComponent(Graphics g) {

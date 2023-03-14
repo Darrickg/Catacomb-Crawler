@@ -30,17 +30,21 @@ public class Player extends Entity{
     private int height;
     private Rectangle hitbox;
 
+    private int prevX, prevY;
+
 
     private BufferedImage[] sprites;
     private int currentFrame;
 
 
     // constructor
-    public Player(int x, int y , int playerWidth, int PlayerHeight, int lives) {
+    public Player(int x, int y , int playerWidth, int PlayerHeight, int lives ) {
         this.x = x;
         this.y = y;
         this.vx = 0;
         this.vy = 0;
+        this.prevX = x;
+        this.prevY =y;
         this.lives = lives;
         currentFrame =0;
         width = playerWidth;
@@ -85,6 +89,17 @@ public class Player extends Entity{
         y += vy;
         hitbox.setLocation(getX(),getY());
     }
+
+    public void update() {
+        // Store previous position
+        setPrevX(x);
+        setPrevY(y);
+
+        // Update position based on velocity
+        x += vx;
+        y += vy;
+    }
+
     public Rectangle getHitbox(){
         return hitbox;
     }
@@ -127,6 +142,7 @@ public class Player extends Entity{
     }
 
     public void setX(int x) {
+        prevX = this.x;
         this.x = x;
     }
 
@@ -135,6 +151,7 @@ public class Player extends Entity{
     }
 
     public void setY(int y) {
+        prevY= this.y;
         this.y = y;
     }
 
@@ -148,6 +165,22 @@ public class Player extends Entity{
 
     public int getVy() {
         return vy;
+    }
+
+    public int getPrevX() {
+        return prevX;
+    }
+
+    public void setPrevX(int prevX) {
+        this.prevX = prevX;
+    }
+
+    public int getPrevY() {
+        return prevY;
+    }
+
+    public void setPrevY(int prevY) {
+        this.prevY = prevY;
     }
 
     public void setVy(int vy) {
