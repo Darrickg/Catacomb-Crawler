@@ -80,6 +80,7 @@ public class Player extends Entity{
     }
     // Adders
     public void addScore(int dif){ this.score += dif;}
+    public void decreaseScore(int diff){ this.score-=diff;}
     public void addLives(int dif){ this.lives += dif;}
 
     // TODO: Hitbox config

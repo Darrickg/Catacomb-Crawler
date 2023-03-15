@@ -30,7 +30,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
     private static final int SCREEN_HEIGHT = 600;
     private static final int TILE_SIZE = 32;
 
-    private int score = 0;
+
     public void init() {
         // Initialize the running state.
         setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
@@ -45,6 +45,8 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         items = new ArrayList<>();
         items.add(new regular(250,200,10,10,500));
         items.add(new bonus(300,300,10,10,1000,100,200,tileManager));
+
+
 
         gameThread = new Thread(this);
         gameThread.start();
@@ -96,14 +98,14 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
                             continue;
                         player.lastDamageTime = System.currentTimeMillis();
                         System.out.println(" player collided with moving enemy");
-                        decreaseScore(enemy.getDamage());
+                        player.decreaseScore(enemy.getDamage());
                     }
                 }
 
                 if(enemy instanceof TrapEnemy){
                     if(enemy.getHitbox().intersects(player.getHitbox())) {
                         System.out.println(" player collided with trap enemy");
-                        decreaseScore(enemy.getDamage());
+                        player.decreaseScore(enemy.getDamage());
                     }
                 }
             }
@@ -111,7 +113,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
                 if(item instanceof regular){
                     if(((regular) item).getHitbox().intersects(player.getHitbox())){
                         System.out.println("player picked up regular reward");
-                        increaseScore(((regular) item).getValue());
+                        player.addScore(((regular) item).getValue());
                         ((regular) item).pickUp();
                         ((regular) item).setHitbox(new Rectangle(((regular) item).getX(),((regular) item).getY(),0,0));
                     }
@@ -119,7 +121,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
                 if(item instanceof bonus){
                     if(((bonus) item).getHitbox().intersects(player.getHitbox())){
                         System.out.println("player picked up bonus reward");
-                        increaseScore(((bonus) item).getValue());
+                        player.addScore(((bonus) item).getValue());
                         ((bonus) item).pickUp();
                         ((bonus) item).setHitbox(new Rectangle(((bonus) item).getX(),((bonus) item).getY(),0,0));
                     }
@@ -201,7 +203,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         // Render the score on the screen
         g2d.setColor(Color.BLUE);
         g2d.setFont(new Font("Arial", Font.BOLD, 24));
-        g2d.drawString("Score: " + score, 10, 30);
+        g2d.drawString("Score: " + player.getScore(), 10, 30);
     }
     @Override
     public void keyPressed(KeyEvent e) {
@@ -233,13 +235,6 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         repaint();
     }
 
-    public void increaseScore(int points) {
-        score += points;
-    }
-
-    public void decreaseScore(int points) {
-        score -= points;
-    }
 
     @Override
     public void keyTyped(KeyEvent e) {
