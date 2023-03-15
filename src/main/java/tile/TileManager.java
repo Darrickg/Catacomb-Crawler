@@ -70,7 +70,7 @@ public class TileManager {
         int col = 0;
         int row = 0;
         int x = 0;
-        int y = 0;
+        int y = 0;      //8             //6
         while(col < cellCol && row < cellRow){
 
             int tileNum = mapTileNum[col][row];
@@ -98,16 +98,19 @@ public class TileManager {
     public boolean isSolid(double x, double y) {
         int tileX = (int) (x / tileSize);
         int tileY = (int) (y / tileSize);
+        System.out.println(" TILEX AND Y" + tileX + " is " + tileY );
 
-        if (tileX < 0 || tileX >= mapTileNum[0].length || tileY < 0 || tileY >= mapTileNum[1].length) {
+        if (tileX < 0 || tileX >= cellCol || tileY < 0 || tileY >= cellRow) {
             // Out of bounds
             System.out.println(" out of bounds" + tileX + " is " + tileY );
+            System.out.println("player x  and y" + x + " is " + y );
+            System.out.println("maptilenum" + mapTileNum[0].length + " is " + mapTileNum.length );
             System.out.println(Arrays.deepToString(getMapTileNum()));
             return true;
         }
 
         // Check if the tile at the player's position is a solid wall
-        if (mapTileNum[tileX][tileY] == 1) {
+        if (mapTileNum[tileY][tileX] == 1) {
             return true;
         }
 

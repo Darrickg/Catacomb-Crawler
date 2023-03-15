@@ -191,13 +191,12 @@ public class Player extends Entity{
         this.currentFrame = currentFrame;
     }
 
-    // TODO: Draw player
+    // Draw player
     public void draw(Graphics2D g2d){
         g2d.drawImage(sprites[currentFrame], x, y, null);
     }
-    // TODO : Object collision
 
-    // TODO : enemy collision
+
     public void takeDamage(int damage) {
         lives -= damage;
         if (lives <= 0) {
