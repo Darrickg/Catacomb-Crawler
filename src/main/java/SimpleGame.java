@@ -125,12 +125,14 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
                     if(((regular) item).getHitbox().intersects(player.getHitbox())){
                         System.out.println("player picked up regular reward");
                         ((regular) item).pickUp();
-                        items.remove((regular) item);
+                        ((regular) item).setHitbox(new Rectangle(((regular) item).getX(),((regular) item).getY(),0,0));
                     }
                 }
                 if(item instanceof bonus){
                     if(((bonus) item).getHitbox().intersects(player.getHitbox())){
                         System.out.println("player picked up bonus reward");
+                        ((bonus) item).pickUp();
+                        ((bonus) item).setHitbox(new Rectangle(((bonus) item).getX(),((bonus) item).getY(),0,0));
                     }
                 }
             }
@@ -193,7 +195,7 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
             enemy.draw(g2d);
         }
         for( Items item: items){
-            if(!item.isPickedUp() || !((bonus) item).isRespawning()){
+            if(!item.isPickedUp()){
             item.draw(g2d);}
         }
         //TODO:  HITBOXES
