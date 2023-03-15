@@ -8,6 +8,7 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -32,7 +33,8 @@ public class Player extends Entity{
 
     private int prevX, prevY;
 
-
+    public long lastDamageTime = 0;     //TODO: change back to private
+    private long durationBeforeDamage = 1000;
     private BufferedImage[] sprites;
     private int currentFrame;
 
@@ -196,9 +198,15 @@ public class Player extends Entity{
         g2d.drawImage(sprites[currentFrame], x, y, null);
     }
 
+    public boolean canDamage(){
+        return System.currentTimeMillis() - this.lastDamageTime > this.durationBeforeDamage;
+    }
 
     public void takeDamage(int damage) {
+        if(!canDamage())
+            return;
         lives -= damage;
+        lastDamageTime = System.currentTimeMillis();
         if (lives <= 0) {
             // TODO: player has died, handle game over condition
             //  change to deaath frame

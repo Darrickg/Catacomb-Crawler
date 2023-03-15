@@ -11,11 +11,13 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Timer;
 
 
 public class SimpleGame extends JPanel implements Runnable, KeyListener {
@@ -93,6 +95,12 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
             for(Enemy enemy : enemies){
                 if(enemy instanceof MovingEnemy){
                     if(enemy.getHitbox().intersects(player.getHitbox())){
+                        //TODO: Remove debug test
+                        if(!player.canDamage())
+                            continue;
+                        player.lastDamageTime = System.currentTimeMillis();
+
+
                         System.out.println(" player collided with moving enemy");
                     }
                 }

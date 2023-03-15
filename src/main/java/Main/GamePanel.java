@@ -29,11 +29,11 @@ public class GamePanel extends JFrame{
     public GamePanel(){
         this.setPreferredSize(new Dimension(screenWidth,screenHeight));
         this.setBackground(Color.black);
-        this.setDoubleBuffered(true);
+        //this.setDoubleBuffered(true);
     }
 
     public void startGameThread(){
-        gameThread = new Thread(this);
+        gameThread = new Thread((Runnable) this);
         gameThread.start();
     }
     @Override
