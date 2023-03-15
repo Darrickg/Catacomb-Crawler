@@ -12,4 +12,9 @@ public class DeathScreenState implements GameState {
     public void render() {
         // Render the death screen state.
     }
+
+    @Override
+    public void close() {
+
+    }
 }

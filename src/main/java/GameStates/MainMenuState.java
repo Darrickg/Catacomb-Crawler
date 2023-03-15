@@ -10,13 +10,13 @@ public class MainMenuState extends JPanel implements GameState, KeyListener {
     private static final int SCREEN_HEIGHT = 600;
     private GameStateManager stateManager;
 
+    JFrame frame = new JFrame("Main Menu");
     public void init() {
         stateManager = new GameStateManager();
 
         // Initialize the main menu state.
         setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
 
-        JFrame frame = new JFrame("Main Menu");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1000, 1000);
         frame.setResizable(false);
@@ -31,6 +31,14 @@ public class MainMenuState extends JPanel implements GameState, KeyListener {
 
     public void render() {
         // Render the main menu state.
+    }
+
+    @Override
+    public void close() {
+        // set the state manager to null to indicate that this state is no longer active
+        stateManager = null;
+        //TODO: close the frame
+
     }
 
     @Override
