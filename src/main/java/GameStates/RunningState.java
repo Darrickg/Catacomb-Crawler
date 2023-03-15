@@ -18,6 +18,9 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class RunningState extends JPanel implements GameState, Runnable, KeyListener {
+
+    private int numRegularRewards;
+    private boolean doorOpen;
     private Player player;
     private ArrayList<Enemy> enemies;
     private Thread gameThread;
@@ -47,6 +50,8 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         items.add(new bonus(300,300,10,10,1000,100,200,tileManager));
 
 
+        numRegularRewards = 1; // IMPORTANT TODO: initialize to total number of regular rewards
+        doorOpen = false;
 
         gameThread = new Thread(this);
         gameThread.start();
@@ -74,6 +79,15 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
                 ((MovingEnemy) enemy).moveTowardsPlayer(player);
             }
             // Call other movement methods for other enemy types
+        }
+
+        if (numRegularRewards == 0 && !doorOpen) {
+            int doorX = tileManager.getDoorX(tileManager.getDoorTileNum());
+            int doorY = tileManager.getDoorY(tileManager.getDoorTileNum());
+            int [][] map = tileManager.getMapTileNum();
+            map[doorY][doorX] = 3;
+            tileManager.setMapTileNum(map);
+            doorOpen = true;
         }
 
 
@@ -115,6 +129,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
                         System.out.println("player picked up regular reward");
                         player.addScore(((regular) item).getValue());
                         ((regular) item).pickUp();
+                        numRegularRewards--;
                         ((regular) item).setHitbox(new Rectangle(((regular) item).getX(),((regular) item).getY(),0,0));
                     }
                 }

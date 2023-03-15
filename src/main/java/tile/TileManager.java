@@ -5,8 +5,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.util.Arrays;
-import java.util.Objects;
 
 public class TileManager {
     private JPanel panel;
@@ -38,6 +36,8 @@ public class TileManager {
 
             // door image
             tileImages[2] = ImageIO.read(new File("assets/tiles/door.png"));
+
+            tileImages[3] = ImageIO.read(new File("assets/tiles/door2.png"));
 
         }catch (IOException e){
             e.printStackTrace();
@@ -92,6 +92,27 @@ public class TileManager {
 
     public int[][] getMapTileNum() {
         return mapTileNum;
+    }
+
+    public int[] getDoorTileNum(){
+        int[] door = new int[2];
+        for (int i =0; i < cellRow;i++){
+            for (int j =0; j < cellCol; j++){
+                if(mapTileNum[i][j] == 2){
+                    door[0] = i;
+                    door[1] = j;
+
+                }
+            }
+    }
+        return door;
+    }
+
+    public int getDoorX(int[] map){
+        return map[1];
+    }
+    public int getDoorY(int[] map){
+        return map[0];
     }
 
     public void setMapTileNum(int[][] mapTileNum) {
