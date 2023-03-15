@@ -94,12 +94,23 @@ public class Player extends Entity{
 
     public void update() {
         // Store previous position
-        setPrevX(x);
-        setPrevY(y);
+        prevX = x;
+        prevY = y;
 
+        hitbox.setLocation(getX(),getY());
         // Update position based on velocity
         x += vx;
         y += vy;
+    }
+    public void setPosition(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public void revertPosition() {
+        // Revert the player's position to the previous position
+        x = prevX;
+        y = prevY;
     }
 
     public Rectangle getHitbox(){
@@ -144,7 +155,7 @@ public class Player extends Entity{
     }
 
     public void setX(int x) {
-        prevX = this.x;
+
         this.x = x;
     }
 
@@ -153,7 +164,7 @@ public class Player extends Entity{
     }
 
     public void setY(int y) {
-        prevY= this.y;
+
         this.y = y;
     }
 

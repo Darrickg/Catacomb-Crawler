@@ -33,6 +33,8 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
     private static final int SCREEN_WIDTH = 800;
     private static final int SCREEN_HEIGHT = 600;
     private static final int TILE_SIZE = 100;
+
+
     public SimpleGame() {
         setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
 
@@ -46,6 +48,8 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
 
         // Set up player
         player = new Player(100, 100, 26,35,5);
+
+
 
         // Set up enemies
         enemies = new ArrayList<>();
@@ -71,9 +75,8 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
     private void update() {
 
 
-
         // Move player
-        player.move();
+       // player.move();
         // Move enemies towards player
         for (Enemy enemy : enemies) {
             if (enemy instanceof MovingEnemy ) {
@@ -118,24 +121,19 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
                     }
                 }
             }
-            // Update player position
-            synchronized (player) {
-
-                player.update();
-
-            }
-
             // Check for collision with solid tiles
-            synchronized (tileManager) {
+
                 if (tileManager.isSolid(player.getX(), player.getY(), player.getWidth(), player.getHeight())) {
                     // Player is colliding with a solid tile, so revert to previous position
                     System.out.println("wall collide");
                     System.out.println("player x  and y" + player.getX() + " is " + player.getY() );
                     synchronized (player) {
                         // TODO: don't let player pass the wall
+                        player.setPosition(player.getPrevX(), player.getPrevY());
                     }
                 }
-            }
+                player.update();
+
 
             try {
                 update();
@@ -197,19 +195,23 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
         int keyCode = e.getKeyCode();
         switch (keyCode) {
             case KeyEvent.VK_UP:
+                player.setPrevY(player.getY());
                 player.setY(player.getY()-5);
 
                 break;
             case KeyEvent.VK_DOWN:
+                player.setPrevY(player.getY());
                 player.setY(player.getY()+5);
 
                 break;
             case KeyEvent.VK_LEFT:
+                player.setPrevX(player.getX());
                 player.setX(player.getX()-5);
                 player.setCurrentFrame(1);
 
                 break;
             case KeyEvent.VK_RIGHT:
+                player.setPrevX(player.getX());
                 player.setX(player.getX()+5);
                 player.setCurrentFrame(0);
 
