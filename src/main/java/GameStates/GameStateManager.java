@@ -7,13 +7,7 @@ public class GameStateManager extends JPanel {
     private GameState currentState;
 
     public void setState(GameState state) {
-        if (currentState != null) {
-            currentState.close();
-            remove((Component) currentState);
-        }
-
         currentState = state;
-        add((Component) currentState);
         currentState.init();
 
     }
@@ -24,6 +18,14 @@ public class GameStateManager extends JPanel {
 
     public void render() {
         currentState.render();
+    }
+
+    public GameState getCurrentState() {
+        return currentState;
+    }
+
+    public void setCurrentState(GameState currentState) {
+        this.currentState = currentState;
     }
 }
 

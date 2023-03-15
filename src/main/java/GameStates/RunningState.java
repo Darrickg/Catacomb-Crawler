@@ -81,10 +81,6 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
 
     }
 
-    @Override
-    public void close() {
-
-    }
 
     public void run() {
         // Render the running state.

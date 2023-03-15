@@ -8,15 +8,13 @@ import java.awt.event.KeyListener;
 public class MainMenuState extends JPanel implements GameState, KeyListener {
     private static final int SCREEN_WIDTH = 800;
     private static final int SCREEN_HEIGHT = 600;
-    private GameStateManager stateManager;
-
+    private GameStateManager stateManager = new GameStateManager();
     JFrame frame = new JFrame("Main Menu");
     public void init() {
-        stateManager = new GameStateManager();
 
         // Initialize the main menu state.
         setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
-
+        stateManager.setCurrentState(new MainMenuState());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1000, 1000);
         frame.setResizable(false);
@@ -33,13 +31,6 @@ public class MainMenuState extends JPanel implements GameState, KeyListener {
         // Render the main menu state.
     }
 
-    @Override
-    public void close() {
-        // set the state manager to null to indicate that this state is no longer active
-        stateManager = null;
-        //TODO: close the frame
-
-    }
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -50,6 +41,10 @@ public class MainMenuState extends JPanel implements GameState, KeyListener {
     public void keyPressed(KeyEvent e) {
         int k = e.getKeyCode();
         if (k == KeyEvent.VK_ENTER) {
+            if (stateManager.getCurrentState() != null) {
+                System.out.println("Closing MenuState");
+                frame.dispose();
+            }
             getStateManager().setState(new RunningState());
         }
     }
