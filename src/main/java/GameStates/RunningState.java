@@ -30,6 +30,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
     private static final int SCREEN_HEIGHT = 600;
     private static final int TILE_SIZE = 32;
 
+    private int score = 0;
     public void init() {
         // Initialize the running state.
         setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
@@ -79,6 +80,8 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
     @Override
     public void render() {
 
+
+
     }
 
 
@@ -93,12 +96,14 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
                             continue;
                         player.lastDamageTime = System.currentTimeMillis();
                         System.out.println(" player collided with moving enemy");
+                        decreaseScore(enemy.getDamage());
                     }
                 }
 
                 if(enemy instanceof TrapEnemy){
                     if(enemy.getHitbox().intersects(player.getHitbox())) {
                         System.out.println(" player collided with trap enemy");
+                        decreaseScore(enemy.getDamage());
                     }
                 }
             }
@@ -106,6 +111,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
                 if(item instanceof regular){
                     if(((regular) item).getHitbox().intersects(player.getHitbox())){
                         System.out.println("player picked up regular reward");
+                        increaseScore(((regular) item).getValue());
                         ((regular) item).pickUp();
                         ((regular) item).setHitbox(new Rectangle(((regular) item).getX(),((regular) item).getY(),0,0));
                     }
@@ -113,6 +119,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
                 if(item instanceof bonus){
                     if(((bonus) item).getHitbox().intersects(player.getHitbox())){
                         System.out.println("player picked up bonus reward");
+                        increaseScore(((bonus) item).getValue());
                         ((bonus) item).pickUp();
                         ((bonus) item).setHitbox(new Rectangle(((bonus) item).getX(),((bonus) item).getY(),0,0));
                     }
@@ -140,6 +147,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
             player.update();
             try {
                 update();
+                render();
                 repaint();
                 Thread.sleep(16);
             } catch (InterruptedException e) {
@@ -189,6 +197,11 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
             Rectangle enemyHitbox = enemy.getHitbox();
             g.drawRect(enemyHitbox.x, enemyHitbox.y, enemyHitbox.width, enemyHitbox.height);
         }
+
+        // Render the score on the screen
+        g2d.setColor(Color.BLUE);
+        g2d.setFont(new Font("Arial", Font.BOLD, 24));
+        g2d.drawString("Score: " + score, 10, 30);
     }
     @Override
     public void keyPressed(KeyEvent e) {
@@ -218,6 +231,14 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
                 break;
         }
         repaint();
+    }
+
+    public void increaseScore(int points) {
+        score += points;
+    }
+
+    public void decreaseScore(int points) {
+        score -= points;
     }
 
     @Override
