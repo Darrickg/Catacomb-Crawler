@@ -129,6 +129,11 @@ public class TileManager {
     }
 
 
+    public int getTileSize() {
+        return tileSize;
+    }
 
-
+    public void setTileSize(int tileSize) {
+        this.tileSize = tileSize;
+    }
 }
