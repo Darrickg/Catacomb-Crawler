@@ -44,6 +44,7 @@ public class bonus extends rewards {
 
 
     public void remove() {
+        // rewardsList.remove(this);
         this.setHeight(0);
         this.setWidth(0);
         setVisible(false);

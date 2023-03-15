@@ -33,7 +33,7 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
 
         // Set up enemies
         enemies = new ArrayList<>();
-        enemies.add(new MovingEnemy(100, 100, 27,15, 2, 10));
+        // enemies.add(new MovingEnemy(100, 100, 27,15, 2, 10));
         enemies.add(new TrapEnemy(400,400,28,15,20));
 
         // setting up normal rewards
@@ -101,7 +101,7 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
                     if(item instanceof bonus){
                         if(((bonus) item).getHitbox().intersects(player.getHitbox())){
                             System.out.println("player picked up bonus reward");
-                            item.remove();
+                            items.remove(item);
                         }
                     }
                 }
