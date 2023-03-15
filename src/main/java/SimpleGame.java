@@ -32,7 +32,7 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
 
     private static final int SCREEN_WIDTH = 800;
     private static final int SCREEN_HEIGHT = 600;
-    private static final int TILE_SIZE = 100;
+    private static final int TILE_SIZE = 32;
 
 
     public SimpleGame() {
@@ -43,7 +43,7 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
         //int cellRow = (int) Math.ceil((double) SCREEN_HEIGHT / TILE_SIZE);
 
         // adjust the TileManager accordingly
-        tileManager = new TileManager(this, 8, 6, TILE_SIZE);
+        tileManager = new TileManager(this, 25, 19, TILE_SIZE);
 
 
         // Set up player
@@ -126,12 +126,25 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
                 if (tileManager.isSolid(player.getX(), player.getY(), player.getWidth(), player.getHeight())) {
                     // Player is colliding with a solid tile, so revert to previous position
                     System.out.println("wall collide");
-                    System.out.println("player x  and y" + player.getX() + " is " + player.getY() );
                     synchronized (player) {
                         // TODO: don't let player pass the wall
                         player.setPosition(player.getPrevX(), player.getPrevY());
                     }
                 }
+            for(Enemy enemy : enemies){
+                if(enemy instanceof MovingEnemy){
+                    if (tileManager.isSolid(enemy.getX(), enemy.getY(), enemy.getWidth(), enemy.getHeight())) {
+                        // Player is colliding with a solid tile, so revert to previous position
+                        System.out.println(" enemy wall collide");
+                            // TODO: don't let player pass the wall
+                            enemy.setPosition(enemy.getPrevX(), enemy.getPrevY());
+
+                    }
+                }
+
+                }
+
+
                 player.update();
 
 

@@ -36,6 +36,9 @@ public class TileManager {
             //put wall tile into array[1]
             tileImages[1] = ImageIO.read(new File("assets/tiles/Wall.png"));
 
+            // door image
+            tileImages[2] = ImageIO.read(new File("assets/tiles/door.png"));
+
         }catch (IOException e){
             e.printStackTrace();
         }

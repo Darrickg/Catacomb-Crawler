@@ -14,6 +14,8 @@ public abstract class Enemy extends Entity {
     private int y;
     private int width, height;
     private Rectangle hitbox;
+
+    private int prevX, prevY;
     protected int damage; // amount of damage the enemy does to the player
 
     public Enemy(int x, int y,int enemyWidth, int enemyHeight,int damage) {
@@ -79,6 +81,26 @@ public abstract class Enemy extends Entity {
 
     public void setHitbox(Rectangle hitbox) {
         this.hitbox = hitbox;
+    }
+
+    public void setPosition(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+    public int getPrevX() {
+        return prevX;
+    }
+
+    public void setPrevX(int prevX) {
+        this.prevX = prevX;
+    }
+
+    public int getPrevY() {
+        return prevY;
+    }
+
+    public void setPrevY(int prevY) {
+        this.prevY = prevY;
     }
 }
 

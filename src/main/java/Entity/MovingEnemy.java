@@ -13,6 +13,8 @@ public class MovingEnemy extends Enemy {
     private int x; // x coordinate of enemy
     private int y; // y coordinate of enemy
     private int speed; // speed of enemy
+    private int prevX, prevY;
+
     private BufferedImage[] sprites;
 
     private Rectangle hitbox;
@@ -27,6 +29,8 @@ public class MovingEnemy extends Enemy {
         hitbox = new Rectangle(x, y, enemyWidth, enemyHeight);
         this.x=x;
         this.y=y;
+        this.prevX = x;
+        this.prevY =y;
         try {
             sprites[0] = ImageIO.read(new File("assets/entity/enemyLeft.png"));
 
@@ -46,6 +50,8 @@ public class MovingEnemy extends Enemy {
 
     // move the enemy towards the player
     public void moveTowardsPlayer(Player player) {
+        prevX = x;
+        prevY = y;
         int dx = player.getX() - x;
         int dy = player.getY() - y;
         double distance = Math.sqrt(dx * dx + dy * dy);
@@ -60,6 +66,27 @@ public class MovingEnemy extends Enemy {
     }
 
     // getters and setters
+
+    public void setPosition(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+    public int getPrevX() {
+        return prevX;
+    }
+
+    public void setPrevX(int prevX) {
+        this.prevX = prevX;
+    }
+
+    public int getPrevY() {
+        return prevY;
+    }
+
+    public void setPrevY(int prevY) {
+        this.prevY = prevY;
+    }
+
     public int getX() {
         return x;
     }
