@@ -96,24 +96,36 @@ public class TileManager {
     }
 
     public boolean isSolid(double x, double y) {
+        int playerLeft = (int) x;
+        int playerTop = (int) y;
+        int playerRight = (int) (x + 26);
+        int playerBottom = (int) (y + 35);
+
+        // Check if any of the player's corners are solid
+        return isTileSolid(playerLeft, playerTop)
+                || isTileSolid(playerRight, playerTop)
+                || isTileSolid(playerLeft, playerBottom)
+                || isTileSolid(playerRight, playerBottom);
+}
+    private boolean isTileSolid(int x, int y) {
         int tileX = (int) (x / tileSize);
         int tileY = (int) (y / tileSize);
-        System.out.println(" TILEX AND Y" + tileX + " is " + tileY );
 
         if (tileX < 0 || tileX >= cellCol || tileY < 0 || tileY >= cellRow) {
             // Out of bounds
-            System.out.println(" out of bounds" + tileX + " is " + tileY );
-            System.out.println("player x  and y" + x + " is " + y );
-            System.out.println(mapTileNum);
-            System.out.println(Arrays.deepToString(getMapTileNum()));
             return true;
         }
 
-        // Check if the tile at the player's position is a solid wall
+        // Check if the tile at the given position is a solid wall
         if (mapTileNum[tileY][tileX] == 1) {
             return true;
         }
 
-        // Player is not colliding with a wall
+        // Tile is not a solid wall
         return false;
-}}
+    }
+
+
+
+
+}
