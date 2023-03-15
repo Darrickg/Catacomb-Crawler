@@ -59,7 +59,7 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
 
         JFrame frame = new JFrame("Simple Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 600);
+        frame.setSize(1000, 1000);
         frame.setResizable(false);
         frame.addKeyListener(this);
         frame.add(this);

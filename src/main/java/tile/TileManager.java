@@ -22,7 +22,7 @@ public class TileManager {
         this.cellRow = cellRow;
         this.tileSize = tileSize;
         tileImages = new BufferedImage[10];
-        mapTileNum = new int[cellCol][cellRow];
+        mapTileNum = new int[cellRow][cellCol];
         getTileImage();
         loadMap("assets/maps/map03.txt");
     }
@@ -53,7 +53,7 @@ public class TileManager {
                 String[] numbers = line.split("");
                 for(col = 0; col < cellCol; col++){
                     int num = Integer.parseInt(numbers[col]);
-                    mapTileNum[col][row] = num;
+                    mapTileNum[row][col] = num;
                 }
                 row++;
             }
@@ -73,7 +73,7 @@ public class TileManager {
         int y = 0;      //8             //6
         while(col < cellCol && row < cellRow){
 
-            int tileNum = mapTileNum[col][row];
+            int tileNum = mapTileNum[row][col];
 
             g2.drawImage(tileImages[tileNum],x,y,tileSize,tileSize,null);
             col++;
@@ -104,7 +104,7 @@ public class TileManager {
             // Out of bounds
             System.out.println(" out of bounds" + tileX + " is " + tileY );
             System.out.println("player x  and y" + x + " is " + y );
-            System.out.println("maptilenum" + mapTileNum[0].length + " is " + mapTileNum.length );
+            System.out.println(mapTileNum);
             System.out.println(Arrays.deepToString(getMapTileNum()));
             return true;
         }
