@@ -55,6 +55,10 @@ public class bonus extends rewards {
         return pickedUp;
     }
 
+    public void pickUp() {
+        pickedUp = true;
+    }
+
     public int getLife_time() {
         return life_time;
     }

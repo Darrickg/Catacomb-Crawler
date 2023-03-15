@@ -51,6 +51,9 @@ public class regular extends rewards {
     public boolean isPickedUp() {
         return pickedUp;
     }
+    public void pickUp() {
+        pickedUp = true;
+    }
 
 
     @Override

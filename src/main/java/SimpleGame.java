@@ -118,6 +118,7 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
                 if(item instanceof regular){
                     if(((regular) item).getHitbox().intersects(player.getHitbox())){
                         System.out.println("player picked up regular reward");
+                        ((regular) item).pickUp();
                     }
                 }
             }
@@ -181,7 +182,8 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
             enemy.draw(g2d);
         }
         for( Items item: items){
-            item.draw(g2d);
+            if(!item.isPickedUp()){
+            item.draw(g2d);}
         }
         //TODO:  HITBOXES
         g.setColor(Color.GREEN);
