@@ -95,11 +95,11 @@ public class TileManager {
         this.mapTileNum = mapTileNum;
     }
 
-    public boolean isSolid(double x, double y) {
+    public boolean isSolid(double x, double y, int width, int height) {
         int playerLeft = (int) x;
         int playerTop = (int) y;
-        int playerRight = (int) (x + 26);
-        int playerBottom = (int) (y + 35);
+        int playerRight = (int) (x + width);
+        int playerBottom = (int) (y + height);
 
         // Check if any of the player's corners are solid
         return isTileSolid(playerLeft, playerTop)

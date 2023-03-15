@@ -119,7 +119,7 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
 
             // Check for collision with solid tiles
             synchronized (tileManager) {
-                if (tileManager.isSolid(player.getX(), player.getY())) {
+                if (tileManager.isSolid(player.getX(), player.getY(), player.getWidth(), player.getHeight())) {
                     // Player is colliding with a solid tile, so revert to previous position
                     System.out.println("wall collide");
                     System.out.println("player x  and y" + player.getX() + " is " + player.getY() );
