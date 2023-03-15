@@ -6,19 +6,36 @@ import java.io.File;
 import java.io.IOException;
 import Entity.Player;
 
+import java.util.Arrays;
+import java.util.Random;
+import tile.TileManager;
+
+
 
 public class bonus extends rewards {
-    private int life_time;
     private BufferedImage[] sprites;
     private boolean pickedUp;
     private int x,y;
     private int currentFrame;
+    private TileManager tileManager;
 
-    public bonus(int x, int y, int rewardWidth, int rewardHeight, int value, int life_time) {
+    private int respawnTime;
+    private int lifespan;
+    private int timeLeftToRespawn;
+    private boolean isRespawning;
+    private int[] currentTile;
+    private long creationTime;
+
+    public bonus(int x, int y, int rewardWidth, int rewardHeight, int value, int lifespan, int respawnTime, TileManager tileManager) {
         super(x, y, rewardWidth, rewardHeight, value);
         this.x=x;
         this.y=y;
-        this.life_time = life_time;
+        this.lifespan = lifespan;
+        this.respawnTime = respawnTime;
+        this.isRespawning = false;
+        this.tileManager= tileManager;
+        this.creationTime = System.currentTimeMillis();
+        this.currentTile = new int[]{x, y};
         currentFrame = 0;
         pickedUp = false;
 
@@ -37,6 +54,60 @@ public class bonus extends rewards {
         this.setWidth(0);
     }
 
+    public void update() {
+        if (isRespawning) {
+            timeLeftToRespawn--;
+            if (timeLeftToRespawn == 0) {
+                respawn();
+            }
+        } else {
+            if (isExpired()) {
+                startRespawn();
+            }
+        }
+    }
+    private void startRespawn() {
+        isRespawning = true;
+        timeLeftToRespawn = respawnTime;
+        currentTile = new int[]{getX(), getY()};
+    }
+    public boolean isExpired() {
+        return System.currentTimeMillis() - creationTime >= lifespan;
+    }
+
+
+    private void respawn() {
+        int[][] map = tileManager.getMapTileNum();
+        int mapWidth = map[0].length;
+        int mapHeight = map.length;
+        isRespawning = false;
+        timeLeftToRespawn = respawnTime;
+        int[] newPosition = findRandomValidTile();
+        setX(newPosition[0] * mapWidth);
+        setY(newPosition[1] * mapHeight);
+        currentTile = new int[]{getX(), getY()};
+    }
+
+    private int[] findRandomValidTile() {
+        int[][] map = tileManager.getMapTileNum();
+        int mapWidth = map[0].length;
+        int mapHeight = map.length;
+        int[] position = new int[2];
+        do {
+            position[0] = (int) (Math.random() * mapWidth);
+            position[1] = (int) (Math.random() * mapHeight);
+        } while (map[position[1]][position[0]] != 0);
+        System.out.println(Arrays.toString(position));
+        return position;
+    }
+    public boolean isRespawning() {
+        return isRespawning;
+    }
+
+    public int[] getCurrentTile() {
+        return currentTile;
+    }
+
     @Override
     public void handleCollision(Player player){
         if(super.getHitbox().intersects(player.getHitbox())){
@@ -46,6 +117,8 @@ public class bonus extends rewards {
             this.remove();
         }
     }
+
+
 
     public void draw(Graphics2D g2d){
         g2d.drawImage(sprites[currentFrame], x, y, null);
@@ -59,12 +132,9 @@ public class bonus extends rewards {
         pickedUp = true;
     }
 
-    public int getLife_time() {
-        return life_time;
-    }
-
-    public void setLife_time(int life_time) {
-        this.life_time = life_time;
+    public void setPosition(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
     @Override
@@ -95,32 +165,9 @@ public class bonus extends rewards {
         this.currentFrame = currentFrame;
     }
 
-    public void dissapear() {
-        if (this.life_time == 0)
-        {
-            // how do i make this dissapear?
-            this.remove();
-        }
-        else
-        {
-            System.out.println("life time not 0 yet");
-        }
+    public void setPickedUp(boolean pickedUp) {
+        this.pickedUp = pickedUp;
     }
 
-    // TODO: handle lifetime
-    public void decrease_life_time(){
-        while (this.life_time != 0)
-        {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            
-            this.setLife_time(this.life_time--);
-        }
 
-        this.dissapear();
-    }
 }

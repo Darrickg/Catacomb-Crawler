@@ -18,6 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 import java.util.Timer;
 
 
@@ -59,7 +60,7 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
 
         items = new ArrayList<>();
         items.add(new regular(250,200,10,10,500));
-        items.add(new bonus(300,300,10,10,1000,10));
+        items.add(new bonus(300,300,10,10,1000,100,200,tileManager));
 
         // Start game loop thread
         gameThread = new Thread(this);
@@ -77,8 +78,11 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
     private void update() {
 
 
-        // Move player
-       // player.move();
+        for( Items item : items){
+            if(item instanceof bonus){
+                ((bonus) item).update();
+            }
+        }
         // Move enemies towards player
         for (Enemy enemy : enemies) {
             if (enemy instanceof MovingEnemy ) {
@@ -136,7 +140,6 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
                     // Player is colliding with a solid tile, so revert to previous position
                     System.out.println("wall collide");
                     synchronized (player) {
-                        // TODO: don't let player pass the wall
                         player.setPosition(player.getPrevX(), player.getPrevY());
                     }
                 }
@@ -145,7 +148,7 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
                     if (tileManager.isSolid(enemy.getX(), enemy.getY(), enemy.getWidth(), enemy.getHeight())) {
                         // Player is colliding with a solid tile, so revert to previous position
                         System.out.println(" enemy wall collide");
-                            // TODO: don't let player pass the wall
+
                             enemy.setPosition(enemy.getPrevX(), enemy.getPrevY());
 
                     }
@@ -190,7 +193,7 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
             enemy.draw(g2d);
         }
         for( Items item: items){
-            if(!item.isPickedUp()){
+            if(!item.isPickedUp() || !((bonus) item).isRespawning()){
             item.draw(g2d);}
         }
         //TODO:  HITBOXES
