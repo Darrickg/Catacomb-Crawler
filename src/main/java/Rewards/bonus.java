@@ -73,6 +73,7 @@ public class bonus extends rewards {
     }
     public boolean isExpired() {
         return System.currentTimeMillis() - creationTime >= lifespan;
+
     }
 
 
@@ -86,6 +87,7 @@ public class bonus extends rewards {
         setX(newPosition[0] * mapWidth);
         setY(newPosition[1] * mapHeight);
         currentTile = new int[]{getX(), getY()};
+        setHitbox(new Rectangle(x,y,getWidth(),getHeight()));
     }
 
     private int[] findRandomValidTile() {
