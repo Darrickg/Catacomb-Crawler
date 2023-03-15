@@ -3,6 +3,7 @@ import Entity.MovingEnemy;
 import Entity.Player;
 import Entity.TrapEnemy;
 import Item.Items;
+import Rewards.bonus;
 import Rewards.regular;
 import tile.TileManager;
 
@@ -58,6 +59,7 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
 
         items = new ArrayList<>();
         items.add(new regular(250,200,10,10,500));
+        items.add(new bonus(300,300,10,10,1000,10));
 
         // Start game loop thread
         gameThread = new Thread(this);
@@ -119,6 +121,12 @@ public class SimpleGame extends JPanel implements Runnable, KeyListener {
                     if(((regular) item).getHitbox().intersects(player.getHitbox())){
                         System.out.println("player picked up regular reward");
                         ((regular) item).pickUp();
+                    }
+                }
+                if(item instanceof bonus){
+                    if(((bonus) item).getHitbox().intersects(player.getHitbox())){
+                        System.out.println("player picked up bonus reward");
+                        ((bonus) item).pickUp();
                     }
                 }
             }
