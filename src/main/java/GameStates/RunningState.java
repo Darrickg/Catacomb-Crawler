@@ -46,7 +46,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         // Initialize the running state.
         setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         // adjust the TileManager accordingly
-        tileManager = new TileManager(this, 25, 20, TILE_SIZE);
+        tileManager = new TileManager(this, 60, 33, TILE_SIZE);
         // Set up player
         player = new Player(100, 100, 22,45,3);
         // Set up enemies
@@ -69,7 +69,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
 
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1000, 1000);
+        frame.setSize(1920, 1080);
         frame.setResizable(false);
         frame.addKeyListener(this);
         frame.add(this);

@@ -37,7 +37,7 @@ public class WinState extends JPanel implements GameState, ActionListener{
         setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         stateManager.setCurrentState(new WinState());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1000, 1000);
+        frame.setSize(1920, 1080);
         frame.setResizable(false);
         frame.add(this);
         frame.setVisible(true);
