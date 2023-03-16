@@ -48,14 +48,14 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         // adjust the TileManager accordingly
         tileManager = new TileManager(this, 25, 20, TILE_SIZE);
         // Set up player
-        player = new Player(100, 100, 18,42,5);
+        player = new Player(100, 100, 22,45,3);
         // Set up enemies
         enemies = new ArrayList<>();
-        enemies.add(new MovingEnemy(500, 500, 27,15, 2, 10));
-        enemies.add(new TrapEnemy(400,400,28,15,100));
+        enemies.add(new MovingEnemy(500, 500, 30,14, 2, 10));
+        enemies.add(new TrapEnemy(400,400,30,17,100));
         items = new ArrayList<>();
-        items.add(new regular(250,200,10,10,500));
-        items.add(new bonus(300,300,10,10,1000,100,200,tileManager));
+        items.add(new regular(250,200,18,15,500));
+        items.add(new bonus(300,300,16,16,1000,100,200,tileManager));
 
 
         numRegularRewards = 1; // IMPORTANT TODO: initialize to total number of regular rewards
@@ -265,19 +265,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
                 g.drawImage(healthBar.getHealthIcons()[1], i * 30, 100, null);
             }
         }
-        //TODO:  HITBOXES
 
-
-        // Draw enemies
-        g.setColor(Color.BLUE);
-        for (Enemy enemy : enemies) {
-            g.fillRect(enemy.getX(), enemy.getY(), enemy.getWidth(), enemy.getHeight());
-
-            // Draw enemy hitbox
-            g.setColor(Color.RED);
-            Rectangle enemyHitbox = enemy.getHitbox();
-            g.drawRect(enemyHitbox.x, enemyHitbox.y, enemyHitbox.width, enemyHitbox.height);
-        }
 
         // Render the score on the screen
         g2d.setColor(Color.BLUE);
