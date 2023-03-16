@@ -111,7 +111,7 @@ public void setNodes(int startCol, int startRow, int goalCol, int goalRow){
     }
 
     public Boolean search(){
-        while(!goalReached && step < 500){
+        while(!goalReached){
             int col = currentNode.col;
             int row = currentNode.row;
 
@@ -162,7 +162,7 @@ public void setNodes(int startCol, int startRow, int goalCol, int goalRow){
                 goalReached = true;
                 trackThePath();
             }
-            step++;
+
         }
 
         return goalReached;
