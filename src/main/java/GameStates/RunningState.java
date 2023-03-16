@@ -48,7 +48,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         // Set up enemies
         enemies = new ArrayList<>();
         enemies.add(new MovingEnemy(500, 500, 27,15, 2, 10));
-        enemies.add(new TrapEnemy(400,400,28,15,20));
+        enemies.add(new TrapEnemy(400,400,28,15,100));
         items = new ArrayList<>();
         items.add(new regular(250,200,10,10,500));
         items.add(new bonus(300,300,10,10,1000,100,200,tileManager));
@@ -144,7 +144,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
                         player.decreaseScore(enemy.getDamage());
                         healthBar.decreaseHealth(1);
                         healthBar.setHealth(healthBar.getHealth()-1);
-                        if (healthBar.isDead()) {
+                        if (healthBar.isDead() || player.getScore() <= 0) {
                             // Player is dead, end game
                             stateManager.setState(new DeathScreenState());
                             frame.dispose();
