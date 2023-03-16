@@ -200,11 +200,7 @@ public class MovingEnemy extends Enemy {
                     x = x + speed;
                 }
             }
-            int nextCol = pFinder.pathList.get(0).col;
-            int nextRow = pFinder.pathList.get(0).row;
-            if(nextCol == goalCol && nextRow == goalRow){
-                onPath = false;
-            }
+
         }
     }
     //

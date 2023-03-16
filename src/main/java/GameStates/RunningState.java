@@ -48,7 +48,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         // adjust the TileManager accordingly
         tileManager = new TileManager(this, 60, 33, TILE_SIZE);
         // Set up player
-        player = new Player(100, 100, 22,45,3);
+        player = new Player(100, 100, 25,50,3);
         // Set up enemies
         enemies = new ArrayList<>();
         enemies.add(new MovingEnemy(500, 500, 30,14, 2, 10));
@@ -281,7 +281,6 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
 
     @Override
     public void keyPressed(KeyEvent e) {
-
         // Use this for pressing the left and right keys simultaneously
         int keyCode = e.getKeyCode();
         if (!downedKeyList.contains(keyCode)) {
