@@ -17,9 +17,9 @@ public class TrapEnemy extends Enemy {
     private int y;
     private int currentFrame;
     public TrapEnemy(int x, int y, int enemyWidth, int enemyHeight,int damage) {
-        super(x,y, enemyWidth, enemyHeight, damage);
-        this.x=x;
-        this.y=y;
+        super(x, y, enemyWidth, enemyHeight, damage);
+        this.x = x;
+        this.y = y;
         currentFrame = 0;
         activated = false;
 
@@ -30,6 +30,13 @@ public class TrapEnemy extends Enemy {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean isActivated(){
+        return activated;
+    }
+    public void activate() {
+       activated = true;
     }
 
 
@@ -56,7 +63,5 @@ public class TrapEnemy extends Enemy {
         g2d.drawImage(sprites[currentFrame], x, y, null);
     }
 
-    public boolean isActivated(){
-        return activated;
-    }
+
 }

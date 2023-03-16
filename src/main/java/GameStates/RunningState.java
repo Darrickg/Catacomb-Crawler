@@ -128,6 +128,8 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
                     if(enemy.getHitbox().intersects(player.getHitbox())) {
                         System.out.println(" player collided with trap enemy");
                         player.decreaseScore(enemy.getDamage());
+                        ((TrapEnemy) enemy).activate();
+                        enemy.setHitbox(new Rectangle(enemy.getX(),enemy.getY(),0,0));
                     }
                 }
             }
@@ -197,7 +199,12 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         g.setColor(Color.BLUE);
         for (Enemy enemy : enemies) {
             //g.fillRect(enemy.getX(), enemy.getY(), 20, 20);
-            enemy.draw(g2d);
+            if(enemy instanceof TrapEnemy){
+                if(!((TrapEnemy) enemy).isActivated()){
+                    enemy.draw(g2d);
+                }
+            }else{
+            enemy.draw(g2d);}
         }
         for( Items item: items){
             if(!item.isPickedUp()){
