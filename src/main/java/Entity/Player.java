@@ -54,10 +54,12 @@ public class Player extends Entity{
         hitbox = new Rectangle(x,y,width,height);
 
         //Load Sprite Images
-        sprites = new BufferedImage[2];
+        sprites = new BufferedImage[4];
         try {
-            sprites[0] = ImageIO.read(new File("assets/entity/runRight.gif"));
-            sprites[1] = ImageIO.read(new File("assets/entity/runLeft.gif"));
+            sprites[0] = ImageIO.read(new File("assets/entity/playerright.png"));
+            sprites[1] = ImageIO.read(new File("assets/entity/playerleft.png"));
+            sprites[2] = ImageIO.read(new File("assets/entity/playerdown.png"));
+            sprites[3] = ImageIO.read(new File("assets/entity/playerup.png"));
 
         } catch (IOException e) {
             e.printStackTrace();

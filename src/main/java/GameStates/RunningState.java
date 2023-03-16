@@ -48,7 +48,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         // adjust the TileManager accordingly
         tileManager = new TileManager(this, 25, 20, TILE_SIZE);
         // Set up player
-        player = new Player(100, 100, 26,35,5);
+        player = new Player(100, 100, 18,42,5);
         // Set up enemies
         enemies = new ArrayList<>();
         enemies.add(new MovingEnemy(500, 500, 27,15, 2, 10));
@@ -212,6 +212,11 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
                 player.setCurrentFrame(1);
             if(getKBInputX() == 1)
                 player.setCurrentFrame(0);
+            // Left and Right Sprite change
+            if(getKBInputY() == -1)
+                player.setCurrentFrame(3);
+            if(getKBInputY() == 1)
+                player.setCurrentFrame(2);
 
             try {
 
@@ -261,13 +266,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
             }
         }
         //TODO:  HITBOXES
-        g.setColor(Color.GREEN);
-        g.fillRect(player.getX(), player.getY(), player.getWidth(), player.getHeight());
 
-        // Draw player hitbox
-        g.setColor(Color.RED);
-        Rectangle playerHitbox = player.getHitbox();
-        g.drawRect(playerHitbox.x, playerHitbox.y, playerHitbox.width, playerHitbox.height);
 
         // Draw enemies
         g.setColor(Color.BLUE);
