@@ -16,6 +16,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.List;
 
 public class RunningState extends JPanel implements GameState, Runnable, KeyListener {
 
@@ -32,6 +33,9 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
     private static final int SCREEN_WIDTH = 800;
     private static final int SCREEN_HEIGHT = 600;
     private static final int TILE_SIZE = 32;
+
+    private long startingTime = System.currentTimeMillis();
+    private List<Integer> downedKeyList = new ArrayList<>();
 
 
     public void init() {
@@ -162,6 +166,21 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
                 }
             }
             player.update();
+
+
+            // Player position update with keyboard input
+            int speedFactor = 3;
+            player.setPrevX(player.getX());
+            player.setX(player.getX() + getKBInputX() * speedFactor);
+            player.setPrevY(player.getY());
+            player.setY(player.getY() + getKBInputY() * speedFactor);
+
+            // Left and Right Sprite change
+            if(getKBInputX() == -1)
+                player.setCurrentFrame(1);
+            if(getKBInputX() == 1)
+                player.setCurrentFrame(0);
+
             try {
                 update();
                 render();
@@ -219,38 +238,69 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         g2d.setColor(Color.BLUE);
         g2d.setFont(new Font("Arial", Font.BOLD, 24));
         g2d.drawString("Score: " + player.getScore(), 10, 30);
+
+        // Render time
+        long timeFromGameStart = System.currentTimeMillis() - startingTime;
+
+        g2d.drawString("Time: " + timeFromGameStart / 1000 + "s", 10, 55);
     }
+
+
     @Override
     public void keyPressed(KeyEvent e) {
+
+        // Use this for pressing the left and right keys simultaneously
         int keyCode = e.getKeyCode();
-        switch (keyCode) {
-            case KeyEvent.VK_UP:
-                player.setPrevY(player.getY());
-                player.setY(player.getY()-5);
-
-                break;
-            case KeyEvent.VK_DOWN:
-                player.setPrevY(player.getY());
-                player.setY(player.getY()+5);
-
-                break;
-            case KeyEvent.VK_LEFT:
-                player.setPrevX(player.getX());
-                player.setX(player.getX()-5);
-                player.setCurrentFrame(1);
-
-                break;
-            case KeyEvent.VK_RIGHT:
-                player.setPrevX(player.getX());
-                player.setX(player.getX()+5);
-                player.setCurrentFrame(0);
-
-                break;
+        if (!downedKeyList.contains(keyCode)) {
+            downedKeyList.add(Integer.valueOf(keyCode));
         }
+
+
+        //DEBUG:  Edit 0314, Not using anymore
+//        switch (keyCode) {
+//            case KeyEvent.VK_UP:
+//                player.setPrevY(player.getY());
+//                player.setY(player.getY()-5);
+//
+//                break;
+//            case KeyEvent.VK_DOWN:
+//                player.setPrevY(player.getY());
+//                player.setY(player.getY()+5);
+//
+//                break;
+//            case KeyEvent.VK_LEFT:
+//                player.setPrevX(player.getX());
+//                player.setX(player.getX()-5);
+//                player.setCurrentFrame(1);
+//
+//                break;
+//            case KeyEvent.VK_RIGHT:
+//                player.setPrevX(player.getX());
+//                player.setX(player.getX()+5);
+//                player.setCurrentFrame(0);
+//
+//                break;
+//        }
         repaint();
     }
 
+    public int getKBInputX(){
+        int inputX = 0;
+        inputX += (downedKeyList.contains(KeyEvent.VK_LEFT) ? -1 : 0);
+        inputX += (downedKeyList.contains(KeyEvent.VK_RIGHT) ? 1 : 0);
+        inputX += (downedKeyList.contains(KeyEvent.VK_A) ? -1 : 0);
+        inputX += (downedKeyList.contains(KeyEvent.VK_D) ? 1 : 0);
+        return inputX;
+    }
 
+    public int getKBInputY(){
+        int inputY = 0;
+        inputY += (downedKeyList.contains(KeyEvent.VK_UP) ? -1 : 0);
+        inputY += (downedKeyList.contains(KeyEvent.VK_DOWN) ? 1 : 0);
+        inputY += (downedKeyList.contains(KeyEvent.VK_W) ? -1 : 0);
+        inputY += (downedKeyList.contains(KeyEvent.VK_S) ? 1 : 0);
+        return inputY;
+    }
     @Override
     public void keyTyped(KeyEvent e) {
         // not used
@@ -258,6 +308,14 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
 
     @Override
     public void keyReleased(KeyEvent e) {
-        // not used
+//        int keyCode = e.getKeyCode();
+//
+//        inputX = KeyEvent.VK_LEFT == keyCode || KeyEvent.VK_RIGHT == keyCode ? 0 : inputX;
+//        inputY = KeyEvent.VK_UP == keyCode || KeyEvent.VK_DOWN == keyCode? 0 : inputY;
+
+        int keyCode = e.getKeyCode();
+        if (downedKeyList.contains(keyCode)) {
+            downedKeyList.remove(Integer.valueOf(keyCode));
+        }
     }
 }
