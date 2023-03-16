@@ -20,6 +20,8 @@ import java.util.ArrayList;
 public class RunningState extends JPanel implements GameState, Runnable, KeyListener {
 
     private int numRegularRewards;
+    private GameStateManager stateManager = new GameStateManager();
+    JFrame frame = new JFrame("Simple Game");
     private boolean doorOpen;
     private Player player;
     private ArrayList<Enemy> enemies;
@@ -56,7 +58,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         gameThread = new Thread(this);
         gameThread.start();
 
-        JFrame frame = new JFrame("Simple Game");
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1000, 1000);
         frame.setResizable(false);
@@ -91,12 +93,18 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         }
 
 
+
     }
 
     @Override
     public void render() {
 
-
+        if (tileManager.isDoor(player.getX(), player.getY(), player.getWidth(), player.getHeight())) {
+            // Player is colliding with a solid tile, so revert to previous position
+            stateManager.setState(new WinState());
+            frame.dispose();
+            running = false;
+        }
 
     }
 
@@ -163,6 +171,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
             }
             player.update();
             try {
+
                 update();
                 render();
                 repaint();
@@ -172,7 +181,6 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
             }
         }
     }
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

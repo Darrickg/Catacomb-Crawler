@@ -131,6 +131,25 @@ public class TileManager {
                 || isTileSolid(playerLeft, playerBottom)
                 || isTileSolid(playerRight, playerBottom);
 }
+public boolean isDoor(double x, double y, int width, int height){
+    int playerLeft = (int) x;
+    int playerTop = (int) y;
+    int playerRight = (int) (x + width);
+    int playerBottom = (int) (y + height);
+    return isTiledoor(playerLeft, playerTop)
+            || isTiledoor(playerRight, playerTop)
+            || isTiledoor(playerLeft, playerBottom)
+            || isTiledoor(playerRight, playerBottom);
+}
+
+    private boolean isTiledoor(int x, int y) {
+        int tileX = (int) (x / tileSize);
+        int tileY = (int) (y / tileSize);
+        if (mapTileNum[tileY][tileX] == 3) {
+            return true;
+        } else { return false;}
+    }
+
     private boolean isTileSolid(int x, int y) {
         int tileX = (int) (x / tileSize);
         int tileY = (int) (y / tileSize);
