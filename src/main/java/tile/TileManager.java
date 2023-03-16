@@ -19,7 +19,7 @@ public class TileManager {
         this.cellCol = cellCol;
         this.cellRow = cellRow;
         this.tileSize = tileSize;
-        tileImages = new BufferedImage[10];
+        tileImages = new BufferedImage[20];
         mapTileNum = new int[cellRow][cellCol];
         getTileImage();
         loadMap("assets/maps/map03.txt");
@@ -33,11 +33,16 @@ public class TileManager {
 
             //put wall tile into array[1]
             tileImages[1] = ImageIO.read(new File("assets/tiles/Wall.png"));
-
             // door image
             tileImages[2] = ImageIO.read(new File("assets/tiles/door.png"));
-
+            // open door
             tileImages[3] = ImageIO.read(new File("assets/tiles/door2.png"));
+            // top wall and bottom wall
+            tileImages[4] = ImageIO.read(new File("assets/tiles/topwall.png"));
+            // left wall
+            tileImages[5] = ImageIO.read(new File("assets/tiles/leftwall.png"));
+            // right wall
+            tileImages[6] = ImageIO.read(new File("assets/tiles/rightwall.png"));
 
         }catch (IOException e){
             e.printStackTrace();
@@ -160,7 +165,8 @@ public boolean isDoor(double x, double y, int width, int height){
         }
 
         // Check if the tile at the given position is a solid wall
-        if (mapTileNum[tileY][tileX] == 1) {
+        if (mapTileNum[tileY][tileX] == 1 || mapTileNum[tileY][tileX] == 4
+            || mapTileNum[tileY][tileX] == 5 || mapTileNum[tileY][tileX] == 6) {
             return true;
         }
 
