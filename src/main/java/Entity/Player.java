@@ -20,7 +20,7 @@ import java.awt.Rectangle;
 
 public class Player extends Entity{
     // Attributes
-    private int score = 0;
+    private int score = 100;
     private int lives = 5;
     //private ArrayList<Weapon> inventory;
     private int x; // x coordinate of player

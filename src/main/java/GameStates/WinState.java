@@ -4,16 +4,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+public class WinState extends JPanel implements GameState, ActionListener{
 
-public class DeathScreenState extends JPanel implements GameState, ActionListener {
     private static final int SCREEN_WIDTH = 800;
     private static final int SCREEN_HEIGHT = 600;
     private GameStateManager stateManager = new GameStateManager();
-    JFrame frame = new JFrame("Game Over");
+    JFrame frame = new JFrame("WIN");
     private JButton restartButton;
     private JButton exitButton;
+
+    @Override
     public void init() {
-        // Initialize the death screen state.
         // Create the start button
         restartButton = new JButton("Restart Game");
         restartButton.setBounds(100, 100, 100, 50); // x, y, width, height
@@ -34,7 +35,7 @@ public class DeathScreenState extends JPanel implements GameState, ActionListene
 
         // Initialize the main menu state.
         setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
-        stateManager.setCurrentState(new DeathScreenState());
+        stateManager.setCurrentState(new WinState());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1000, 1000);
         frame.setResizable(false);
@@ -42,15 +43,19 @@ public class DeathScreenState extends JPanel implements GameState, ActionListene
         frame.setVisible(true);
     }
 
+    @Override
     public void update() {
-        // Update the death screen state.
+
     }
 
+    @Override
     public void render() {
-        // Render the death screen state.
+
     }
 
-
+    private GameStateManager getStateManager() {
+        return stateManager;
+    }
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == restartButton) {
@@ -64,9 +69,5 @@ public class DeathScreenState extends JPanel implements GameState, ActionListene
             System.exit(0);
         }
 
-    }
-
-    private GameStateManager getStateManager() {
-        return stateManager;
     }
 }

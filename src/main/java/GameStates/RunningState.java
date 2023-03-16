@@ -9,6 +9,7 @@ import Item.Items;
 import Rewards.bonus;
 import Rewards.regular;
 import tile.TileManager;
+import HealthBar.HealthBar;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,6 +22,9 @@ import java.util.List;
 public class RunningState extends JPanel implements GameState, Runnable, KeyListener {
 
     private int numRegularRewards;
+    private HealthBar healthBar;
+    private GameStateManager stateManager = new GameStateManager();
+    JFrame frame = new JFrame("Simple Game");
     private boolean doorOpen;
     private Player player;
     private ArrayList<Enemy> enemies;
@@ -48,7 +52,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         // Set up enemies
         enemies = new ArrayList<>();
         enemies.add(new MovingEnemy(500, 500, 27,15, 2, 10));
-        enemies.add(new TrapEnemy(400,400,28,15,20));
+        enemies.add(new TrapEnemy(400,400,28,15,100));
         items = new ArrayList<>();
         items.add(new regular(250,200,10,10,500));
         items.add(new bonus(300,300,10,10,1000,100,200,tileManager));
@@ -57,10 +61,13 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         numRegularRewards = 1; // IMPORTANT TODO: initialize to total number of regular rewards
         doorOpen = false;
 
+        healthBar = new HealthBar();
+        add(healthBar);
+
         gameThread = new Thread(this);
         gameThread.start();
 
-        JFrame frame = new JFrame("Simple Game");
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1000, 1000);
         frame.setResizable(false);
@@ -95,12 +102,19 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         }
 
 
+
     }
 
     @Override
     public void render() {
 
 
+        if (tileManager.isDoor(player.getX(), player.getY(), player.getWidth(), player.getHeight())) {
+            // Player is colliding with a solid tile, so revert to previous position
+            stateManager.setState(new WinState());
+            frame.dispose();
+            running = false;
+        }
 
     }
 
@@ -117,13 +131,31 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
                         player.lastDamageTime = System.currentTimeMillis();
                         System.out.println(" player collided with moving enemy");
                         player.decreaseScore(enemy.getDamage());
+                       healthBar.decreaseHealth(3);
+                        if (healthBar.isDead()) {
+                            // Player is dead, end game
+                            stateManager.setState(new DeathScreenState());
+                            frame.dispose();
+                            running = false;
+                        }
                     }
+
                 }
 
                 if(enemy instanceof TrapEnemy){
                     if(enemy.getHitbox().intersects(player.getHitbox())) {
                         System.out.println(" player collided with trap enemy");
                         player.decreaseScore(enemy.getDamage());
+                        healthBar.decreaseHealth(1);
+                        healthBar.setHealth(healthBar.getHealth()-1);
+                        if (healthBar.isDead() || player.getScore() <= 0) {
+                            // Player is dead, end game
+                            stateManager.setState(new DeathScreenState());
+                            frame.dispose();
+                            running = false;
+                        }
+                        ((TrapEnemy) enemy).activate();
+                        enemy.setHitbox(new Rectangle(enemy.getX(),enemy.getY(),0,0));
                     }
                 }
             }
@@ -182,6 +214,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
                 player.setCurrentFrame(0);
 
             try {
+
                 update();
                 render();
                 repaint();
@@ -191,7 +224,6 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
             }
         }
     }
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -208,11 +240,25 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         g.setColor(Color.BLUE);
         for (Enemy enemy : enemies) {
             //g.fillRect(enemy.getX(), enemy.getY(), 20, 20);
-            enemy.draw(g2d);
+            if(enemy instanceof TrapEnemy){
+                if(!((TrapEnemy) enemy).isActivated()){
+                    enemy.draw(g2d);
+                }
+            }else{
+            enemy.draw(g2d);}
         }
         for( Items item: items){
             if(!item.isPickedUp()){
                 item.draw(g2d);}
+        }
+        for (int i = 0; i <= healthBar.getHealthIcons().length; i++) {
+            if (i <= healthBar.getHealth()) {
+                // Draw full heart
+                g.drawImage(healthBar.getHealthIcons()[0], i * 30, 100, null);
+            } else {
+                // Draw empty heart
+                g.drawImage(healthBar.getHealthIcons()[1], i * 30, 100, null);
+            }
         }
         //TODO:  HITBOXES
         g.setColor(Color.GREEN);
