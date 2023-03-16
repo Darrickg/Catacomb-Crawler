@@ -43,6 +43,20 @@ public class TileManager {
             tileImages[5] = ImageIO.read(new File("assets/tiles/leftwall.png"));
             // right wall
             tileImages[6] = ImageIO.read(new File("assets/tiles/rightwall.png"));
+            //barrel
+            tileImages[7] = ImageIO.read(new File("assets/tiles/barrel.png"));
+            //rock
+            tileImages[8] = ImageIO.read(new File("assets/tiles/rock.png"));
+            //box
+            tileImages[9] = ImageIO.read(new File("assets/tiles/box.png"));
+            //signright
+            tileImages[10] = ImageIO.read(new File("assets/tiles/signright.png"));
+            // path
+            tileImages[11] = ImageIO.read(new File("assets/tiles/path.png"));
+            //writing
+            tileImages[12] = ImageIO.read(new File("assets/tiles/writing.png"));
+            // grave
+            tileImages[13] = ImageIO.read(new File("assets/tiles/grave.png"));
 
         }catch (IOException e){
             e.printStackTrace();
@@ -58,7 +72,7 @@ public class TileManager {
             int row = 0;
             String line;
             while((line = br.readLine()) != null){
-                String[] numbers = line.split("");
+                String[] numbers = line.split(",");
                 for(col = 0; col < cellCol; col++){
                     int num = Integer.parseInt(numbers[col]);
                     mapTileNum[row][col] = num;
@@ -166,7 +180,10 @@ public boolean isDoor(double x, double y, int width, int height){
 
         // Check if the tile at the given position is a solid wall
         if (mapTileNum[tileY][tileX] == 1 || mapTileNum[tileY][tileX] == 4
-            || mapTileNum[tileY][tileX] == 5 || mapTileNum[tileY][tileX] == 6) {
+            || mapTileNum[tileY][tileX] == 5 || mapTileNum[tileY][tileX] == 6
+            || mapTileNum[tileY][tileX] == 7 || mapTileNum[tileY][tileX] == 8
+            || mapTileNum[tileY][tileX] == 9 || mapTileNum[tileY][tileX] == 10
+            || mapTileNum[tileY][tileX] == 13) {
             return true;
         }
 

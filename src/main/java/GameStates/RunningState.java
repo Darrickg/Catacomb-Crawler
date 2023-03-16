@@ -34,8 +34,8 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
     private volatile boolean running = true;
     private TileManager tileManager;
 
-    private static final int SCREEN_WIDTH = 800;
-    private static final int SCREEN_HEIGHT = 600;
+    private static final int SCREEN_WIDTH = 1920;
+    private static final int SCREEN_HEIGHT = 1080;
     private static final int TILE_SIZE = 32;
 
     private long startingTime = System.currentTimeMillis();
@@ -46,7 +46,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         // Initialize the running state.
         setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         // adjust the TileManager accordingly
-        tileManager = new TileManager(this, 25, 19, TILE_SIZE);
+        tileManager = new TileManager(this, 25, 20, TILE_SIZE);
         // Set up player
         player = new Player(100, 100, 26,35,5);
         // Set up enemies
