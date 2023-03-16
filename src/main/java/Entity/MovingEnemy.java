@@ -8,12 +8,20 @@ import java.io.IOException;
 
 import Entity.Enemy;
 import Entity.Player;
+import astar.PathFinder;
+import tile.TileManager;
+import astar.Node;
 
 public class MovingEnemy extends Enemy {
     private int x; // x coordinate of enemy
     private int y; // y coordinate of enemy
     private int speed; // speed of enemy
     private int prevX, prevY;
+
+    public boolean onPath = false;
+    public TileManager tileManager;
+
+    public PathFinder pFinder = new PathFinder();
 
     private BufferedImage[] sprites;
 
@@ -27,10 +35,14 @@ public class MovingEnemy extends Enemy {
         currentFrame = 0;
         sprites = new BufferedImage[1];
         hitbox = new Rectangle(x, y, enemyWidth, enemyHeight);
+        tileManager = new TileManager(null, 60, 33, 32);
         this.x=x;
         this.y=y;
         this.prevX = x;
         this.prevY =y;
+
+        onPath = true;
+
         try {
             sprites[0] = ImageIO.read(new File("assets/entity/enemyLeft.png"));
 
@@ -50,16 +62,10 @@ public class MovingEnemy extends Enemy {
 
     // move the enemy towards the player
     public void moveTowardsPlayer(Player player) {
-        prevX = x;
-        prevY = y;
-        int dx = player.getX() - x;
-        int dy = player.getY() - y;
-        double distance = Math.sqrt(dx * dx + dy * dy);
-        if (distance > 0) {
-            double directionX = dx / distance;
-            double directionY = dy / distance;
-            x += (int) (directionX * speed);
-            y += (int) (directionY * speed);
+        if(onPath){
+            int goalCol = player.getX()/tileManager.getTileSize();
+            int goalRow = player.getY()/tileManager.getTileSize();
+            searchPath(goalCol, goalRow);
         }
         hitbox.setLocation(getX(),getY());
 
@@ -120,5 +126,86 @@ public class MovingEnemy extends Enemy {
 
 
     // TODO: other methods for moving enemies
+
+    public void searchPath( int goalCol, int goalRow){
+        int startCol =  getX()/32;
+        int startRow =  getY()/32;
+
+        pFinder.setNodes(startCol,startRow,goalCol,goalRow);
+
+        if(pFinder.search()){
+            //next worldx and worldy
+            int nextX = pFinder.pathList.get(0).col * 32;
+            int nextY = pFinder.pathList.get(0).row * 32;
+            System.out.println(nextX + " " + nextY);
+            int enLeft = (int) x;
+            int enTop = (int) y;
+            int enRight = (int) (x + getWidth());
+            int enBottom = (int) (y + getHeight());
+
+            if(enTop > nextY && enLeft >= nextX && enRight <nextX + 32){
+                // can go up todo
+                y = y - speed;
+            }
+
+            else if(enTop < nextY && enLeft >= nextX && enRight <nextX + 32){
+                // can go down todo
+                y = y+ speed;
+            }
+
+            else if(enTop >= nextY && enBottom < nextY + 32){
+                // can go right or left
+                if(enLeft > nextX){
+                    // left todo
+                    x = x- speed;
+                }
+                if(enLeft < nextX){
+                    //right todo
+                    x = x + speed;
+                }
+            }
+            else if (enTop >nextY && enLeft >nextX){
+                //up or left
+                // we set up todo
+                y = y - speed;
+                if (tileManager.isSolid(getX(), getY(), getWidth(), getHeight())) {
+                    // left todo
+                    x = x - speed;
+                }
+            }
+            else if (enTop > nextY && enLeft < nextX){
+                //up or right
+                // we set up todo
+                y = y - speed;
+                if (tileManager.isSolid(getX(), getY(), getWidth(), getHeight())) {
+                    // right todo
+                    x = x + speed;
+                }
+            }
+            else if( enTop < nextY && enLeft > nextX){
+                // down or left
+                // set down todo
+                y = y+speed;
+                if (tileManager.isSolid(getX(), getY(), getWidth(), getHeight())) {
+                    // left todo
+                    x = x - speed;
+                }
+            }
+            else if( enTop < nextY && enLeft < nextX){
+                // down or tight
+                // set down todo
+                y = y+speed;
+                if (tileManager.isSolid(getX(), getY(), getWidth(), getHeight())) {
+                    // right todo
+                    x = x + speed;
+                }
+            }
+            int nextCol = pFinder.pathList.get(0).col;
+            int nextRow = pFinder.pathList.get(0).row;
+            if(nextCol == goalCol && nextRow == goalRow){
+                onPath = false;
+            }
+        }
+    }
     //
 }

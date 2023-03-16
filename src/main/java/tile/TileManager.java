@@ -199,4 +199,12 @@ public boolean isDoor(double x, double y, int width, int height){
     public void setTileSize(int tileSize) {
         this.tileSize = tileSize;
     }
+
+    public int getCellCol() {
+        return cellCol;
+    }
+
+    public int getCellRow() {
+        return cellRow;
+    }
 }
