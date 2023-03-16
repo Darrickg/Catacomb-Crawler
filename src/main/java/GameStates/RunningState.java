@@ -105,7 +105,6 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
     public void render() {
 
 
-
         if (tileManager.isDoor(player.getX(), player.getY(), player.getWidth(), player.getHeight())) {
             // Player is colliding with a solid tile, so revert to previous position
             stateManager.setState(new WinState());
@@ -128,14 +127,22 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
                         player.lastDamageTime = System.currentTimeMillis();
                         System.out.println(" player collided with moving enemy");
                         player.decreaseScore(enemy.getDamage());
+                       healthBar.decreaseHealth(3);
+                        if (healthBar.isDead()) {
+                            // Player is dead, end game
+                            stateManager.setState(new DeathScreenState());
+                            frame.dispose();
+                            running = false;
+                        }
                     }
+
                 }
 
                 if(enemy instanceof TrapEnemy){
                     if(enemy.getHitbox().intersects(player.getHitbox())) {
                         System.out.println(" player collided with trap enemy");
                         player.decreaseScore(enemy.getDamage());
-                        healthBar.decreaseHealth();
+                        healthBar.decreaseHealth(1);
                         healthBar.setHealth(healthBar.getHealth()-1);
                         if (healthBar.isDead()) {
                             // Player is dead, end game

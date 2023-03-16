@@ -26,13 +26,13 @@ public class HealthBar extends JPanel {
     }
 
 
-    public void decreaseHealth() {
-        health--;
+    public void decreaseHealth(int k) {
+        health = health -k;
         repaint();
     }
 
     public boolean isDead() {
-        return health == 0;
+        return health <= 0;
     }
 
     public int getHealth() {
