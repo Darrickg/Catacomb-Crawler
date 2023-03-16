@@ -9,6 +9,7 @@ import Item.Items;
 import Rewards.bonus;
 import Rewards.regular;
 import tile.TileManager;
+import HealthBar.HealthBar;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 public class RunningState extends JPanel implements GameState, Runnable, KeyListener {
 
     private int numRegularRewards;
+    private HealthBar healthBar;
     private GameStateManager stateManager = new GameStateManager();
     JFrame frame = new JFrame("Simple Game");
     private boolean doorOpen;
@@ -54,6 +56,9 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
 
         numRegularRewards = 1; // IMPORTANT TODO: initialize to total number of regular rewards
         doorOpen = false;
+
+        healthBar = new HealthBar();
+        add(healthBar);
 
         gameThread = new Thread(this);
         gameThread.start();
@@ -99,6 +104,8 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
     @Override
     public void render() {
 
+
+
         if (tileManager.isDoor(player.getX(), player.getY(), player.getWidth(), player.getHeight())) {
             // Player is colliding with a solid tile, so revert to previous position
             stateManager.setState(new WinState());
@@ -128,6 +135,14 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
                     if(enemy.getHitbox().intersects(player.getHitbox())) {
                         System.out.println(" player collided with trap enemy");
                         player.decreaseScore(enemy.getDamage());
+                        healthBar.decreaseHealth();
+                        healthBar.setHealth(healthBar.getHealth()-1);
+                        if (healthBar.isDead()) {
+                            // Player is dead, end game
+                            stateManager.setState(new DeathScreenState());
+                            frame.dispose();
+                            running = false;
+                        }
                         ((TrapEnemy) enemy).activate();
                         enemy.setHitbox(new Rectangle(enemy.getX(),enemy.getY(),0,0));
                     }
@@ -209,6 +224,15 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         for( Items item: items){
             if(!item.isPickedUp()){
                 item.draw(g2d);}
+        }
+        for (int i = 0; i <= healthBar.getHealthIcons().length; i++) {
+            if (i <= healthBar.getHealth()) {
+                // Draw full heart
+                g.drawImage(healthBar.getHealthIcons()[0], i * 30, 100, null);
+            } else {
+                // Draw empty heart
+                g.drawImage(healthBar.getHealthIcons()[1], i * 30, 100, null);
+            }
         }
         //TODO:  HITBOXES
         g.setColor(Color.GREEN);
