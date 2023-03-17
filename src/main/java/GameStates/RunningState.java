@@ -78,6 +78,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         frame.addKeyListener(this);
         frame.add(this);
         frame.setVisible(true);
+        centerFrame();
 
         try {
             AudioInputStream gameMusic = AudioSystem.getAudioInputStream(new File("assets/audio/gamemusic.wav"));
@@ -87,6 +88,14 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         } catch (Exception e) {
             System.out.println("Error playing music: " + e.getMessage());
         }
+    }
+    private void centerFrame() {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int centerX = screenSize.width / 2;
+        int centerY = screenSize.height / 2;
+        int halfWidth = getWidth() / 2;
+        int halfHeight = getHeight() / 2;
+        setLocation(centerX - halfWidth, centerY - halfHeight);
     }
 
     public void update() {
