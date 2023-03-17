@@ -46,11 +46,11 @@ public class DeathScreenState extends JPanel implements GameState, ActionListene
 
         // Create the exit button
         exitButton = new JButton("Exit Game");
-        exitButton.addActionListener(this);
         exitButton.setBounds(250, 100, 100, 50); // x, y, width, height
         exitButton.setFont(new Font("Arial", Font.BOLD, 20)); // font name, style, size
         exitButton.setBackground(Color.RED);
         exitButton.setForeground(Color.WHITE);
+        exitButton.addActionListener(this);
         add(exitButton);
 
         // Initialize the main menu state.

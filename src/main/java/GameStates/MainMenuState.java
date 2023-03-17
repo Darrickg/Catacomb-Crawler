@@ -27,6 +27,12 @@ public class MainMenuState extends JPanel implements GameState, ActionListener {
     JFrame frame = new JFrame("Main Menu");
     public void init() {
 
+        try {
+            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+        } catch (Exception eButt) {
+            eButt.printStackTrace();
+        }
+
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int width = (int) screenSize.getWidth();
@@ -35,19 +41,13 @@ public class MainMenuState extends JPanel implements GameState, ActionListener {
         frame.setSize(width, height);
 
         JPanel panel = new JPanel();
-        panel.setBorder(BorderFactory.createEmptyBorder(200, 200, 200, 200));
+        panel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
        //panel.setLayout(new OverlayLayout(panel));
-
-        try {
-            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-        } catch (Exception eButt) {
-            eButt.printStackTrace();
-        }
 
         // Create the start button
         startButton = new JButton("Start Game");
-        startButton.setBounds(800, 800, 50, 50); // x, y, width, height
-        startButton.setFont(new Font("Arial", Font.BOLD, 2)); // font name, style, size
+        startButton.setBounds(100, 100, 100, 50); // x, y, width, height
+        startButton.setFont(new Font("Arial", Font.BOLD, 20)); // font name, style, size
         startButton.setBackground(Color.GREEN);
         startButton.setForeground(Color.WHITE);
         startButton.addActionListener(this);
@@ -55,11 +55,11 @@ public class MainMenuState extends JPanel implements GameState, ActionListener {
 
         // Create the exit button
         exitButton = new JButton("Exit Game");
-        exitButton.addActionListener(this);
-        exitButton.setBounds(900, 900, 50, 50); // x, y, width, height
-        exitButton.setFont(new Font("Arial", Font.BOLD, 2)); // font name, style, size
+        exitButton.setBounds(700, 700, 100, 50); // x, y, width, height
+        exitButton.setFont(new Font("Arial", Font.BOLD, 20)); // font name, style, size
         exitButton.setBackground(Color.RED);
         exitButton.setForeground(Color.WHITE);
+        exitButton.addActionListener(this);
         frame.add(exitButton);
 
     
