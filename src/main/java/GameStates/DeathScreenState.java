@@ -14,14 +14,26 @@ public class DeathScreenState extends JPanel implements GameState, ActionListene
     JFrame frame = new JFrame("Game Over");
     private JButton restartButton;
     private JButton exitButton;
+
+    private Clip endMusicClip;
+
     public void init() {
 
         // play death noise
         try {
-            AudioInputStream deathSound = AudioSystem.getAudioInputStream(new File("assets/audio/game_over.wav"));
+            AudioInputStream deathSound = AudioSystem.getAudioInputStream(new File("assets/audio/gameover.wav"));
             Clip deathSoundClip = AudioSystem.getClip();
             deathSoundClip.open(deathSound);
             deathSoundClip.start();
+        } catch (Exception e) {
+            System.out.println("Error playing music: " + e.getMessage());
+        }
+
+        try {
+            AudioInputStream endMusic = AudioSystem.getAudioInputStream(new File("assets/audio/gamelose.wav"));
+            this.endMusicClip = AudioSystem.getClip();
+            this.endMusicClip.open(endMusic);
+            this.endMusicClip.loop(Clip.LOOP_CONTINUOUSLY);
         } catch (Exception e) {
             System.out.println("Error playing music: " + e.getMessage());
         }
@@ -77,6 +89,8 @@ public class DeathScreenState extends JPanel implements GameState, ActionListene
                 } catch (Exception e2) {
                     System.out.println("Error playing music: " + e2.getMessage());
                 }
+
+                this.endMusicClip.stop();
                 
                 stateManager.setCurrentState(new RunningState());
                 System.out.println("Restarting game");

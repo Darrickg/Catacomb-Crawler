@@ -19,6 +19,9 @@ public class MainMenuState extends JPanel implements GameState, ActionListener {
     JFrame frame = new JFrame("Main Menu");
     private JButton startButton;
     private JButton exitButton;
+
+    private Clip startMusicClip;
+
     public void init() {
         // Create the start button
         startButton = new JButton("Start Game");
@@ -46,6 +49,15 @@ public class MainMenuState extends JPanel implements GameState, ActionListener {
         frame.setResizable(false);
         frame.add(this);
         frame.setVisible(true);
+
+        try {
+            AudioInputStream startMusic = AudioSystem.getAudioInputStream(new File("assets/audio/startmusic.wav"));
+            this.startMusicClip = AudioSystem.getClip();
+            this.startMusicClip.open(startMusic);
+            this.startMusicClip.loop(Clip.LOOP_CONTINUOUSLY);
+        } catch (Exception e) {
+            System.out.println("Error playing music: " + e.getMessage());
+        }
     }
 
     public void update() {
@@ -75,8 +87,10 @@ public class MainMenuState extends JPanel implements GameState, ActionListener {
                     buttonSoundClip.open(buttonSound);
                     buttonSoundClip.start();
                 } catch (Exception e2) {
-                    System.out.println("Error playing music: " + e2.getMessage());
+                    System.out.println("Error playing sound: " + e2.getMessage());
                 }
+
+                startMusicClip.stop();
                 
                 System.out.println("Closing MenuState");
                 frame.dispose();
