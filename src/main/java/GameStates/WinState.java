@@ -32,7 +32,7 @@ public class WinState extends JPanel implements GameState, ActionListener{
         }
 
         try {
-            AudioInputStream winMusic = AudioSystem.getAudioInputStream(new File("assets/audio/startmusic.wav"));
+            AudioInputStream winMusic = AudioSystem.getAudioInputStream(new File("assets/audio/gamewinmusic.wav"));
             this.winMusicClip = AudioSystem.getClip();
             this.winMusicClip.open(winMusic);
             this.winMusicClip.loop(Clip.LOOP_CONTINUOUSLY);
