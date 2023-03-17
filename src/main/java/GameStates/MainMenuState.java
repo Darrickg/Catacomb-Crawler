@@ -19,13 +19,24 @@ public class MainMenuState extends JPanel implements GameState, ActionListener {
     private static final int SCREEN_WIDTH = 800;
     private static final int SCREEN_HEIGHT = 600;
     private GameStateManager stateManager = new GameStateManager();
-    JFrame frame = new JFrame("Main Menu");
+
     private JButton startButton;
     private JButton exitButton;
 
     private Clip startMusicClip;
-
+    JFrame frame = new JFrame("Main Menu");
     public void init() {
+
+
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int width = (int) screenSize.getWidth();
+        int height = (int) screenSize.getHeight();
+
+        frame.setSize(width, height);
+
+        JPanel panel = new JPanel();
+        panel.setBorder(BorderFactory.createEmptyBorder(200, 200, 200, 200));
+        panel.setLayout(new OverlayLayout(panel));
 
         try {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
@@ -35,38 +46,33 @@ public class MainMenuState extends JPanel implements GameState, ActionListener {
 
         // Create the start button
         startButton = new JButton("Start Game");
-        startButton.setBounds(100, 100, 100, 50); // x, y, width, height
-        startButton.setFont(new Font("Arial", Font.BOLD, 20)); // font name, style, size
+        startButton.setBounds(400, 500, 10, 5); // x, y, width, height
+        startButton.setFont(new Font("Arial", Font.BOLD, 2)); // font name, style, size
         startButton.setBackground(Color.GREEN);
         startButton.setForeground(Color.WHITE);
         startButton.addActionListener(this);
-        add(startButton);
+        panel.add(startButton);
 
         // Create the exit button
         exitButton = new JButton("Exit Game");
         exitButton.addActionListener(this);
-        exitButton.setBounds(250, 100, 100, 50); // x, y, width, height
-        exitButton.setFont(new Font("Arial", Font.BOLD, 20)); // font name, style, size
+        exitButton.setBounds(200, 200, 10, 5); // x, y, width, height
+        exitButton.setFont(new Font("Arial", Font.BOLD, 2)); // font name, style, size
         exitButton.setBackground(Color.RED);
         exitButton.setForeground(Color.WHITE);
-        add(exitButton);
+        panel.add(exitButton);
     
         // Initialize the main menu state.
-        setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         stateManager.setCurrentState(new MainMenuState());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1920, 1080);
-        frame.setResizable(false);
-        BufferedImage myImage;
-        try {
-            myImage = ImageIO.read(new File("assets/screens/titlescreen.png"));
-            frame.setContentPane(new ImagePanel(myImage));
-            frame.add(this);
-            frame.setVisible(true);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        frame.setResizable(true);
+        frame.pack();
+        ImageIcon myImage = new ImageIcon("assets/screens/titlescreen.png");
+        JLabel label = new JLabel(myImage);
+        label.setBounds(0,0,frame.getWidth(), frame.getHeight());
+        panel.add(label);
+        frame.add(panel);
+        frame.setVisible(true);
 
         try {
             AudioInputStream startMusic = AudioSystem.getAudioInputStream(new File("assets/audio/startmusic.wav"));
