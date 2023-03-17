@@ -1,9 +1,11 @@
 package GameStates;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 public class WinState extends JPanel implements GameState, ActionListener{
 
     private static final int SCREEN_WIDTH = 800;
@@ -15,6 +17,16 @@ public class WinState extends JPanel implements GameState, ActionListener{
 
     @Override
     public void init() {
+
+        try {
+            AudioInputStream winSound = AudioSystem.getAudioInputStream(new File("assets/audio/gamewin.wav"));
+            Clip winSoundClip = AudioSystem.getClip();
+            winSoundClip.open(winSound);
+            winSoundClip.start();
+        } catch (Exception e) {
+            System.out.println("Error playing music: " + e.getMessage());
+        }
+
         // Create the start button
         restartButton = new JButton("Restart Game");
         restartButton.setBounds(100, 100, 100, 50); // x, y, width, height
