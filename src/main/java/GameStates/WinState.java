@@ -6,17 +6,22 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-public class WinState extends JPanel implements GameState, ActionListener{
 
+/**
+ * WinState with all fields as parameters describe game win panel
+ */
+public class WinState extends JPanel implements GameState, ActionListener{
     private static final int SCREEN_WIDTH = 800;
     private static final int SCREEN_HEIGHT = 600;
     private GameStateManager stateManager = new GameStateManager();
     JFrame frame = new JFrame("WIN");
     private JButton restartButton;
     private JButton exitButton;
-
     private Clip winMusicClip;
 
+    /**
+     * Win state screen initializer
+     */
     @Override
     public void init() {
 
@@ -63,19 +68,34 @@ public class WinState extends JPanel implements GameState, ActionListener{
         frame.setVisible(true);
     }
 
+    /**
+     * win state updater
+     */
     @Override
     public void update() {
 
     }
 
+    /**
+     * win state render
+     */
     @Override
     public void render() {
 
     }
 
+    /**
+     * win state game manager
+     * @return game state manager
+     */
     private GameStateManager getStateManager() {
         return stateManager;
     }
+
+    /**
+     * win state screen perform user action
+     * @param e user action input
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == restartButton) {
