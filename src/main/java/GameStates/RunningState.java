@@ -46,7 +46,12 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
 
     private Clip gameMusicClip;
 
+    GraphicsDevice gDevice;
+
     public void init() {
+        GraphicsEnvironment gEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        gDevice = gEnvironment.getDefaultScreenDevice();
+
         // Initialize the running state.
         setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         // adjust the TileManager accordingly
@@ -73,11 +78,12 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
 
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1920, 1080);
+        //frame.setSize(1920, 1080);
         frame.setResizable(true);
         frame.addKeyListener(this);
         frame.add(this);
         frame.setVisible(true);
+        setFullScreen();
 
         try {
             AudioInputStream gameMusic = AudioSystem.getAudioInputStream(new File("assets/audio/gamemusic.wav"));
@@ -87,6 +93,9 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         } catch (Exception e) {
             System.out.println("Error playing music: " + e.getMessage());
         }
+    }
+    public void setFullScreen(){
+        gDevice.setFullScreenWindow(frame);
     }
 
     public void update() {
