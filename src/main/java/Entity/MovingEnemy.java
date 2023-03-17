@@ -12,6 +12,9 @@ import astar.PathFinder;
 import tile.TileManager;
 import astar.Node;
 
+/**
+ * The MovingEnemy class extends from Enemy class represent a generic moving-enemy object
+ */
 public class MovingEnemy extends Enemy {
     private int x; // x coordinate of enemy
     private int y; // y coordinate of enemy
@@ -29,6 +32,15 @@ public class MovingEnemy extends Enemy {
 
     private int currentFrame;
 
+    /**
+     * MovingEnemy constructor with all fields as parameters
+     * @param x dimension x
+     * @param y dimension y
+     * @param enemyWidth moving enemy's width
+     * @param enemyHeight moving enemy's height
+     * @param speed moving enemy's speed
+     * @param damage moving enemy's damage
+     */
     public MovingEnemy(int x, int y, int enemyWidth, int enemyHeight, int speed, int damage) {
         super(x, y, enemyWidth, enemyHeight, damage);
         this.speed = speed;
@@ -52,15 +64,20 @@ public class MovingEnemy extends Enemy {
         }
     }
 
-    // override the abstract method to handle moving enemy behavior
+    /**
+     * override the abstract method to handle moving enemy behavior
+     * @param player check for additional collisions or interactions with other game objects
+     */
     @Override
     public void handleCollision(Player player) {
         player.takeDamage(damage);
         moveTowardsPlayer(player);
-        // check for additional collisions or interactions with other game objects
     }
 
-    // move the enemy towards the player
+    /**
+     * move the enemy towards the player
+     * @param player input the player
+     */
     public void moveTowardsPlayer(Player player) {
         if(onPath){
             int goalCol = player.getX()/tileManager.getTileSize();
@@ -84,59 +101,108 @@ public class MovingEnemy extends Enemy {
         hitbox.setLocation(getX(),getY());
     }
 
-
-
-
-
-    // getters and setters
-
+    /**
+     * Moving enemy's position setter
+     * @param x set dimension x to x
+     * @param y set dimension y to y
+     */
     public void setPosition(int x, int y) {
         this.x = x;
         this.y = y;
     }
+
+    /**
+     * Moving enemy's previous x dimension getter
+     * @return previous dimension x
+     */
     public int getPrevX() {
         return prevX;
     }
 
+    /**
+     * Moving enemy's previous x dimension setter
+     * @param prevX set x to x
+     */
     public void setPrevX(int prevX) {
         this.prevX = prevX;
     }
 
+    /**
+     * Moving enemy's previous y dimension getter
+     * @return previous dimension y
+     */
     public int getPrevY() {
         return prevY;
     }
 
+    /**
+     * Moving enemy's previous y dimension setter
+     * @param prevY set y to y
+     */
     public void setPrevY(int prevY) {
         this.prevY = prevY;
     }
 
+    /**
+     * Moving enemy's x dimension getter
+     * @return dimension x
+     */
     public int getX() {
         return x;
     }
 
+    /**
+     * Moving enemy's x dimension setter
+     * @param x set x to x
+     */
     public void setX(int x) {
         this.x = x;
     }
 
+    /**
+     * Moving enemy's y dimension getter
+     * @return dimension y
+     */
     public int getY() {
         return y;
     }
 
+    /**
+     * Moving enemy's y dimension setter
+     * @param y set y to y
+     */
     public void setY(int y) {
         this.y = y;
     }
 
+    /**
+     * Moving enemy's speed getter
+     * @return moving enemy's speed
+     */
     public int getSpeed() {
         return speed;
     }
 
+    /**
+     * Moving enemy's speed setter
+     * @param speed set speed to speed
+     */
     public void setSpeed(int speed) {
         this.speed = speed;
     }
 
+    /**
+     * Moving object drawer
+     * @param g2d draw the moving object
+     */
     public void draw(Graphics2D g2d){
         g2d.drawImage(sprites[currentFrame], x, y, null);
     }
+
+    /**
+     * get moving hit box getter
+     * @return hit box
+     */
     public Rectangle getHitbox(){
         return hitbox;
     }
@@ -144,6 +210,11 @@ public class MovingEnemy extends Enemy {
 
     // TODO: other methods for moving enemies
 
+    /**
+     * Moving enemy auto-findPath & avoid barriers method
+     * @param goalCol user col
+     * @param goalRow user row
+     */
     public void searchPath( int goalCol, int goalRow){
         int startCol =  getX()/32;
         int startRow =  getY()/32;
