@@ -1,9 +1,11 @@
 package GameStates;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 public class WinState extends JPanel implements GameState, ActionListener{
 
     private static final int SCREEN_WIDTH = 800;
@@ -13,8 +15,19 @@ public class WinState extends JPanel implements GameState, ActionListener{
     private JButton restartButton;
     private JButton exitButton;
 
+    private Clip winMusicClip;
+
     @Override
     public void init() {
+        try {
+            AudioInputStream winMusic = AudioSystem.getAudioInputStream(new File("assets/audio/startmusic.wav"));
+            this.winMusicClip = AudioSystem.getClip();
+            this.winMusicClip.open(winMusic);
+            this.winMusicClip.loop(Clip.LOOP_CONTINUOUSLY);
+        } catch (Exception e) {
+            System.out.println("Error playing music: " + e.getMessage());
+        }
+
         // Create the start button
         restartButton = new JButton("Restart Game");
         restartButton.setBounds(100, 100, 100, 50); // x, y, width, height
@@ -63,6 +76,23 @@ public class WinState extends JPanel implements GameState, ActionListener{
                 stateManager.setCurrentState(new RunningState());
                 System.out.println("Restarting game");
                 frame.dispose();
+
+                if (stateManager.getCurrentState() != null) {
+
+                    this.winMusicClip.close();
+
+                    try {
+                        AudioInputStream buttonSound = AudioSystem.getAudioInputStream(new File("assets/audio/select.wav"));
+                        Clip buttonSoundClip = AudioSystem.getClip();
+                        buttonSoundClip.open(buttonSound);
+                        buttonSoundClip.start();
+                    } catch (Exception e2) {
+                        System.out.println("Error playing music: " + e2.getMessage());
+                    }
+                    
+                    System.out.println("Closing MenuState");
+                    frame.dispose();
+                }
             }
             getStateManager().setState(new RunningState());
         } else if (e.getSource() == exitButton) {

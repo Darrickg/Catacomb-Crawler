@@ -1,9 +1,11 @@
 package GameStates;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 public class DeathScreenState extends JPanel implements GameState, ActionListener {
     private static final int SCREEN_WIDTH = 800;
@@ -12,7 +14,19 @@ public class DeathScreenState extends JPanel implements GameState, ActionListene
     JFrame frame = new JFrame("Game Over");
     private JButton restartButton;
     private JButton exitButton;
+
+    private Clip endMusicClip;
+
     public void init() {
+        try {
+            AudioInputStream endMusic = AudioSystem.getAudioInputStream(new File("assets/audio/gamelose.wav"));
+            this.endMusicClip = AudioSystem.getClip();
+            this.endMusicClip.open(endMusic);
+            this.endMusicClip.loop(Clip.LOOP_CONTINUOUSLY);
+        } catch (Exception e) {
+            System.out.println("Error playing music: " + e.getMessage());
+        }
+
         // Initialize the death screen state.
         // Create the start button
         restartButton = new JButton("Restart Game");
@@ -55,6 +69,18 @@ public class DeathScreenState extends JPanel implements GameState, ActionListene
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == restartButton) {
             if (stateManager.getCurrentState() != null) {
+
+                try {
+                    AudioInputStream buttonSound = AudioSystem.getAudioInputStream(new File("assets/audio/select.wav"));
+                    Clip buttonSoundClip = AudioSystem.getClip();
+                    buttonSoundClip.open(buttonSound);
+                    buttonSoundClip.start();
+                } catch (Exception e2) {
+                    System.out.println("Error playing music: " + e2.getMessage());
+                }
+
+                this.endMusicClip.stop();
+                
                 stateManager.setCurrentState(new RunningState());
                 System.out.println("Restarting game");
                 frame.dispose();

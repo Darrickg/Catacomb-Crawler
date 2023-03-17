@@ -1,5 +1,9 @@
 package Rewards;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -67,6 +71,16 @@ public class bonus extends rewards {
         }
     }
     private void startRespawn() {
+
+        try {
+            AudioInputStream spawnSound = AudioSystem.getAudioInputStream(new File("assets/audio/coinspawn.wav"));
+            Clip spawnSoundClip = AudioSystem.getClip();
+            spawnSoundClip.open(spawnSound);
+            spawnSoundClip.start();
+        } catch (Exception e2) {
+            System.out.println("Error playing sound: " + e2.getMessage());
+        }
+
         isRespawning = true;
         timeLeftToRespawn = respawnTime;
         currentTile = new int[]{getX(), getY()};

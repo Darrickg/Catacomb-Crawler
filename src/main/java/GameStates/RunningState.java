@@ -11,13 +11,16 @@ import Rewards.regular;
 import tile.TileManager;
 import HealthBar.HealthBar;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class RunningState extends JPanel implements GameState, Runnable, KeyListener {
 
@@ -41,6 +44,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
     private long startingTime = System.currentTimeMillis();
     private List<Integer> downedKeyList = new ArrayList<>();
 
+    private Clip gameMusicClip;
 
     public void init() {
         // Initialize the running state.
@@ -74,6 +78,15 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         frame.addKeyListener(this);
         frame.add(this);
         frame.setVisible(true);
+
+        try {
+            AudioInputStream gameMusic = AudioSystem.getAudioInputStream(new File("assets/audio/gamemusic.wav"));
+            this.gameMusicClip = AudioSystem.getClip();
+            this.gameMusicClip.open(gameMusic);
+            this.gameMusicClip.loop(Clip.LOOP_CONTINUOUSLY);
+        } catch (Exception e) {
+            System.out.println("Error playing music: " + e.getMessage());
+        }
     }
 
     public void update() {
@@ -93,6 +106,14 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         }
 
         if (numRegularRewards == 0 && !doorOpen) {
+            try {
+                AudioInputStream doorOpen = AudioSystem.getAudioInputStream(new File("assets/audio/dooropen.wav"));
+                Clip doorOpenClip = AudioSystem.getClip();
+                doorOpenClip.open(doorOpen);
+                doorOpenClip.start();
+            } catch (Exception e2) {
+                System.out.println("Error playing sound: " + e2.getMessage());
+            }
             int doorX = tileManager.getDoorX(tileManager.getDoorTileNum());
             int doorY = tileManager.getDoorY(tileManager.getDoorTileNum());
             int [][] map = tileManager.getMapTileNum();
@@ -110,8 +131,26 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
 
 
         if (tileManager.isDoor(player.getX(), player.getY(), player.getWidth(), player.getHeight())) {
+
+            this.gameMusicClip.stop();
+            try {
+                AudioInputStream winSound = AudioSystem.getAudioInputStream(new File("assets/audio/gamewin.wav"));
+                Clip winSoundClip = AudioSystem.getClip();
+                winSoundClip.open(winSound);
+                winSoundClip.start();
+            } catch (Exception e) {
+                System.out.println("Error playing sound: " + e.getMessage());
+            }
+
+            try {
+                TimeUnit.SECONDS.sleep(3);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
             // Player is colliding with a solid tile, so revert to previous position
             stateManager.setState(new WinState());
+
             frame.dispose();
             running = false;
         }
@@ -130,10 +169,36 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
                             continue;
                         player.lastDamageTime = System.currentTimeMillis();
                         System.out.println(" player collided with moving enemy");
+
+                        try {
+                            AudioInputStream damageSound = AudioSystem.getAudioInputStream(new File("assets/audio/damage.wav"));
+                            Clip damageSoundClip = AudioSystem.getClip();
+                            damageSoundClip.open(damageSound);
+                            damageSoundClip.start();
+                        } catch (Exception e2) {
+                            System.out.println("Error playing sound: " + e2.getMessage());
+                        }
+
                         player.decreaseScore(enemy.getDamage());
                        healthBar.decreaseHealth(3);
                         if (healthBar.isDead()) {
                             // Player is dead, end game
+                            this.gameMusicClip.stop();
+                            try {
+                                AudioInputStream deathSound = AudioSystem.getAudioInputStream(new File("assets/audio/gameover.wav"));
+                                Clip deathSoundClip = AudioSystem.getClip();
+                                deathSoundClip.open(deathSound);
+                                deathSoundClip.start();
+                            } catch (Exception e) {
+                                System.out.println("Error playing sound: " + e.getMessage());
+                            }
+
+                            try {
+                                TimeUnit.SECONDS.sleep(1);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+
                             stateManager.setState(new DeathScreenState());
                             frame.dispose();
                             running = false;
@@ -145,11 +210,22 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
                 if(enemy instanceof TrapEnemy){
                     if(enemy.getHitbox().intersects(player.getHitbox())) {
                         System.out.println(" player collided with trap enemy");
+
+                        try {
+                            AudioInputStream damageSound = AudioSystem.getAudioInputStream(new File("assets/audio/damage.wav"));
+                            Clip damageSoundClip = AudioSystem.getClip();
+                            damageSoundClip.open(damageSound);
+                            damageSoundClip.start();
+                        } catch (Exception e2) {
+                            System.out.println("Error playing sound: " + e2.getMessage());
+                        }
+
                         player.decreaseScore(enemy.getDamage());
                         healthBar.decreaseHealth(1);
                         healthBar.setHealth(healthBar.getHealth()-1);
                         if (healthBar.isDead() || player.getScore() <= 0) {
                             // Player is dead, end game
+                            this.gameMusicClip.stop();
                             stateManager.setState(new DeathScreenState());
                             frame.dispose();
                             running = false;
@@ -162,6 +238,16 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
             for( Items item : items){
                 if(item instanceof regular){
                     if(((regular) item).getHitbox().intersects(player.getHitbox())){
+
+                        try {
+                            AudioInputStream collectSound = AudioSystem.getAudioInputStream(new File("assets/audio/openchest.wav"));
+                            Clip collectSoundClip = AudioSystem.getClip();
+                            collectSoundClip.open(collectSound);
+                            collectSoundClip.start();
+                        } catch (Exception e2) {
+                            System.out.println("Error playing sound: " + e2.getMessage());
+                        }
+
                         System.out.println("player picked up regular reward");
                         player.addScore(((regular) item).getValue());
                         ((regular) item).pickUp();
@@ -171,6 +257,16 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
                 }
                 if(item instanceof bonus){
                     if(((bonus) item).getHitbox().intersects(player.getHitbox())){
+
+                        try {
+                            AudioInputStream collectSound = AudioSystem.getAudioInputStream(new File("assets/audio/coinsound.wav"));
+                            Clip collectSoundClip = AudioSystem.getClip();
+                            collectSoundClip.open(collectSound);
+                            collectSoundClip.start();
+                        } catch (Exception e2) {
+                            System.out.println("Error playing sound: " + e2.getMessage());
+                        }
+
                         System.out.println("player picked up bonus reward");
                         player.addScore(((bonus) item).getValue());
                         ((bonus) item).pickUp();
