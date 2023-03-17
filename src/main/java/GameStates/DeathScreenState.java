@@ -68,6 +68,16 @@ public class DeathScreenState extends JPanel implements GameState, ActionListene
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == restartButton) {
             if (stateManager.getCurrentState() != null) {
+
+                try {
+                    AudioInputStream buttonSound = AudioSystem.getAudioInputStream(new File("assets/audio/select.wav"));
+                    Clip buttonSoundClip = AudioSystem.getClip();
+                    buttonSoundClip.open(buttonSound);
+                    buttonSoundClip.start();
+                } catch (Exception e2) {
+                    System.out.println("Error playing music: " + e2.getMessage());
+                }
+                
                 stateManager.setCurrentState(new RunningState());
                 System.out.println("Restarting game");
                 frame.dispose();

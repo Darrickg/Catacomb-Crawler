@@ -1,11 +1,16 @@
 package GameStates;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
+import java.util.concurrent.TimeUnit;
 
 public class MainMenuState extends JPanel implements GameState, ActionListener {
     private static final int SCREEN_WIDTH = 800;
@@ -64,6 +69,15 @@ public class MainMenuState extends JPanel implements GameState, ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == startButton) {
             if (stateManager.getCurrentState() != null) {
+                try {
+                    AudioInputStream buttonSound = AudioSystem.getAudioInputStream(new File("assets/audio/select.wav"));
+                    Clip buttonSoundClip = AudioSystem.getClip();
+                    buttonSoundClip.open(buttonSound);
+                    buttonSoundClip.start();
+                } catch (Exception e2) {
+                    System.out.println("Error playing music: " + e2.getMessage());
+                }
+                
                 System.out.println("Closing MenuState");
                 frame.dispose();
             }

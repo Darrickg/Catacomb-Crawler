@@ -75,6 +75,20 @@ public class WinState extends JPanel implements GameState, ActionListener{
                 stateManager.setCurrentState(new RunningState());
                 System.out.println("Restarting game");
                 frame.dispose();
+
+                if (stateManager.getCurrentState() != null) {
+                    try {
+                        AudioInputStream buttonSound = AudioSystem.getAudioInputStream(new File("assets/audio/select.wav"));
+                        Clip buttonSoundClip = AudioSystem.getClip();
+                        buttonSoundClip.open(buttonSound);
+                        buttonSoundClip.start();
+                    } catch (Exception e2) {
+                        System.out.println("Error playing music: " + e2.getMessage());
+                    }
+                    
+                    System.out.println("Closing MenuState");
+                    frame.dispose();
+                }
             }
             getStateManager().setState(new RunningState());
         } else if (e.getSource() == exitButton) {
