@@ -1,5 +1,6 @@
 package GameStates;
 
+import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -9,7 +10,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 public class MainMenuState extends JPanel implements GameState, ActionListener {
@@ -47,15 +50,23 @@ public class MainMenuState extends JPanel implements GameState, ActionListener {
         exitButton.setBackground(Color.RED);
         exitButton.setForeground(Color.WHITE);
         add(exitButton);
-
+    
         // Initialize the main menu state.
         setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         stateManager.setCurrentState(new MainMenuState());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1920, 1080);
         frame.setResizable(false);
-        frame.add(this);
-        frame.setVisible(true);
+        BufferedImage myImage;
+        try {
+            myImage = ImageIO.read(new File("assets/screens/titlescreen.png"));
+            frame.setContentPane(new ImagePanel(myImage));
+            frame.add(this);
+            frame.setVisible(true);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
         try {
             AudioInputStream startMusic = AudioSystem.getAudioInputStream(new File("assets/audio/startmusic.wav"));
