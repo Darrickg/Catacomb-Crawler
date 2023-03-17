@@ -14,8 +14,9 @@ import java.util.Arrays;
 import java.util.Random;
 import tile.TileManager;
 
-
-
+/**
+ * The bonus class represent a generic bonus reward object
+ */
 public class bonus extends rewards {
     private BufferedImage[] sprites;
     private boolean pickedUp;
@@ -30,6 +31,17 @@ public class bonus extends rewards {
     private int[] currentTile;
     private long creationTime;
 
+    /**
+     * bonus reward class constructor build bonus rewards
+     * @param x dimension x
+     * @param y dimension y
+     * @param rewardWidth bonus reward width
+     * @param rewardHeight bonus reward height
+     * @param value bonus reward value
+     * @param lifespan bonus reward span
+     * @param respawnTime bonus reward spawn time
+     * @param tileManager bonus reward build tile manager
+     */
     public bonus(int x, int y, int rewardWidth, int rewardHeight, int value, int lifespan, int respawnTime, TileManager tileManager) {
         super(x, y, rewardWidth, rewardHeight, value);
         this.x=x;
@@ -52,12 +64,18 @@ public class bonus extends rewards {
         }
     }
 
+    /**
+     * bonus reward remove class
+     */
     @Override
     public void remove() {
         this.setHeight(0);
         this.setWidth(0);
     }
 
+    /**
+     * bonus reward update class
+     */
     public void update() {
         if (isRespawning) {
             timeLeftToRespawn--;
@@ -70,6 +88,10 @@ public class bonus extends rewards {
             }
         }
     }
+
+    /**
+     * bonus reward start spawn setter
+     */
     private void startRespawn() {
 
         try {
@@ -89,7 +111,9 @@ public class bonus extends rewards {
 
     }
 
-
+    /**
+     * bonus reward respawn setter
+     */
     private void respawn() {
         int[][] map = tileManager.getMapTileNum();
         int mapWidth = map[0].length;
@@ -103,6 +127,10 @@ public class bonus extends rewards {
         setHitbox(new Rectangle(x,y,getWidth(),getHeight()));
     }
 
+    /**
+     * bonus reward random spawn finder
+     * @return
+     */
     private int[] findRandomValidTile() {
         int[][] map = tileManager.getMapTileNum();
         int mapWidth = map[0].length;
@@ -115,14 +143,27 @@ public class bonus extends rewards {
         System.out.println(Arrays.toString(position));
         return position;
     }
+
+    /**
+     * abandon method
+     * @return yes or no
+     */
     public boolean isRespawning() {
         return isRespawning;
     }
 
+    /**
+     * abandon method
+     * @return yes or no
+     */
     public int[] getCurrentTile() {
         return currentTile;
     }
 
+    /**
+     * abandon method
+     * @param player
+     */
     @Override
     public void handleCollision(Player player){
         if(super.getHitbox().intersects(player.getHitbox())){
@@ -134,52 +175,95 @@ public class bonus extends rewards {
     }
 
 
-
+    /**
+     * abandon method
+     * @param g2d items
+     */
     public void draw(Graphics2D g2d){
         g2d.drawImage(sprites[currentFrame], x, y, null);
     }
 
+    /**
+     * abandon method
+     * @return
+     */
     public boolean isPickedUp() {
         return pickedUp;
     }
 
+    /**
+     * abandon class
+     */
     public void pickUp() {
         pickedUp = true;
     }
 
+    /**
+     * abandon class
+     * @param x dimension x
+     * @param y dimension y
+     */
     public void setPosition(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
+    /**
+     * abandon class
+     * @return x
+     */
     @Override
     public int getX() {
         return x;
     }
 
+    /**
+     * abandon class
+     * @param x x to x
+     */
     @Override
     public void setX(int x) {
         this.x = x;
     }
 
+    /**
+     * abandon class
+     * @return y
+     */
     @Override
     public int getY() {
         return y;
     }
 
+    /**
+     * abandon setter
+     * @param y y = y
+     */
     @Override
     public void setY(int y) {
         this.y = y;
     }
 
+    /**
+     * abandon getter
+     * @return frame
+     */
     public int getCurrentFrame() {
         return currentFrame;
     }
 
+    /**
+     * abandon class
+     * @param currentFrame frame to frame
+     */
     public void setCurrentFrame(int currentFrame) {
         this.currentFrame = currentFrame;
     }
 
+    /**
+     * abandon class
+     * @param pickedUp frame to frame
+     */
     public void setPickedUp(boolean pickedUp) {
         this.pickedUp = pickedUp;
     }
