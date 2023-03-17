@@ -80,7 +80,6 @@ public class bonus extends rewards {
         } catch (Exception e2) {
             System.out.println("Error playing sound: " + e2.getMessage());
         }
-
         isRespawning = true;
         timeLeftToRespawn = respawnTime;
         currentTile = new int[]{getX(), getY()};
@@ -109,10 +108,10 @@ public class bonus extends rewards {
         int mapWidth = map[0].length;
         int mapHeight = map.length;
         int[] position = new int[2];
-        do {
+        while (map[position[1]][position[0]] != 0 && position[1] < 31 && position[0] < 58){
             position[0] = (int) (Math.random() * mapWidth);
             position[1] = (int) (Math.random() * mapHeight);
-        } while (map[position[1]][position[0]] != 0);
+        }
         System.out.println(Arrays.toString(position));
         return position;
     }

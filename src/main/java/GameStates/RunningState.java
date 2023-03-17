@@ -59,7 +59,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         enemies.add(new TrapEnemy(400,400,30,17,100));
         items = new ArrayList<>();
         items.add(new regular(250,200,18,15,500));
-        items.add(new bonus(300,300,16,16,1000,100,200,tileManager));
+        items.add(new bonus(300,300,16,16,1000,100,500,tileManager));
 
 
         numRegularRewards = 1; // IMPORTANT TODO: initialize to total number of regular rewards
