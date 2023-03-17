@@ -1,6 +1,4 @@
 package GameStates;
-
-
 import Entity.Enemy;
 import Entity.MovingEnemy;
 import Entity.Player;
@@ -22,6 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * RunScreen with all fields as parameters describe game running panel
+ */
 public class RunningState extends JPanel implements GameState, Runnable, KeyListener {
 
     private int numRegularRewards;
@@ -46,6 +47,9 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
 
     private Clip gameMusicClip;
 
+    /**
+     * game running state initializer
+     */
     public void init() {
         // Initialize the running state.
         setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
@@ -89,6 +93,9 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         }
     }
 
+    /**
+     * game running state updater
+     */
     public void update() {
         // Update the running state.
         // Start game loop thread
@@ -126,10 +133,11 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
 
     }
 
+    /**
+     * game running state render
+     */
     @Override
     public void render() {
-
-
         if (tileManager.isDoor(player.getX(), player.getY(), player.getWidth(), player.getHeight())) {
 
             this.gameMusicClip.stop();
@@ -157,7 +165,9 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
 
     }
 
-
+    /**
+     * game running state runner
+     */
     public void run() {
         // Render the running state.
         while (running) {
@@ -315,6 +325,11 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
             }
         }
     }
+
+    /**
+     * paint component print objects on panel
+     * @param g g to panel
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -364,7 +379,10 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         g2d.drawString("Time: " + timeFromGameStart / 1000 + "s", 10, 55);
     }
 
-
+    /**
+     * key pressed detect user keyboard pressed
+     * @param e detect keyEvent e
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         // Use this for pressing the left and right keys simultaneously
@@ -402,6 +420,10 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         repaint();
     }
 
+    /**
+     * detect user x dimension keyboard input
+     * @return user input x
+     */
     public int getKBInputX(){
         int inputX = 0;
         inputX += (downedKeyList.contains(KeyEvent.VK_LEFT) ? -1 : 0);
@@ -411,6 +433,10 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         return inputX;
     }
 
+    /**
+     * detect user y dimension keyboard input
+     * @return user input y
+     */
     public int getKBInputY(){
         int inputY = 0;
         inputY += (downedKeyList.contains(KeyEvent.VK_UP) ? -1 : 0);
@@ -419,11 +445,20 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         inputY += (downedKeyList.contains(KeyEvent.VK_S) ? 1 : 0);
         return inputY;
     }
+
+    /**
+     * method abandon
+     * @param e input e
+     */
     @Override
     public void keyTyped(KeyEvent e) {
         // not used
     }
 
+    /**
+     * method abandon
+     * @param e input e
+     */
     @Override
     public void keyReleased(KeyEvent e) {
 //        int keyCode = e.getKeyCode();
