@@ -169,6 +169,16 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
                             continue;
                         player.lastDamageTime = System.currentTimeMillis();
                         System.out.println(" player collided with moving enemy");
+
+                        try {
+                            AudioInputStream damageSound = AudioSystem.getAudioInputStream(new File("assets/audio/damage.wav"));
+                            Clip damageSoundClip = AudioSystem.getClip();
+                            damageSoundClip.open(damageSound);
+                            damageSoundClip.start();
+                        } catch (Exception e2) {
+                            System.out.println("Error playing sound: " + e2.getMessage());
+                        }
+
                         player.decreaseScore(enemy.getDamage());
                        healthBar.decreaseHealth(3);
                         if (healthBar.isDead()) {
@@ -200,11 +210,22 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
                 if(enemy instanceof TrapEnemy){
                     if(enemy.getHitbox().intersects(player.getHitbox())) {
                         System.out.println(" player collided with trap enemy");
+
+                        try {
+                            AudioInputStream damageSound = AudioSystem.getAudioInputStream(new File("assets/audio/damage.wav"));
+                            Clip damageSoundClip = AudioSystem.getClip();
+                            damageSoundClip.open(damageSound);
+                            damageSoundClip.start();
+                        } catch (Exception e2) {
+                            System.out.println("Error playing sound: " + e2.getMessage());
+                        }
+
                         player.decreaseScore(enemy.getDamage());
                         healthBar.decreaseHealth(1);
                         healthBar.setHealth(healthBar.getHealth()-1);
                         if (healthBar.isDead() || player.getScore() <= 0) {
                             // Player is dead, end game
+                            this.gameMusicClip.stop();
                             stateManager.setState(new DeathScreenState());
                             frame.dispose();
                             running = false;
