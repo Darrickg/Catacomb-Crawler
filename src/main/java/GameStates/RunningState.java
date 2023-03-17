@@ -74,7 +74,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1920, 1080);
-        frame.setResizable(false);
+        frame.setResizable(true);
         frame.addKeyListener(this);
         frame.add(this);
         frame.setVisible(true);
