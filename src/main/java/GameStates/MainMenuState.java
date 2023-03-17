@@ -12,6 +12,9 @@ import java.awt.event.KeyListener;
 import java.io.File;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * mainMenuScreen with all fields as parameters describe game menu panel
+ */
 public class MainMenuState extends JPanel implements GameState, ActionListener {
     private static final int SCREEN_WIDTH = 800;
     private static final int SCREEN_HEIGHT = 600;
@@ -19,9 +22,11 @@ public class MainMenuState extends JPanel implements GameState, ActionListener {
     JFrame frame = new JFrame("Main Menu");
     private JButton startButton;
     private JButton exitButton;
-
     private Clip startMusicClip;
 
+    /**
+     * main menu state initializer
+     */
     public void init() {
 
         try {
@@ -67,23 +72,34 @@ public class MainMenuState extends JPanel implements GameState, ActionListener {
         }
     }
 
+    /**
+     * main menu state updater
+     */
     public void update() {
         // Update the main menu state.
     }
 
+    /**
+     * main menu state render
+     */
     public void render() {
         // Render the main menu state.
     }
 
 
-
+    /**
+     * game state getter
+     * @return state manager
+     */
     private GameStateManager getStateManager() {
         return stateManager;
     }
 
 
-
-
+    /**
+     * DeathScreen menu detect user action
+     * @param e player action input
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == startButton) {
