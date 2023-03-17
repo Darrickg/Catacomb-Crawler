@@ -137,7 +137,6 @@ public class MovingEnemy extends Enemy {
             //next worldx and worldy
             int nextX = pFinder.pathList.get(0).col * 32;
             int nextY = pFinder.pathList.get(0).row * 32;
-            System.out.println(nextX + " " + nextY);
             int enLeft = (int) x;
             int enTop = (int) y;
             int enRight = (int) (x + getWidth());
