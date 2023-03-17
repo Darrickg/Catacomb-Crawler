@@ -147,7 +147,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            
+
             // Player is colliding with a solid tile, so revert to previous position
             stateManager.setState(new WinState());
 
@@ -217,6 +217,16 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
             for( Items item : items){
                 if(item instanceof regular){
                     if(((regular) item).getHitbox().intersects(player.getHitbox())){
+
+                        try {
+                            AudioInputStream collectSound = AudioSystem.getAudioInputStream(new File("assets/audio/openchest.wav"));
+                            Clip collectSoundClip = AudioSystem.getClip();
+                            collectSoundClip.open(collectSound);
+                            collectSoundClip.start();
+                        } catch (Exception e2) {
+                            System.out.println("Error playing sound: " + e2.getMessage());
+                        }
+
                         System.out.println("player picked up regular reward");
                         player.addScore(((regular) item).getValue());
                         ((regular) item).pickUp();
@@ -226,6 +236,16 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
                 }
                 if(item instanceof bonus){
                     if(((bonus) item).getHitbox().intersects(player.getHitbox())){
+
+                        try {
+                            AudioInputStream collectSound = AudioSystem.getAudioInputStream(new File("assets/audio/coinsound.wav"));
+                            Clip collectSoundClip = AudioSystem.getClip();
+                            collectSoundClip.open(collectSound);
+                            collectSoundClip.start();
+                        } catch (Exception e2) {
+                            System.out.println("Error playing sound: " + e2.getMessage());
+                        }
+
                         System.out.println("player picked up bonus reward");
                         player.addScore(((bonus) item).getValue());
                         ((bonus) item).pickUp();

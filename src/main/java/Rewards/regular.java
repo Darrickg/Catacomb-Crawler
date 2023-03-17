@@ -1,5 +1,9 @@
 package Rewards;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -37,6 +41,7 @@ public class regular extends rewards {
     @Override
     public void handleCollision(Player player){
         if(super.getHitbox().intersects(player.getHitbox())){
+
             pickedUp = true;
             System.out.println("player picked up item");
             // TODO: remove reward from screen
