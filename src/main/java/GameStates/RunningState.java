@@ -283,16 +283,6 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
                     player.setPosition(player.getPrevX(), player.getPrevY());
                 }
             }
-            for(Enemy enemy : enemies){
-                if(enemy instanceof MovingEnemy){
-                    if (tileManager.isSolid(enemy.getX(), enemy.getY(), enemy.getWidth(), enemy.getHeight())) {
-                        // Player is colliding with a solid tile, so revert to previous position
-                        System.out.println(" enemy wall collide");
-
-                        enemy.setPosition(enemy.getPrevX(), enemy.getPrevY());
-                    }
-                }
-            }
             player.update();
 
 
