@@ -13,6 +13,7 @@ public class SimpleGame extends JPanel {
         stateManager.setState(new MainMenuState());
     }
 
+
     public static void main(String[] args) throws IOException {
        new SimpleGame();
     }
