@@ -40,6 +40,7 @@ public class DeathScreenState extends JPanel implements GameState, ActionListene
         frame.setResizable(false);
         frame.add(this);
         frame.setVisible(true);
+
     }
 
     public void update() {

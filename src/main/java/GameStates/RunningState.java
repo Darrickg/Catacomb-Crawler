@@ -11,11 +11,13 @@ import Rewards.regular;
 import tile.TileManager;
 import HealthBar.HealthBar;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,6 +76,16 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         frame.addKeyListener(this);
         frame.add(this);
         frame.setVisible(true);
+
+        // Plays background music
+        // try {
+        //     AudioInputStream gameMusic = AudioSystem.getAudioInputStream(new File("assets/audio/gamemusic.wav"));
+        //     Clip gameMusicClip = AudioSystem.getClip();
+        //     gameMusicClip.open(gameMusic);
+        //     gameMusicClip.loop(Clip.LOOP_CONTINUOUSLY);
+        // } catch (Exception e) {
+        //     System.out.println("Error playing music: " + e.getMessage());
+        // }
     }
 
     public void update() {
