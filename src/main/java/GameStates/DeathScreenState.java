@@ -1,9 +1,11 @@
 package GameStates;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 public class DeathScreenState extends JPanel implements GameState, ActionListener {
     private static final int SCREEN_WIDTH = 800;
@@ -13,6 +15,16 @@ public class DeathScreenState extends JPanel implements GameState, ActionListene
     private JButton restartButton;
     private JButton exitButton;
     public void init() {
+
+        try {
+            AudioInputStream deathSound = AudioSystem.getAudioInputStream(new File("assets/audio/game_over.wav"));
+            Clip deathSoundClip = AudioSystem.getClip();
+            deathSoundClip.open(deathSound);
+            deathSoundClip.start();
+        } catch (Exception e) {
+            System.out.println("Error playing music: " + e.getMessage());
+        }
+
         // Initialize the death screen state.
         // Create the start button
         restartButton = new JButton("Restart Game");
@@ -41,6 +53,14 @@ public class DeathScreenState extends JPanel implements GameState, ActionListene
         frame.add(this);
         frame.setVisible(true);
 
+        // try {
+        //     AudioInputStream deathSound = AudioSystem.getAudioInputStream(new File("assets/audio/game_over.wav"));
+        //     Clip deathSoundClip = AudioSystem.getClip();
+        //     deathSoundClip.open(deathSound);
+        //     deathSoundClip.start();
+        // } catch (Exception e) {
+        //     System.out.println("Error playing music: " + e.getMessage());
+        // }
     }
 
     public void update() {
