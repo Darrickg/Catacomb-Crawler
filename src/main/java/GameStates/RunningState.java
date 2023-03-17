@@ -105,6 +105,14 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         }
 
         if (numRegularRewards == 0 && !doorOpen) {
+            try {
+                AudioInputStream doorOpen = AudioSystem.getAudioInputStream(new File("assets/audio/dooropen.wav"));
+                Clip doorOpenClip = AudioSystem.getClip();
+                doorOpenClip.open(doorOpen);
+                doorOpenClip.start();
+            } catch (Exception e2) {
+                System.out.println("Error playing sound: " + e2.getMessage());
+            }
             int doorX = tileManager.getDoorX(tileManager.getDoorTileNum());
             int doorY = tileManager.getDoorY(tileManager.getDoorTileNum());
             int [][] map = tileManager.getMapTileNum();
