@@ -36,7 +36,7 @@ public class MainMenuState extends JPanel implements GameState, ActionListener {
 
         JPanel panel = new JPanel();
         panel.setBorder(BorderFactory.createEmptyBorder(200, 200, 200, 200));
-        panel.setLayout(new OverlayLayout(panel));
+       //panel.setLayout(new OverlayLayout(panel));
 
         try {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
@@ -46,21 +46,22 @@ public class MainMenuState extends JPanel implements GameState, ActionListener {
 
         // Create the start button
         startButton = new JButton("Start Game");
-        startButton.setBounds(400, 500, 10, 5); // x, y, width, height
+        startButton.setBounds(800, 800, 50, 50); // x, y, width, height
         startButton.setFont(new Font("Arial", Font.BOLD, 2)); // font name, style, size
         startButton.setBackground(Color.GREEN);
         startButton.setForeground(Color.WHITE);
         startButton.addActionListener(this);
-        panel.add(startButton);
+        frame.add(startButton);
 
         // Create the exit button
         exitButton = new JButton("Exit Game");
         exitButton.addActionListener(this);
-        exitButton.setBounds(200, 200, 10, 5); // x, y, width, height
+        exitButton.setBounds(900, 900, 50, 50); // x, y, width, height
         exitButton.setFont(new Font("Arial", Font.BOLD, 2)); // font name, style, size
         exitButton.setBackground(Color.RED);
         exitButton.setForeground(Color.WHITE);
-        panel.add(exitButton);
+        frame.add(exitButton);
+
     
         // Initialize the main menu state.
         stateManager.setCurrentState(new MainMenuState());
