@@ -15,14 +15,15 @@ public class WinState extends JPanel implements GameState, ActionListener{
     private JButton restartButton;
     private JButton exitButton;
 
+    private Clip winMusicClip;
+
     @Override
     public void init() {
-
         try {
-            AudioInputStream winSound = AudioSystem.getAudioInputStream(new File("assets/audio/gamewin.wav"));
-            Clip winSoundClip = AudioSystem.getClip();
-            winSoundClip.open(winSound);
-            winSoundClip.start();
+            AudioInputStream winMusic = AudioSystem.getAudioInputStream(new File("assets/audio/startmusic.wav"));
+            this.winMusicClip = AudioSystem.getClip();
+            this.winMusicClip.open(winMusic);
+            this.winMusicClip.loop(Clip.LOOP_CONTINUOUSLY);
         } catch (Exception e) {
             System.out.println("Error playing music: " + e.getMessage());
         }
@@ -77,6 +78,9 @@ public class WinState extends JPanel implements GameState, ActionListener{
                 frame.dispose();
 
                 if (stateManager.getCurrentState() != null) {
+
+                    this.winMusicClip.close();
+
                     try {
                         AudioInputStream buttonSound = AudioSystem.getAudioInputStream(new File("assets/audio/select.wav"));
                         Clip buttonSoundClip = AudioSystem.getClip();

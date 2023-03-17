@@ -18,17 +18,6 @@ public class DeathScreenState extends JPanel implements GameState, ActionListene
     private Clip endMusicClip;
 
     public void init() {
-
-        // play death noise
-        try {
-            AudioInputStream deathSound = AudioSystem.getAudioInputStream(new File("assets/audio/gameover.wav"));
-            Clip deathSoundClip = AudioSystem.getClip();
-            deathSoundClip.open(deathSound);
-            deathSoundClip.start();
-        } catch (Exception e) {
-            System.out.println("Error playing music: " + e.getMessage());
-        }
-
         try {
             AudioInputStream endMusic = AudioSystem.getAudioInputStream(new File("assets/audio/gamelose.wav"));
             this.endMusicClip = AudioSystem.getClip();

@@ -133,6 +133,14 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
             // Player is colliding with a solid tile, so revert to previous position
             stateManager.setState(new WinState());
             this.gameMusicClip.stop();
+            try {
+                AudioInputStream winSound = AudioSystem.getAudioInputStream(new File("assets/audio/gamewin.wav"));
+                Clip winSoundClip = AudioSystem.getClip();
+                winSoundClip.open(winSound);
+                winSoundClip.start();
+            } catch (Exception e) {
+                System.out.println("Error playing sound: " + e.getMessage());
+            }
             frame.dispose();
             running = false;
         }
@@ -156,6 +164,14 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
                         if (healthBar.isDead()) {
                             // Player is dead, end game
                             this.gameMusicClip.stop();
+                            try {
+                                AudioInputStream deathSound = AudioSystem.getAudioInputStream(new File("assets/audio/gameover.wav"));
+                                Clip deathSoundClip = AudioSystem.getClip();
+                                deathSoundClip.open(deathSound);
+                                deathSoundClip.start();
+                            } catch (Exception e) {
+                                System.out.println("Error playing sound: " + e.getMessage());
+                            }
                             stateManager.setState(new DeathScreenState());
                             frame.dispose();
                             running = false;
