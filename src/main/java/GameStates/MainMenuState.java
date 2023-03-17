@@ -33,7 +33,6 @@ public class MainMenuState extends JPanel implements GameState, ActionListener {
             eButt.printStackTrace();
         }
 
-
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int width = (int) screenSize.getWidth();
         int height = (int) screenSize.getHeight();
@@ -42,6 +41,7 @@ public class MainMenuState extends JPanel implements GameState, ActionListener {
 
         JPanel panel = new JPanel();
         panel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        panel.setLayout(null);
        //panel.setLayout(new OverlayLayout(panel));
 
         // Create the start button
@@ -51,7 +51,7 @@ public class MainMenuState extends JPanel implements GameState, ActionListener {
         startButton.setBackground(Color.GREEN);
         startButton.setForeground(Color.WHITE);
         startButton.addActionListener(this);
-        frame.add(startButton);
+        panel.add(startButton);
 
         // Create the exit button
         exitButton = new JButton("Exit Game");
@@ -60,20 +60,26 @@ public class MainMenuState extends JPanel implements GameState, ActionListener {
         exitButton.setBackground(Color.RED);
         exitButton.setForeground(Color.WHITE);
         exitButton.addActionListener(this);
-        frame.add(exitButton);
-
+        panel.add(exitButton);
     
+        // Add the image
+        ImageIcon myImageIcon = new ImageIcon("assets/screens/titlescreen.png");
+        Image myImage = myImageIcon.getImage();
+        Image scaledImage = myImage.getScaledInstance(width, height, Image.SCALE_SMOOTH); // scale the image to fit the panel
+        ImageIcon scaledImageIcon = new ImageIcon(scaledImage);
+        JLabel label = new JLabel(scaledImageIcon);
+        label.setBounds(0, 0, width, height);
+        panel.add(label);
+
         // Initialize the main menu state.
         stateManager.setCurrentState(new MainMenuState());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(true);
-        frame.pack();
-        ImageIcon myImage = new ImageIcon("assets/screens/titlescreen.png");
-        JLabel label = new JLabel(myImage);
-        label.setBounds(0,0,frame.getWidth(), frame.getHeight());
-        panel.add(label);
-        frame.add(panel);
+        frame.add(panel); // ADD THE PANEL TO THE FRAME INSTEAD
         frame.setVisible(true);
+        frame.setSize(1920, 1080);
+
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         try {
             AudioInputStream startMusic = AudioSystem.getAudioInputStream(new File("assets/audio/startmusic.wav"));
