@@ -43,6 +43,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
     private long startingTime = System.currentTimeMillis();
     private List<Integer> downedKeyList = new ArrayList<>();
 
+    private Clip gameMusicClip;
 
     public void init() {
         // Initialize the running state.
@@ -77,15 +78,14 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         frame.add(this);
         frame.setVisible(true);
 
-        // Plays background music
-        // try {
-        //     AudioInputStream gameMusic = AudioSystem.getAudioInputStream(new File("assets/audio/gamemusic.wav"));
-        //     Clip gameMusicClip = AudioSystem.getClip();
-        //     gameMusicClip.open(gameMusic);
-        //     gameMusicClip.loop(Clip.LOOP_CONTINUOUSLY);
-        // } catch (Exception e) {
-        //     System.out.println("Error playing music: " + e.getMessage());
-        // }
+        try {
+            AudioInputStream gameMusic = AudioSystem.getAudioInputStream(new File("assets/audio/gamemusic.wav"));
+            this.gameMusicClip = AudioSystem.getClip();
+            this.gameMusicClip.open(gameMusic);
+            this.gameMusicClip.loop(Clip.LOOP_CONTINUOUSLY);
+        } catch (Exception e) {
+            System.out.println("Error playing music: " + e.getMessage());
+        }
     }
 
     public void update() {
@@ -132,6 +132,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         if (tileManager.isDoor(player.getX(), player.getY(), player.getWidth(), player.getHeight())) {
             // Player is colliding with a solid tile, so revert to previous position
             stateManager.setState(new WinState());
+            this.gameMusicClip.stop();
             frame.dispose();
             running = false;
         }
@@ -154,6 +155,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
                        healthBar.decreaseHealth(3);
                         if (healthBar.isDead()) {
                             // Player is dead, end game
+                            this.gameMusicClip.stop();
                             stateManager.setState(new DeathScreenState());
                             frame.dispose();
                             running = false;
