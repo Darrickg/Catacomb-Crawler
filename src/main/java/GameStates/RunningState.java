@@ -20,6 +20,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class RunningState extends JPanel implements GameState, Runnable, KeyListener {
 
@@ -130,8 +131,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
 
 
         if (tileManager.isDoor(player.getX(), player.getY(), player.getWidth(), player.getHeight())) {
-            // Player is colliding with a solid tile, so revert to previous position
-            stateManager.setState(new WinState());
+
             this.gameMusicClip.stop();
             try {
                 AudioInputStream winSound = AudioSystem.getAudioInputStream(new File("assets/audio/gamewin.wav"));
@@ -141,6 +141,16 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
             } catch (Exception e) {
                 System.out.println("Error playing sound: " + e.getMessage());
             }
+
+            try {
+                TimeUnit.SECONDS.sleep(3);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            
+            // Player is colliding with a solid tile, so revert to previous position
+            stateManager.setState(new WinState());
+
             frame.dispose();
             running = false;
         }
@@ -172,6 +182,13 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
                             } catch (Exception e) {
                                 System.out.println("Error playing sound: " + e.getMessage());
                             }
+
+                            try {
+                                TimeUnit.SECONDS.sleep(1);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+
                             stateManager.setState(new DeathScreenState());
                             frame.dispose();
                             running = false;
