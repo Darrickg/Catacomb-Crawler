@@ -6,6 +6,9 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 
+/**
+ * The tile manager class represent a manager that manage all tiles
+ */
 public class TileManager {
     private JPanel panel;
     private BufferedImage[] tileImages;
@@ -14,6 +17,13 @@ public class TileManager {
     int cellRow;
     int tileSize;
 
+    /**
+     * tile manager constructor
+     * @param panel game panel
+     * @param cellCol game col
+     * @param cellRow game row
+     * @param tileSize game tile size
+     */
     public TileManager(JPanel panel, int cellCol, int cellRow, int tileSize){
         this.panel = panel;
         this.cellCol = cellCol;
@@ -25,7 +35,9 @@ public class TileManager {
         loadMap("assets/maps/map03.txt");
     }
 
-    //load tile from disk and save it into tile[]
+    /**
+     * load tile from disk and save it into tile[]
+     */
     public void getTileImage(){
         try{
             //put grass tile into array[0]
@@ -63,7 +75,10 @@ public class TileManager {
         }
     }
 
-    //load map from map txt
+    /**
+     * load map from map txt
+     * @param filePath file in
+     */
     public void loadMap(String filePath){
         try{
             File file = new File(filePath);
@@ -86,8 +101,10 @@ public class TileManager {
     }
 
 
-
-    //Draw tile
+    /**
+     * Draw tile
+     * @param g2 game
+     */
     public void draw(Graphics2D g2){
         int col = 0;
         int row = 0;
@@ -109,10 +126,18 @@ public class TileManager {
         }
     }
 
+    /**
+     * map tile number getter
+     * @return tile number
+     */
     public int[][] getMapTileNum() {
         return mapTileNum;
     }
 
+    /**
+     * map door tile number
+     * @return door
+     */
     public int[] getDoorTileNum(){
         int[] door = new int[2];
         for (int i =0; i < cellRow;i++){
@@ -127,17 +152,40 @@ public class TileManager {
         return door;
     }
 
+    /**
+     * door getter
+     * @param map game map
+     * @return door
+     */
     public int getDoorX(int[] map){
         return map[1];
     }
+
+    /**
+     * door getter
+     * @param map game map
+     * @return door
+     */
     public int getDoorY(int[] map){
         return map[0];
     }
 
+    /**
+     * map tile number setter
+     * @param mapTileNum num to num
+     */
     public void setMapTileNum(int[][] mapTileNum) {
         this.mapTileNum = mapTileNum;
     }
 
+    /**
+     * map tile solid checker
+     * @param x dimension x
+     * @param y dimension y
+     * @param width tile width
+     * @param height tile height
+     * @return yes or no
+     */
     public boolean isSolid(double x, double y, int width, int height) {
         int playerLeft = (int) x;
         int playerTop = (int) y;
@@ -150,7 +198,16 @@ public class TileManager {
                 || isTileSolid(playerLeft, playerBottom)
                 || isTileSolid(playerRight, playerBottom);
 }
-public boolean isDoor(double x, double y, int width, int height){
+
+    /**
+     * check if tile is door
+     * @param x dimension x
+     * @param y dimension y
+     * @param width tile width
+     * @param height tile height
+     * @return yes or no
+     */
+    public boolean isDoor(double x, double y, int width, int height){
     int playerLeft = (int) x;
     int playerTop = (int) y;
     int playerRight = (int) (x + width);
@@ -161,6 +218,12 @@ public boolean isDoor(double x, double y, int width, int height){
             || isTiledoor(playerRight, playerBottom);
 }
 
+    /**
+     * check if tile is door
+     * @param x dimension x
+     * @param y dimension y
+     * @return yes or no
+     */
     private boolean isTiledoor(int x, int y) {
         int tileX = (int) (x / tileSize);
         int tileY = (int) (y / tileSize);
@@ -169,6 +232,12 @@ public boolean isDoor(double x, double y, int width, int height){
         } else { return false;}
     }
 
+    /**
+     * check if tile is solid
+     * @param x dimension x
+     * @param y dimension y
+     * @return yes or no
+     */
     private boolean isTileSolid(int x, int y) {
         int tileX = (int) (x / tileSize);
         int tileY = (int) (y / tileSize);
@@ -191,19 +260,34 @@ public boolean isDoor(double x, double y, int width, int height){
         return false;
     }
 
-
+    /**
+     * tile size getter
+     * @return size
+     */
     public int getTileSize() {
         return tileSize;
     }
 
+    /**
+     * tile size setter
+     * @param tileSize size to size
+     */
     public void setTileSize(int tileSize) {
         this.tileSize = tileSize;
     }
 
+    /**
+     * abandon class
+     * @return col
+     */
     public int getCellCol() {
         return cellCol;
     }
 
+    /**
+     * abandon class
+     * @return row
+     */
     public int getCellRow() {
         return cellRow;
     }
