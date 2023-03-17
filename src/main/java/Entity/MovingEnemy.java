@@ -66,10 +66,27 @@ public class MovingEnemy extends Enemy {
             int goalCol = player.getX()/tileManager.getTileSize();
             int goalRow = player.getY()/tileManager.getTileSize();
             searchPath(goalCol, goalRow);
+            if(x/32 == player.getX()/tileManager.getTileSize() && y/32 == player.getY()/tileManager.getTileSize()){
+                int dx = player.getX() - x;
+                int dy = player.getY() - y;
+
+                double distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance <= speed) {
+                    x = player.getX();
+                    y = player.getY();}
+                //move enemy in that direction
+                else {
+                    x += (int) Math.round(dx * speed / distance);
+                    y += (int) Math.round(dy * speed / distance);
+                }
+            }
         }
         hitbox.setLocation(getX(),getY());
-
     }
+
+
+
+
 
     // getters and setters
 
