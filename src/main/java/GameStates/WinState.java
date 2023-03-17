@@ -35,6 +35,8 @@ public class WinState extends JPanel implements GameState, ActionListener{
         restartButton.setBackground(Color.GREEN);
         restartButton.setForeground(Color.WHITE);
         restartButton.addActionListener(this);
+        restartButton.setOpaque(true);
+        restartButton.setBorderPainted(false);
         add(restartButton);
 
         // Create the exit button
@@ -44,6 +46,8 @@ public class WinState extends JPanel implements GameState, ActionListener{
         exitButton.setFont(new Font("Arial", Font.BOLD, 20)); // font name, style, size
         exitButton.setBackground(Color.RED);
         exitButton.setForeground(Color.WHITE);
+        exitButton.setOpaque(true);
+        exitButton.setBorderPainted(false);
         add(exitButton);
 
         // Initialize the main menu state.
