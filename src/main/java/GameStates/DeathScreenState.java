@@ -7,6 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+/**
+ * deathScreen with all fields as parameters describe game over panel
+ */
 public class DeathScreenState extends JPanel implements GameState, ActionListener {
     private static final int SCREEN_WIDTH = 800;
     private static final int SCREEN_HEIGHT = 600;
@@ -14,9 +17,11 @@ public class DeathScreenState extends JPanel implements GameState, ActionListene
     JFrame frame = new JFrame("Game Over");
     private JButton restartButton;
     private JButton exitButton;
-
     private Clip endMusicClip;
 
+    /**
+     * DeathScreenState initializer
+     */
     public void init() {
 
         try {
@@ -63,15 +68,24 @@ public class DeathScreenState extends JPanel implements GameState, ActionListene
         frame.setVisible(true);
     }
 
+    /**
+     * deathScreen updater
+     */
     public void update() {
         // Update the death screen state.
     }
 
+    /**
+     * deathScree render
+     */
     public void render() {
         // Render the death screen state.
     }
 
-
+    /**
+     * DeathScreen menu detect user action
+     * @param e player action input
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == restartButton) {
@@ -99,6 +113,10 @@ public class DeathScreenState extends JPanel implements GameState, ActionListene
 
     }
 
+    /**
+     * return to stateManager
+     * @return
+     */
     private GameStateManager getStateManager() {
         return stateManager;
     }
