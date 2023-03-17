@@ -18,6 +18,13 @@ public class DeathScreenState extends JPanel implements GameState, ActionListene
     private Clip endMusicClip;
 
     public void init() {
+
+        try {
+            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+        } catch (Exception eButt) {
+            eButt.printStackTrace();
+        }
+
         try {
             AudioInputStream endMusic = AudioSystem.getAudioInputStream(new File("assets/audio/gamelose.wav"));
             this.endMusicClip = AudioSystem.getClip();

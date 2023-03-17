@@ -19,6 +19,13 @@ public class WinState extends JPanel implements GameState, ActionListener{
 
     @Override
     public void init() {
+
+        try {
+            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+        } catch (Exception eButt) {
+            eButt.printStackTrace();
+        }
+
         try {
             AudioInputStream winMusic = AudioSystem.getAudioInputStream(new File("assets/audio/startmusic.wav"));
             this.winMusicClip = AudioSystem.getClip();
