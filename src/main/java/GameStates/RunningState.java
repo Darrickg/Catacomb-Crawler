@@ -89,6 +89,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
             System.out.println("Error playing music: " + e.getMessage());
         }
     }
+
     private void centerFrame() {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int centerX = screenSize.width / 2;
