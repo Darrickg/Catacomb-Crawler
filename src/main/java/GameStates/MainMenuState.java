@@ -46,7 +46,7 @@ public class MainMenuState extends JPanel implements GameState, ActionListener {
 
         // Create the start button
         startButton = new JButton("Start Game");
-        startButton.setBounds(100, 100, 100, 50); // x, y, width, height
+        startButton.setBounds(width/2 - 300, 200, 200, 50); // x, y, width, height
         startButton.setFont(new Font("Arial", Font.BOLD, 20)); // font name, style, size
         startButton.setBackground(Color.GREEN);
         startButton.setForeground(Color.WHITE);
@@ -55,7 +55,7 @@ public class MainMenuState extends JPanel implements GameState, ActionListener {
 
         // Create the exit button
         exitButton = new JButton("Exit Game");
-        exitButton.setBounds(700, 700, 100, 50); // x, y, width, height
+        exitButton.setBounds(width/2 + 100, 200, 200, 50); // x, y, width, height
         exitButton.setFont(new Font("Arial", Font.BOLD, 20)); // font name, style, size
         exitButton.setBackground(Color.RED);
         exitButton.setForeground(Color.WHITE);

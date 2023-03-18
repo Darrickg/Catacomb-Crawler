@@ -10,19 +10,18 @@ import java.io.File;
 /**
  * WinState with all fields as parameters describe game win panel
  */
-public class WinState extends JPanel implements GameState, ActionListener{
+
+
+public class WinState extends JPanel implements GameState, ActionListener {
     private static final int SCREEN_WIDTH = 800;
     private static final int SCREEN_HEIGHT = 600;
     private GameStateManager stateManager = new GameStateManager();
-    JFrame frame = new JFrame("WIN");
+
     private JButton restartButton;
     private JButton exitButton;
-    private Clip winMusicClip;
 
-    /**
-     * Win state screen initializer
-     */
-    @Override
+    private Clip endMusicClip;
+    JFrame frame = new JFrame("Win");
     public void init() {
 
         try {
@@ -31,41 +30,62 @@ public class WinState extends JPanel implements GameState, ActionListener{
             eButt.printStackTrace();
         }
 
-        try {
-            AudioInputStream winMusic = AudioSystem.getAudioInputStream(new File("assets/audio/gamewinmusic.wav"));
-            this.winMusicClip = AudioSystem.getClip();
-            this.winMusicClip.open(winMusic);
-            this.winMusicClip.loop(Clip.LOOP_CONTINUOUSLY);
-        } catch (Exception e) {
-            System.out.println("Error playing music: " + e.getMessage());
-        }
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int width = (int) screenSize.getWidth();
+        int height = (int) screenSize.getHeight();
+
+        frame.setSize(width, height);
+
+        JPanel panel = new JPanel();
+        panel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        panel.setLayout(null);
+       //panel.setLayout(new OverlayLayout(panel));
 
         // Create the start button
         restartButton = new JButton("Restart Game");
-        restartButton.setBounds(100, 100, 100, 50); // x, y, width, height
+        restartButton.setBounds(width/2 - 300, 200, 200, 50); // x, y, width, height
         restartButton.setFont(new Font("Arial", Font.BOLD, 20)); // font name, style, size
         restartButton.setBackground(Color.GREEN);
         restartButton.setForeground(Color.WHITE);
         restartButton.addActionListener(this);
-        add(restartButton);
+        panel.add(restartButton);
 
         // Create the exit button
         exitButton = new JButton("Exit Game");
-        exitButton.addActionListener(this);
-        exitButton.setBounds(250, 100, 100, 50); // x, y, width, height
+        exitButton.setBounds(width/2 + 100, 200, 200, 50); // x, y, width, height
         exitButton.setFont(new Font("Arial", Font.BOLD, 20)); // font name, style, size
         exitButton.setBackground(Color.RED);
         exitButton.setForeground(Color.WHITE);
-        add(exitButton);
+        exitButton.addActionListener(this);
+        panel.add(exitButton);
+    
+        // Add the image
+        ImageIcon myImageIcon = new ImageIcon("assets/screens/winscreen.png");
+        Image myImage = myImageIcon.getImage();
+        Image scaledImage = myImage.getScaledInstance(width, height, Image.SCALE_SMOOTH); // scale the image to fit the panel
+        ImageIcon scaledImageIcon = new ImageIcon(scaledImage);
+        JLabel label = new JLabel(scaledImageIcon);
+        label.setBounds(0, 0, width, height);
+        panel.add(label);
 
         // Initialize the main menu state.
-        setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
-        stateManager.setCurrentState(new WinState());
+        stateManager.setCurrentState(new MainMenuState());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1920, 1080);
-        frame.setResizable(false);
-        frame.add(this);
+        frame.setResizable(true);
+        frame.add(panel); // ADD THE PANEL TO THE FRAME INSTEAD
         frame.setVisible(true);
+        frame.setSize(1920, 1080);
+
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+        try {
+            AudioInputStream endMusic = AudioSystem.getAudioInputStream(new File("assets/audio/gamewinmusic.wav"));
+            this.endMusicClip = AudioSystem.getClip();
+            this.endMusicClip.open(endMusic);
+            this.endMusicClip.loop(Clip.LOOP_CONTINUOUSLY);
+        } catch (Exception e) {
+            System.out.println("Error playing music: " + e.getMessage());
+        }
     }
 
     /**
@@ -106,7 +126,7 @@ public class WinState extends JPanel implements GameState, ActionListener{
 
                 if (stateManager.getCurrentState() != null) {
 
-                    this.winMusicClip.close();
+                    this.endMusicClip.close();
 
                     try {
                         AudioInputStream buttonSound = AudioSystem.getAudioInputStream(new File("assets/audio/select.wav"));
