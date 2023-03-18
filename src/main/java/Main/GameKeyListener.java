@@ -3,6 +3,9 @@ package Main;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * The GameKeyListener class implements KeyListener from java and detect user's keyboard input
+ */
 public class GameKeyListener implements KeyListener {
 
     private boolean upPressed = false;
@@ -10,6 +13,10 @@ public class GameKeyListener implements KeyListener {
     private boolean leftPressed = false;
     private boolean rightPressed = false;
 
+    /**
+     * the keyPressed detect user's up down left right input
+     * @param e keyboard input
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_UP) {
@@ -26,6 +33,10 @@ public class GameKeyListener implements KeyListener {
         }
     }
 
+    /**
+     * the key released class detect user release keyboard
+     * @param e
+     */
     @Override
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_UP) {
@@ -42,24 +53,43 @@ public class GameKeyListener implements KeyListener {
         }
     }
 
+    /**
+     * abandon class
+     * @param e in-typed
+     */
     @Override
     public void keyTyped(KeyEvent e) {
         // do nothing
     }
 
-    // getters for movement variables
+    /**
+     * getters for movement variables
+     * @return press or not
+     */
     public boolean isUpPressed() {
         return upPressed;
     }
 
+    /**
+     * getters for movement variables
+     * @return press or not
+     */
     public boolean isDownPressed() {
         return downPressed;
     }
 
+    /**
+     * getters for movement variables
+     * @return press or not
+     */
     public boolean isLeftPressed() {
         return leftPressed;
     }
 
+    /**
+     * getters for movement variables
+     * @return press or not
+     */
     public boolean isRightPressed() {
         return rightPressed;
     }
