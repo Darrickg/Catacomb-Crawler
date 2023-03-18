@@ -8,6 +8,7 @@ import Rewards.bonus;
 import Rewards.regular;
 import tile.TileManager;
 import HealthBar.HealthBar;
+import GamePanel.GamePanel;
 
 import javax.sound.sampled.*;
 import javax.swing.*;
@@ -22,20 +23,21 @@ import java.util.concurrent.TimeUnit;
 /**
  * RunScreen with all fields as parameters describe game running panel
  */
-public class RunningState extends JPanel implements GameState, Runnable, KeyListener {
+public class RunningState extends JFrame implements GameState, Runnable, KeyListener {
 
     private int numRegularRewards;
-    private HealthBar healthBar;
-    private GameStateManager stateManager = new GameStateManager();
-    JFrame frame = new JFrame("Simple Game");
-    private boolean doorOpen;
-    private Player player;
-    private ArrayList<Enemy> enemies;
-    private Thread gameThread;
-    private ArrayList<Items> items;
-    private volatile boolean running = true;
-    private TileManager tileManager;
 
+    private GameStateManager stateManager = new GameStateManager();
+    //JFrame frame = new JFrame("Simple Game");
+    GamePanel gamePanel = new GamePanel();
+    private boolean doorOpen;
+    private Player player = gamePanel.getPlayer();
+    private ArrayList<Enemy> enemies = gamePanel.getEnemies();
+    private Thread gameThread;
+    private ArrayList<Items> items = gamePanel.getItems();
+    private volatile boolean running = true;
+    private TileManager tileManager = gamePanel.getTileManager();
+    private HealthBar healthBar = gamePanel.getHealthBar();
     private static final int SCREEN_WIDTH = 1920;
     private static final int SCREEN_HEIGHT = 1080;
     private static final int TILE_SIZE = 32;
@@ -45,14 +47,25 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
 
     private Clip gameMusicClip;
 
+
     /**
      * game running state initializer
      */
     public void init() {
+
+
+
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int width = (int) screenSize.getWidth();
+        int height = (int) screenSize.getHeight();
+
+       setSize(width, height);
+
+/*
         // Initialize the running state.
-        setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         // adjust the TileManager accordingly
-        tileManager = new TileManager(this, 60, 33, TILE_SIZE);
+        tileManager = new TileManager(gamePanel, 60, 33, TILE_SIZE);
+
         // Set up player
         player = new Player(930, 410, 25,50,3);
         // Set up enemies
@@ -64,22 +77,30 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         items.add(new bonus(300,300,16,16,200,100,500,tileManager));
 
 
-        numRegularRewards = 1; // IMPORTANT TODO: initialize to total number of regular rewards
-        doorOpen = false;
+
 
         healthBar = new HealthBar();
-        add(healthBar);
-
+        add(healthBar);*/
+        numRegularRewards = 1; // IMPORTANT TODO: initialize to total number of regular rewards
+        doorOpen = false;
         gameThread = new Thread(this);
         gameThread.start();
 
+        addKeyListener(this);
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1920, 1080);
-        frame.setResizable(true);
-        frame.addKeyListener(this);
-        frame.add(this);
-        frame.setVisible(true);
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //frame.setSize(1920, 1080);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setResizable(true);
+        add(gamePanel);
+        pack();
+        setVisible(true);
+        //frame.pack();
+        //frame.setVisible(true);
+
+
+
 
         try {
             AudioInputStream gameMusic = AudioSystem.getAudioInputStream(new File("assets/audio/gamemusic.wav"));
@@ -157,7 +178,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
             // Player is colliding with a solid tile, so revert to previous position
             stateManager.setState(new WinState());
 
-            frame.dispose();
+            dispose();
             running = false;
         }
 
@@ -208,7 +229,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
                             }
 
                             stateManager.setState(new DeathScreenState());
-                            frame.dispose();
+                            dispose();
                             running = false;
                         }
                     }
@@ -235,7 +256,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
                             // Player is dead, end game
                             this.gameMusicClip.stop();
                             stateManager.setState(new DeathScreenState());
-                            frame.dispose();
+                            dispose();
                             running = false;
                         }
                         ((TrapEnemy) enemy).activate();
@@ -328,6 +349,8 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
      * paint component print objects on panel
      * @param g g to panel
      */
+
+    /*
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -375,7 +398,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         long timeFromGameStart = System.currentTimeMillis() - startingTime;
 
         g2d.drawString("Time: " + timeFromGameStart / 1000 + "s", 10, 55);
-    }
+    }*/
 
     /**
      * key pressed detect user keyboard pressed
