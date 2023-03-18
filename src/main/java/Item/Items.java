@@ -1,13 +1,11 @@
 package Item;
 
 import java.awt.*;
-import java.util.List;
 
 /**
  * The items class represent a generic item object
  */
 public class Items {
-    private List<Items> items;
     private boolean pickedUp;
 
     public void remove() {

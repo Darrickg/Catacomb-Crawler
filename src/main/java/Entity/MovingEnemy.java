@@ -6,11 +6,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import Entity.Enemy;
-import Entity.Player;
 import astar.PathFinder;
 import tile.TileManager;
-import astar.Node;
 
 /**
  * The MovingEnemy class extends from Enemy class represent a generic moving-enemy object

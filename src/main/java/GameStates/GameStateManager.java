@@ -1,7 +1,6 @@
 package GameStates;
 
 import javax.swing.*;
-import java.awt.*;
 
 /**
  * game state manager with all fields as parameters create manager of game state

@@ -10,7 +10,6 @@ import java.io.*;
  * The tile manager class represent a manager that manage all tiles
  */
 public class TileManager {
-    private JPanel panel;
     private BufferedImage[] tileImages;
     private int[][] mapTileNum;
     int cellCol;
@@ -25,7 +24,6 @@ public class TileManager {
      * @param tileSize game tile size
      */
     public TileManager(JPanel panel, int cellCol, int cellRow, int tileSize){
-        this.panel = panel;
         this.cellCol = cellCol;
         this.cellRow = cellRow;
         this.tileSize = tileSize;

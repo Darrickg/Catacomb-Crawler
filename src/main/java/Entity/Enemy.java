@@ -1,13 +1,6 @@
 package Entity;
 
-import Entity.Entity;
-import Entity.Player;
-
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 /**
  * The Enemy class represent a generic enemy object

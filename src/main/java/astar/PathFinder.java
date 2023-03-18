@@ -1,7 +1,6 @@
 package astar;
 import tile.TileManager;
 
-import javax.swing.*;
 import java.util.ArrayList;
 
 public class PathFinder {

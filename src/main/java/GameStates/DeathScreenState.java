@@ -12,8 +12,6 @@ import java.io.File;
  */
 
 public class DeathScreenState extends JPanel implements GameState, ActionListener {
-    private static final int SCREEN_WIDTH = 800;
-    private static final int SCREEN_HEIGHT = 600;
     private GameStateManager stateManager = new GameStateManager();
 
     private JButton restartButton;

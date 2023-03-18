@@ -14,7 +14,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +32,6 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
     private Player player;
     private ArrayList<Enemy> enemies;
     private Thread gameThread;
-    private BufferedImage playerImage;
     private ArrayList<Items> items;
     private volatile boolean running = true;
     private TileManager tileManager;

@@ -6,9 +6,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import Entity.Enemy;
-import Entity.Player;
-
 /**
  * The TrapEnemy class extends from enemy represent a generic trap enemy object
  */

@@ -1,23 +1,10 @@
 package Entity;
 
 import javax.imageio.ImageIO;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 import java.awt.Rectangle;
 
 /**
@@ -100,14 +87,6 @@ public class Player extends Entity{
      * @param value set value to lives
      */
     public void setLives(int value){ this.lives = value;}
-
-    /**
-     * abandon method
-     * @param inventory nill
-     */
-    public void setInventory(ArrayList inventory) {
-        inventory = inventory;
-    }
 
     /**
      * player score adder
