@@ -64,7 +64,9 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         enemies.add(new TrapEnemy(1500,875,30,17,75));
         enemies.add(new TrapEnemy(1000,800,30,17,75));
         items = new ArrayList<>();
-        items.add(new regular(250,200,18,15,75));
+        items.add(new regular(350,180,18,15,75));
+        items.add(new regular(1800,300,18,15,75));
+        items.add(new regular(100,900,18,15,75));
         items.add(new bonus(300,300,16,16,200,100,500,tileManager));
         items.add(new bonus(500,700,16,16,200,100,200,tileManager));
         items.add(new bonus(1600,100,16,16,200,100,300,tileManager));
@@ -72,7 +74,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         items.add(new bonus(1000,500,16,16,200,100,700,tileManager));
 
 
-        numRegularRewards = 1; // IMPORTANT TODO: initialize to total number of regular rewards
+        numRegularRewards = 3; // IMPORTANT TODO: initialize to total number of regular rewards
         doorOpen = false;
 
         healthBar = new HealthBar();
