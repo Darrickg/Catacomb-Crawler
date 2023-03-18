@@ -399,32 +399,6 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
             downedKeyList.add(Integer.valueOf(keyCode));
         }
 
-
-        //DEBUG:  Edit 0314, Not using anymore
-//        switch (keyCode) {
-//            case KeyEvent.VK_UP:
-//                player.setPrevY(player.getY());
-//                player.setY(player.getY()-5);
-//
-//                break;
-//            case KeyEvent.VK_DOWN:
-//                player.setPrevY(player.getY());
-//                player.setY(player.getY()+5);
-//
-//                break;
-//            case KeyEvent.VK_LEFT:
-//                player.setPrevX(player.getX());
-//                player.setX(player.getX()-5);
-//                player.setCurrentFrame(1);
-//
-//                break;
-//            case KeyEvent.VK_RIGHT:
-//                player.setPrevX(player.getX());
-//                player.setX(player.getX()+5);
-//                player.setCurrentFrame(0);
-//
-//                break;
-//        }
         repaint();
     }
 
