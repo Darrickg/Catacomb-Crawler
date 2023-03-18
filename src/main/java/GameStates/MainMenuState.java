@@ -19,14 +19,12 @@ public class MainMenuState extends JPanel implements GameState, ActionListener {
     private static final int SCREEN_WIDTH = 800;
     private static final int SCREEN_HEIGHT = 600;
     private GameStateManager stateManager = new GameStateManager();
-    JFrame frame = new JFrame("Main Menu");
+
     private JButton startButton;
     private JButton exitButton;
-    private Clip startMusicClip;
 
-    /**
-     * main menu state initializer
-     */
+    private Clip startMusicClip;
+    JFrame frame = new JFrame("Main Menu");
     public void init() {
 
         try {
@@ -35,6 +33,17 @@ public class MainMenuState extends JPanel implements GameState, ActionListener {
             eButt.printStackTrace();
         }
 
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int width = (int) screenSize.getWidth();
+        int height = (int) screenSize.getHeight();
+
+        frame.setSize(width, height);
+
+        JPanel panel = new JPanel();
+        panel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        panel.setLayout(null);
+       //panel.setLayout(new OverlayLayout(panel));
+
         // Create the start button
         startButton = new JButton("Start Game");
         startButton.setBounds(100, 100, 100, 50); // x, y, width, height
@@ -42,25 +51,35 @@ public class MainMenuState extends JPanel implements GameState, ActionListener {
         startButton.setBackground(Color.GREEN);
         startButton.setForeground(Color.WHITE);
         startButton.addActionListener(this);
-        add(startButton);
+        panel.add(startButton);
 
         // Create the exit button
         exitButton = new JButton("Exit Game");
-        exitButton.addActionListener(this);
-        exitButton.setBounds(250, 100, 100, 50); // x, y, width, height
+        exitButton.setBounds(700, 700, 100, 50); // x, y, width, height
         exitButton.setFont(new Font("Arial", Font.BOLD, 20)); // font name, style, size
         exitButton.setBackground(Color.RED);
         exitButton.setForeground(Color.WHITE);
-        add(exitButton);
+        exitButton.addActionListener(this);
+        panel.add(exitButton);
+    
+        // Add the image
+        ImageIcon myImageIcon = new ImageIcon("assets/screens/menuscreen.png");
+        Image myImage = myImageIcon.getImage();
+        Image scaledImage = myImage.getScaledInstance(width, height, Image.SCALE_SMOOTH); // scale the image to fit the panel
+        ImageIcon scaledImageIcon = new ImageIcon(scaledImage);
+        JLabel label = new JLabel(scaledImageIcon);
+        label.setBounds(0, 0, width, height);
+        panel.add(label);
 
         // Initialize the main menu state.
-        setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         stateManager.setCurrentState(new MainMenuState());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1920, 1080);
-        frame.setResizable(false);
-        frame.add(this);
+        frame.setResizable(true);
+        frame.add(panel); // ADD THE PANEL TO THE FRAME INSTEAD
         frame.setVisible(true);
+        frame.setSize(1920, 1080);
+
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         try {
             AudioInputStream startMusic = AudioSystem.getAudioInputStream(new File("assets/audio/startmusic.wav"));
