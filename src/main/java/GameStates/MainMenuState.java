@@ -46,7 +46,7 @@ public class MainMenuState extends JPanel implements GameState, ActionListener {
 
         // Create the start button
         startButton = new JButton("Start Game");
-        startButton.setBounds(100, 100, 100, 50); // x, y, width, height
+        startButton.setBounds(800, 700, 100, 50); // x, y, width, height
         startButton.setFont(new Font("Arial", Font.BOLD, 20)); // font name, style, size
         startButton.setBackground(Color.GREEN);
         startButton.setForeground(Color.WHITE);
