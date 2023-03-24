@@ -300,28 +300,11 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
                 System.out.println("wall collide");
                 synchronized (player) {
                     player.setPosition(player.getPrevX(), player.getPrevY());
+                    player.update();
                 }
             }
             player.update();
 
-
-            // Player position update with keyboard input
-            int speedFactor = 3;
-            player.setPrevX(player.getX());
-            player.setX(player.getX() + getKBInputX() * speedFactor);
-            player.setPrevY(player.getY());
-            player.setY(player.getY() + getKBInputY() * speedFactor);
-
-            // Left and Right Sprite change
-            if(getKBInputX() == -1)
-                player.setCurrentFrame(1);
-            if(getKBInputX() == 1)
-                player.setCurrentFrame(0);
-            // Left and Right Sprite change
-            if(getKBInputY() == -1)
-                player.setCurrentFrame(3);
-            if(getKBInputY() == 1)
-                player.setCurrentFrame(2);
 
             try {
 
@@ -399,64 +382,32 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
      */
     @Override
     public void keyPressed(KeyEvent e) {
-        // Use this for pressing the left and right keys simultaneously
         int keyCode = e.getKeyCode();
-        if (!downedKeyList.contains(keyCode)) {
-            downedKeyList.add(Integer.valueOf(keyCode));
+        switch (keyCode) {
+            case KeyEvent.VK_UP:
+                player.setY(player.getY()-5);
+                break;
+            case KeyEvent.VK_DOWN:
+                player.setY(player.getY()+5);
+                break;
+            case KeyEvent.VK_LEFT:
+                player.setX(player.getX()-5);
+                break;
+            case KeyEvent.VK_RIGHT:
+                player.setX(player.getX()+5);
+                break;
         }
-
         repaint();
     }
 
-    /**
-     * detect user x dimension keyboard input
-     * @return user input x
-     */
-    public int getKBInputX(){
-        int inputX = 0;
-        inputX += (downedKeyList.contains(KeyEvent.VK_LEFT) ? -1 : 0);
-        inputX += (downedKeyList.contains(KeyEvent.VK_RIGHT) ? 1 : 0);
-        inputX += (downedKeyList.contains(KeyEvent.VK_A) ? -1 : 0);
-        inputX += (downedKeyList.contains(KeyEvent.VK_D) ? 1 : 0);
-        return inputX;
-    }
-
-    /**
-     * detect user y dimension keyboard input
-     * @return user input y
-     */
-    public int getKBInputY(){
-        int inputY = 0;
-        inputY += (downedKeyList.contains(KeyEvent.VK_UP) ? -1 : 0);
-        inputY += (downedKeyList.contains(KeyEvent.VK_DOWN) ? 1 : 0);
-        inputY += (downedKeyList.contains(KeyEvent.VK_W) ? -1 : 0);
-        inputY += (downedKeyList.contains(KeyEvent.VK_S) ? 1 : 0);
-        return inputY;
-    }
-
-    /**
-     * method abandon
-     * @param e input e
-     */
     @Override
     public void keyTyped(KeyEvent e) {
         // not used
     }
 
-    /**
-     * method abandon
-     * @param e input e
-     */
     @Override
     public void keyReleased(KeyEvent e) {
-//        int keyCode = e.getKeyCode();
-//
-//        inputX = KeyEvent.VK_LEFT == keyCode || KeyEvent.VK_RIGHT == keyCode ? 0 : inputX;
-//        inputY = KeyEvent.VK_UP == keyCode || KeyEvent.VK_DOWN == keyCode? 0 : inputY;
-
-        int keyCode = e.getKeyCode();
-        if (downedKeyList.contains(keyCode)) {
-            downedKeyList.remove(Integer.valueOf(keyCode));
-        }
+        // not used
     }
+
 }
