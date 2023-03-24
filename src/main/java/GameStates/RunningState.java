@@ -59,19 +59,17 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         enemies = new ArrayList<>();
         enemies.add(new MovingEnemy(600, 500, 30,14, 1, 10000));
         enemies.add(new TrapEnemy(160,40,30,17,75));
-        enemies.add(new TrapEnemy(160,60,30,17,75));
+        enemies.add(new TrapEnemy(460,60,30,17,75));
         enemies.add(new TrapEnemy(400,850,30,17,75));
-        enemies.add(new TrapEnemy(150,87,30,17,75));
-        enemies.add(new TrapEnemy(100,80,30,17,75));
+        enemies.add(new TrapEnemy(150,180,30,17,75));
+        enemies.add(new TrapEnemy(700,400,30,17,75));
         items = new ArrayList<>();
-        items.add(new regular(350,180,18,15,75));
-        items.add(new regular(180,300,18,15,75));
-        items.add(new regular(100,90,18,15,75));
-        items.add(new bonus(300,300,16,16,200,100,500,tileManager));
-        items.add(new bonus(500,70,16,16,200,100,200,tileManager));
-        items.add(new bonus(160,100,16,16,200,100,300,tileManager));
+        items.add(new regular(740,550,18,15,75));
+        items.add(new regular(40,550,18,15,75));
+        items.add(new regular(80,70,18,15,75));
+        items.add(new bonus(300,340,16,16,200,100,500,tileManager));
         items.add(new bonus(700,100,16,16,200,100,100,tileManager));
-        items.add(new bonus(100,500,16,16,200,100,700,tileManager));
+        items.add(new bonus(100,530,16,16,200,100,700,tileManager));
 
 
         numRegularRewards = 3; // IMPORTANT TODO: initialize to total number of regular rewards
@@ -385,16 +383,16 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         int keyCode = e.getKeyCode();
         switch (keyCode) {
             case KeyEvent.VK_UP:
-                player.setY(player.getY()-5);
+                player.setY(player.getY()-10);
                 break;
             case KeyEvent.VK_DOWN:
-                player.setY(player.getY()+5);
+                player.setY(player.getY()+10);
                 break;
             case KeyEvent.VK_LEFT:
-                player.setX(player.getX()-5);
+                player.setX(player.getX()-10);
                 break;
             case KeyEvent.VK_RIGHT:
-                player.setX(player.getX()+5);
+                player.setX(player.getX()+10);
                 break;
         }
         repaint();
