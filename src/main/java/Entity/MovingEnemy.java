@@ -44,7 +44,7 @@ public class MovingEnemy extends Enemy {
         currentFrame = 0;
         sprites = new BufferedImage[1];
         hitbox = new Rectangle(x, y, enemyWidth, enemyHeight);
-        tileManager = new TileManager(null, 60, 33, 32);
+        tileManager = new TileManager(null, 25, 19, 32);
         this.x=x;
         this.y=y;
         this.prevX = x;

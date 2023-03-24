@@ -36,8 +36,8 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
     private volatile boolean running = true;
     private TileManager tileManager;
 
-    private static final int SCREEN_WIDTH = 1920;
-    private static final int SCREEN_HEIGHT = 1080;
+    private static final int SCREEN_WIDTH = 800;
+    private static final int SCREEN_HEIGHT = 600;
     private static final int TILE_SIZE = 32;
 
     private long startingTime = System.currentTimeMillis();
@@ -52,26 +52,26 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         // Initialize the running state.
         setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         // adjust the TileManager accordingly
-        tileManager = new TileManager(this, 60, 33, TILE_SIZE);
+        tileManager = new TileManager(this, 25, 19, TILE_SIZE);
         // Set up player
-        player = new Player(930, 410, 25,50,3);
+        player = new Player(400, 300, 32,32,3);
         // Set up enemies
         enemies = new ArrayList<>();
-        enemies.add(new MovingEnemy(500, 500, 30,14, 2, 10000));
-        enemies.add(new TrapEnemy(1600,400,30,17,75));
-        enemies.add(new TrapEnemy(1600,600,30,17,75));
+        enemies.add(new MovingEnemy(600, 500, 30,14, 1, 10000));
+        enemies.add(new TrapEnemy(160,40,30,17,75));
+        enemies.add(new TrapEnemy(160,60,30,17,75));
         enemies.add(new TrapEnemy(400,850,30,17,75));
-        enemies.add(new TrapEnemy(1500,875,30,17,75));
-        enemies.add(new TrapEnemy(1000,800,30,17,75));
+        enemies.add(new TrapEnemy(150,87,30,17,75));
+        enemies.add(new TrapEnemy(100,80,30,17,75));
         items = new ArrayList<>();
         items.add(new regular(350,180,18,15,75));
-        items.add(new regular(1800,300,18,15,75));
-        items.add(new regular(100,900,18,15,75));
+        items.add(new regular(180,300,18,15,75));
+        items.add(new regular(100,90,18,15,75));
         items.add(new bonus(300,300,16,16,200,100,500,tileManager));
-        items.add(new bonus(500,700,16,16,200,100,200,tileManager));
-        items.add(new bonus(1600,100,16,16,200,100,300,tileManager));
-        items.add(new bonus(700,1000,16,16,200,100,100,tileManager));
-        items.add(new bonus(1000,500,16,16,200,100,700,tileManager));
+        items.add(new bonus(500,70,16,16,200,100,200,tileManager));
+        items.add(new bonus(160,100,16,16,200,100,300,tileManager));
+        items.add(new bonus(700,100,16,16,200,100,100,tileManager));
+        items.add(new bonus(100,500,16,16,200,100,700,tileManager));
 
 
         numRegularRewards = 3; // IMPORTANT TODO: initialize to total number of regular rewards
@@ -85,7 +85,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
 
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1920, 1080);
+        frame.setSize(850, 650);
         frame.setResizable(true);
         frame.addKeyListener(this);
         frame.add(this);
@@ -239,8 +239,9 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
                         }
 
                         player.decreaseScore(enemy.getDamage());
-                        healthBar.decreaseHealth(1);
                         healthBar.setHealth(healthBar.getHealth()-1);
+                        healthBar.decreaseHealth(1);
+
                         if (healthBar.isDead() || player.getScore() <= 0) {
                             // Player is dead, end game
                             this.gameMusicClip.stop();

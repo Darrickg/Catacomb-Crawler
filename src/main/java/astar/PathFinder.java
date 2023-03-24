@@ -18,9 +18,9 @@ public class PathFinder {
     public int maxRow;
 public PathFinder(){
 
-    tileManager = new TileManager(null, 60, 33, 32);
-    maxCol = 59;
-    maxRow = 32;
+    tileManager = new TileManager(null, 25, 19, 32);
+    maxCol = 25;
+    maxRow = 19;
     instantiateNodes();
 }
 public void instantiateNodes() {
@@ -75,7 +75,7 @@ public void setNodes(int startCol, int startRow, int goalCol, int goalRow){
     while (col < maxCol && row < maxRow) {
         // set solid
         int tileNum = tileManager.getMapTileNum()[row][col];
-        if(tileNum == 1){//todo
+        if(tileNum == 1 || tileNum == 7 || tileNum == 8 || tileNum == 4 || tileNum == 5 || tileNum == 6 ){//todo
             node[col][row].solid = true;
 
         }

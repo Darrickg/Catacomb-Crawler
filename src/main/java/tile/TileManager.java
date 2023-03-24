@@ -30,7 +30,7 @@ public class TileManager {
         tileImages = new BufferedImage[20];
         mapTileNum = new int[cellRow][cellCol];
         getTileImage();
-        loadMap("assets/maps/map03.txt");
+        loadMap("assets/maps/map02.txt");
     }
 
     /**
@@ -122,7 +122,24 @@ public class TileManager {
                 y += tileSize;
             }
         }
+        drawLines(g2);
     }
+    /**
+     * Draw lines between tiles
+     * @param g2 game
+     */
+    public void drawLines(Graphics2D g2) {
+        g2.setColor(Color.BLACK);
+        for (int i = 0; i <= cellCol; i++) {
+            int x = i * tileSize;
+            g2.drawLine(x, 0, x, cellRow * tileSize);
+        }
+        for (int i = 0; i <= cellRow; i++) {
+            int y = i * tileSize;
+            g2.drawLine(0, y, cellCol * tileSize, y);
+        }
+    }
+
 
     /**
      * map tile number getter
