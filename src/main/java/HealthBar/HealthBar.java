@@ -55,6 +55,7 @@ public class HealthBar extends JPanel {
      * @return current health
      */
     public int getHealth() {
+        repaint();
         return health;
     }
 

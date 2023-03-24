@@ -196,7 +196,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
                         }
 
                         player.decreaseScore(enemy.getDamage());
-                       healthBar.decreaseHealth(3);
+                        healthBar.decreaseHealth(3);
                         if (healthBar.isDead()) {
                             // Player is dead, end game
                             this.gameMusicClip.stop();
@@ -237,7 +237,6 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
                         }
 
                         player.decreaseScore(enemy.getDamage());
-                        healthBar.setHealth(healthBar.getHealth()-1);
                         healthBar.decreaseHealth(1);
 
                         if (healthBar.isDead() || player.getScore() <= 0) {
@@ -353,7 +352,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
                 item.draw(g2d);}
         }
         for (int i = 0; i <= healthBar.getHealthIcons().length; i++) {
-            if (i <= healthBar.getHealth()) {
+            if (i < healthBar.getHealth()) {
                 // Draw full heart
                 g.drawImage(healthBar.getHealthIcons()[0], i * 30, 100, null);
             } else {
