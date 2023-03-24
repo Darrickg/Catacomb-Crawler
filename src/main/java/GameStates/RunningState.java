@@ -54,7 +54,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         // adjust the TileManager accordingly
         tileManager = new TileManager(this, 25, 19, TILE_SIZE);
         // Set up player
-        player = new Player(400, 300, 32,32,3);
+        player = new Player(400, 300, 20,25,3, tileManager.getMapTileNum());
         // Set up enemies
         enemies = new ArrayList<>();
         enemies.add(new MovingEnemy(600, 500, 30,14, 1, 10000));
@@ -349,7 +349,12 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         tileManager.draw((Graphics2D) g);
 
         // Draw player
-        player.draw(g2d);
+        //player.draw(g2d);
+        // set the color of the hitbox
+        g.setColor(Color.RED);
+
+      // draw the hitbox
+        g.drawRect(player.getHitbox().x, player.getHitbox().y, player.getWidth(), player.getHeight());
 
         // Draw enemies
         g.setColor(Color.BLUE);

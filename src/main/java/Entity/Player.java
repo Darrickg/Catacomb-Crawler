@@ -1,5 +1,7 @@
 package Entity;
 
+import tile.TileManager;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -29,6 +31,8 @@ public class Player extends Entity{
     private long durationBeforeDamage = 1000;
     private BufferedImage[] sprites;
     private int currentFrame;
+    public TileManager tileManager;
+    private int[][] gameBoard;
 
     /**
      * Player constructor with all fields as parameters
@@ -38,7 +42,7 @@ public class Player extends Entity{
      * @param PlayerHeight height of player model
      * @param lives lives of player model
      */
-    public Player(int x, int y , int playerWidth, int PlayerHeight, int lives ) {
+    public Player(int x, int y , int playerWidth, int PlayerHeight, int lives , int[][]board) {
         this.x = x;
         this.y = y;
         this.vx = 0;
@@ -50,6 +54,9 @@ public class Player extends Entity{
         width = playerWidth;
         height = PlayerHeight;
         hitbox = new Rectangle(x,y,width,height);
+        tileManager = new TileManager(null, 25, 19, 32);
+        gameBoard =  tileManager.getMapTileNum();
+
 
         //Load Sprite Images
         sprites = new BufferedImage[4];
@@ -63,6 +70,8 @@ public class Player extends Entity{
             e.printStackTrace();
         }
     }
+
+
 
     /**
      * Player score getter
@@ -376,8 +385,7 @@ public class Player extends Entity{
 
     // TODO : see if dead
 
-
-
+    
 
 }
 
