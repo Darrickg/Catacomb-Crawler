@@ -2,6 +2,7 @@ package Entity;
 
 import tile.TileManager;
 
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -42,7 +43,7 @@ public class Player extends Entity{
      * @param PlayerHeight height of player model
      * @param lives lives of player model
      */
-    public Player(int x, int y , int playerWidth, int PlayerHeight, int lives , int[][]board) {
+    public Player(int x, int y , int playerWidth, int PlayerHeight, int lives , int[][] board) {
         this.x = x;
         this.y = y;
         this.vx = 0;

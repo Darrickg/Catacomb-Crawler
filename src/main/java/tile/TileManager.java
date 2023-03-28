@@ -84,7 +84,10 @@ public class TileManager {
             int col = 0;
             int row = 0;
             String line;
+
             while((line = br.readLine()) != null){
+                if(line.equals(""))
+                    break;
                 String[] numbers = line.split(",");
                 for(col = 0; col < cellCol; col++){
                     int num = Integer.parseInt(numbers[col]);
