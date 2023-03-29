@@ -115,16 +115,20 @@ public class bonus extends rewards {
      */
     private void respawn() {
         int[][] map = tileManager.getMapTileNum();
-        int mapWidth = map[0].length;
-        int mapHeight = map.length;
+        int tileSize = tileManager.getTileSize();
         isRespawning = false;
         timeLeftToRespawn = respawnTime;
         int[] newPosition = findRandomValidTile();
-        setX(newPosition[0] * mapWidth);
-        setY(newPosition[1] * mapHeight);
-        currentTile = new int[]{getX(), getY()};
-        setHitbox(new Rectangle(x,y,getWidth(),getHeight()));
+        int xOffset = (tileSize - getWidth()) / 2;
+        int yOffset = (tileSize - getHeight()) / 2;
+        setX(newPosition[0] * tileSize + xOffset);
+        setY(newPosition[1] * tileSize + yOffset);
+        currentTile = new int[]{newPosition[0], newPosition[1]};
+        setHitbox(new Rectangle(x, y, getWidth(), getHeight()));
     }
+
+
+
 
     /**
      * bonus reward random spawn finder
@@ -179,7 +183,7 @@ public class bonus extends rewards {
      * @param g2d items
      */
     public void draw(Graphics2D g2d){
-        g2d.drawImage(sprites[currentFrame], x, y, null);
+        g2d.drawImage(sprites[currentFrame], x+8, y+8, null);
     }
 
     /**
