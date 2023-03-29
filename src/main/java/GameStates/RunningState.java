@@ -321,14 +321,8 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
 
         // Draw player
         player.draw(g2d);
-        // set the color of the hitbox
-        g.setColor(Color.RED);
-
-      // draw the hitbox
-        g.drawRect(player.getHitbox().x, player.getHitbox().y, player.getWidth(), player.getHeight());
 
         // Draw enemies
-        g.setColor(Color.BLUE);
         for (Enemy enemy : enemies) {
             //g.fillRect(enemy.getX(), enemy.getY(), 20, 20);
             if(enemy instanceof TrapEnemy){
