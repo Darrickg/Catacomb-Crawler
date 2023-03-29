@@ -320,7 +320,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         tileManager.draw((Graphics2D) g);
 
         // Draw player
-        //player.draw(g2d);
+        player.draw(g2d);
         // set the color of the hitbox
         g.setColor(Color.RED);
 
@@ -377,15 +377,19 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         switch (keyCode) {
             case KeyEvent.VK_UP:
                 nextY -= 32;
+                player.setCurrentFrame(3);
                 break;
             case KeyEvent.VK_DOWN:
                 nextY += 32;
+                player.setCurrentFrame(2);
                 break;
             case KeyEvent.VK_LEFT:
                 nextX -= 32;
+                player.setCurrentFrame(1);
                 break;
             case KeyEvent.VK_RIGHT:
                 nextX += 32;
+                player.setCurrentFrame(0);
                 break;
         }
 
