@@ -290,16 +290,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
                     }
                 }
             }
-            // Check for collision with solid tiles
 
-            if (tileManager.isSolid(player.getX(), player.getY(), player.getWidth(), player.getHeight())) {
-                // Player is colliding with a solid tile, so revert to previous position
-                System.out.println("wall collide");
-                synchronized (player) {
-                    player.setPosition(player.getPrevX(), player.getPrevY());
-                    player.update();
-                }
-            }
             player.update();
 
 
@@ -380,22 +371,32 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
     @Override
     public void keyPressed(KeyEvent e) {
         int keyCode = e.getKeyCode();
+        int nextX = player.getX();
+        int nextY = player.getY();
+
         switch (keyCode) {
             case KeyEvent.VK_UP:
-                player.setY(player.getY()-32);
+                nextY -= 32;
                 break;
             case KeyEvent.VK_DOWN:
-                player.setY(player.getY()+32);
+                nextY += 32;
                 break;
             case KeyEvent.VK_LEFT:
-                player.setX(player.getX()-32);
+                nextX -= 32;
                 break;
             case KeyEvent.VK_RIGHT:
-                player.setX(player.getX()+32);
+                nextX += 32;
                 break;
         }
-        repaint();
+
+        // Check if the next tile is solid before allowing the player to move
+        if (!tileManager.isSolid(nextX, nextY, player.getWidth(), player.getHeight())) {
+            player.setPosition(nextX, nextY);
+            player.update();
+            repaint();
+        }
     }
+
 
     @Override
     public void keyTyped(KeyEvent e) {

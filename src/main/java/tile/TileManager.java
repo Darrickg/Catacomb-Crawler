@@ -207,8 +207,8 @@ public class TileManager {
     public boolean isSolid(double x, double y, int width, int height) {
         int playerLeft = (int) x;
         int playerTop = (int) y;
-        int playerRight = (int) (x + width);
-        int playerBottom = (int) (y + height);
+        int playerRight = (int) (x + width-1);
+        int playerBottom = (int) (y + height-1);
 
         // Check if any of the player's corners are solid
         return isTileSolid(playerLeft, playerTop)
