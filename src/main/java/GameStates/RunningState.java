@@ -57,7 +57,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         player = new Player(384, 320, 32,32,3, tileManager.getMapTileNum());
         // Set up enemies
         enemies = new ArrayList<>();
-        enemies.add(new MovingEnemy(600, 500, 32,32, 1, 10000));
+        enemies.add(new MovingEnemy(608, 512, 32,32, 1, 10000));
         enemies.add(new TrapEnemy(160,40,30,17,75));
         enemies.add(new TrapEnemy(460,60,30,17,75));
         enemies.add(new TrapEnemy(400,850,30,17,75));

@@ -224,8 +224,8 @@ public class MovingEnemy extends Enemy {
             int nextY = pFinder.pathList.get(0).row * 32;
             int enLeft = (int) x;
             int enTop = (int) y;
-            int enRight = (int) (x + getWidth());
-            int enBottom = (int) (y + getHeight());
+            int enRight = (int) (x + getWidth()-1);
+            int enBottom = (int) (y + getHeight()-1);
 
             if(enTop > nextY && enLeft >= nextX && enRight <nextX + 32){
                 // can go up todo
