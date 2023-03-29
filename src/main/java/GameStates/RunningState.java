@@ -54,10 +54,10 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         // adjust the TileManager accordingly
         tileManager = new TileManager(this, 25, 19, TILE_SIZE);
         // Set up player
-        player = new Player(400, 300, 20,25,3, tileManager.getMapTileNum());
+        player = new Player(384, 320, 32,32,3, tileManager.getMapTileNum());
         // Set up enemies
         enemies = new ArrayList<>();
-        enemies.add(new MovingEnemy(600, 500, 30,14, 1, 10000));
+        enemies.add(new MovingEnemy(600, 500, 32,32, 1, 10000));
         enemies.add(new TrapEnemy(160,40,30,17,75));
         enemies.add(new TrapEnemy(460,60,30,17,75));
         enemies.add(new TrapEnemy(400,850,30,17,75));
@@ -382,16 +382,16 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         int keyCode = e.getKeyCode();
         switch (keyCode) {
             case KeyEvent.VK_UP:
-                player.setY(player.getY()-10);
+                player.setY(player.getY()-32);
                 break;
             case KeyEvent.VK_DOWN:
-                player.setY(player.getY()+10);
+                player.setY(player.getY()+32);
                 break;
             case KeyEvent.VK_LEFT:
-                player.setX(player.getX()-10);
+                player.setX(player.getX()-32);
                 break;
             case KeyEvent.VK_RIGHT:
-                player.setX(player.getX()+10);
+                player.setX(player.getX()+32);
                 break;
         }
         repaint();
