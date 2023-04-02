@@ -28,7 +28,7 @@ public class Player extends Entity{
 
     private int prevX, prevY;
 
-    public long lastDamageTime = 0;     //TODO: change back to private
+    public long lastDamageTime = 0;
     private long durationBeforeDamage = 1000;
     private BufferedImage[] sprites;
     private int currentFrame;
@@ -292,14 +292,6 @@ public class Player extends Entity{
     }
 
     /**
-     * abandon method
-     * @param vy vy = vy
-     */
-    public void setVy(int vy) {
-        this.vy = vy;
-    }
-
-    /**
      * player current frame setter
      * @param currentFrame frane = currentFrame
      */
@@ -369,10 +361,6 @@ public class Player extends Entity{
     public void setHeight(int height) {
         this.height = height;
     }
-
-    // TODO : see if dead
-
-    
 
 }
 
