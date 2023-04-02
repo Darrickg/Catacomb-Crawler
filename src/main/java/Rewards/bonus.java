@@ -114,7 +114,6 @@ public class bonus extends rewards {
      * bonus reward respawn setter
      */
     private void respawn() {
-        int[][] map = tileManager.getMapTileNum();
         int tileSize = tileManager.getTileSize();
         isRespawning = false;
         timeLeftToRespawn = respawnTime;
