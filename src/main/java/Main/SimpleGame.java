@@ -1,3 +1,4 @@
+package Main;
 
 import GameStates.GameStateManager;
 import GameStates.MainMenuState;
