@@ -260,6 +260,14 @@ public class Player extends Entity{
     }
 
     /**
+     * abandon method
+     * @param vy to vy
+     */
+    public void setVy(int vy) {
+        this.vy = vy;
+    }
+
+    /**
      * player previous vx getter
      * @return prev vx
      */
