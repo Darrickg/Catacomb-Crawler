@@ -116,20 +116,6 @@ public class Player extends Entity{
      */
     public void addLives(int dif){ this.lives += dif;}
 
-    // TODO: Hitbox config
-
-    // TODO: Movement
-    // move the player
-
-    /**
-     * abandon method
-     */
-    public void move() {
-        x += vx;
-        y += vy;
-        hitbox.setLocation(getX(),getY());
-    }
-
     /**
      * store and update player positiom
      */
