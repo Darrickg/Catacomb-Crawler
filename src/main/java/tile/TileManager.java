@@ -210,10 +210,10 @@ public class TileManager {
         int playerBottom = (int) (y + height-1);
 
         // Check if any of the player's corners are solid
-        return isTileSolid(playerLeft, playerTop)
-                || isTileSolid(playerRight, playerTop)
-                || isTileSolid(playerLeft, playerBottom)
-                || isTileSolid(playerRight, playerBottom);
+        return isTileWall(playerLeft, playerTop)
+                || isTileWall(playerRight, playerTop)
+                || isTileWall(playerLeft, playerBottom)
+                || isTileWall(playerRight, playerBottom);
 }
 
     /**
@@ -229,10 +229,10 @@ public class TileManager {
     int playerTop = (int) y;
     int playerRight = (int) (x + width);
     int playerBottom = (int) (y + height);
-    return isTiledoor(playerLeft, playerTop)
-            || isTiledoor(playerRight, playerTop)
-            || isTiledoor(playerLeft, playerBottom)
-            || isTiledoor(playerRight, playerBottom);
+    return isTileDoor(playerLeft, playerTop)
+            || isTileDoor(playerRight, playerTop)
+            || isTileDoor(playerLeft, playerBottom)
+            || isTileDoor(playerRight, playerBottom);
 }
 
     /**
@@ -241,7 +241,7 @@ public class TileManager {
      * @param y dimension y
      * @return yes or no
      */
-    private boolean isTiledoor(int x, int y) {
+    private boolean isTileDoor(int x, int y) {
         int tileX = (int) (x / tileSize);
         int tileY = (int) (y / tileSize);
         if (mapTileNum[tileY][tileX] == 3) {
@@ -255,7 +255,7 @@ public class TileManager {
      * @param y dimension y
      * @return yes or no
      */
-    private boolean isTileSolid(int x, int y) {
+    private boolean isTileWall(int x, int y) {
         int tileX = (int) (x / tileSize);
         int tileY = (int) (y / tileSize);
 
@@ -285,27 +285,4 @@ public class TileManager {
         return tileSize;
     }
 
-    /**
-     * tile size setter
-     * @param tileSize size to size
-     */
-    public void setTileSize(int tileSize) {
-        this.tileSize = tileSize;
-    }
-
-    /**
-     * abandon class
-     * @return col
-     */
-    public int getCellCol() {
-        return cellCol;
-    }
-
-    /**
-     * abandon class
-     * @return row
-     */
-    public int getCellRow() {
-        return cellRow;
-    }
 }
