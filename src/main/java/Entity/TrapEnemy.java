@@ -16,17 +16,16 @@ public class TrapEnemy extends Enemy {
     private int x;
     private int y;
     private int currentFrame;
-
+    private static final int enemyWidth = 30;
+    private static final int enemyHeight = 17;
+    private static final int trapeDamge = 75;
     /**
      * Enemy constructor with all fields as parameters
      * @param x dimension x
      * @param y dimension y
-     * @param enemyWidth trap enemy width
-     * @param enemyHeight trap enemy height
-     * @param damage trap enemy damage
      */
-    public TrapEnemy(int x, int y, int enemyWidth, int enemyHeight,int damage) {
-        super(x, y, enemyWidth, enemyHeight, damage);
+    public TrapEnemy(int x, int y) {
+        super(x, y, enemyWidth, enemyHeight, trapeDamge);
         this.x = x;
         this.y = y;
         currentFrame = 0;
