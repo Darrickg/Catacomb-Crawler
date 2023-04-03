@@ -27,9 +27,6 @@ public class Player extends Entity{
     private Rectangle hitbox;
 
     private int prevX, prevY;
-
-    public long lastDamageTime = 0;
-    private long durationBeforeDamage = 1000;
     private BufferedImage[] sprites;
     private int currentFrame;
     public TileManager tileManager;
@@ -316,22 +313,11 @@ public class Player extends Entity{
     }
 
     /**
-     * whether play can damage
-     * @return can or can't damage
-     */
-    public boolean canDamage(){
-        return System.currentTimeMillis() - this.lastDamageTime > this.durationBeforeDamage;
-    }
-
-    /**
      * Player take damage
      * @param damage take damage
      */
     public void takeDamage(int damage) {
-        if(!canDamage())
-            return;
         lives -= damage;
-        lastDamageTime = System.currentTimeMillis();
         if (lives <= 0) {
             // TODO: player has died, handle game over condition
             //  change to deaath frame

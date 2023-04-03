@@ -45,6 +45,35 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
 
     private Clip gameMusicClip;
 
+    private void initEnemies(){
+        enemies = new ArrayList<>();
+        enemies.add(new MovingEnemy(608, 512, 32,32, 1, 10000));
+        enemies.add(new TrapEnemy(160,40));
+        enemies.add(new TrapEnemy(460,60));
+        enemies.add(new TrapEnemy(400,850));
+        enemies.add(new TrapEnemy(150,180));
+        enemies.add(new TrapEnemy(700,400));
+    }
+
+    private void initRewards(){
+        items = new ArrayList<>();
+        items.add(new regular(736,544,18,15,75));
+        items.add(new regular(64,544,18,15,75));
+        items.add(new regular(96,64,18,15,75));
+        items.add(new bonus(320,352,32,32,200,100,500,tileManager));
+        items.add(new bonus(704,128,32,32,200,100,100,tileManager));
+        items.add(new bonus(128,480,32,32,200,100,700,tileManager));
+    }
+
+    private void gameFrameInit(){
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(850, 650);
+        frame.setResizable(true);
+        frame.addKeyListener(this);
+        frame.add(this);
+        frame.setVisible(true);
+    }
+
     /**
      * game running state initializer
      */
@@ -56,21 +85,11 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         // Set up player
         player = new Player(384, 320, 32,32,3, tileManager.getMapTileNum());
         // Set up enemies
-        enemies = new ArrayList<>();
-        enemies.add(new MovingEnemy(608, 512, 32,32, 1, 10000));
-        enemies.add(new TrapEnemy(160,40,30,17,75));
-        enemies.add(new TrapEnemy(460,60,30,17,75));
-        enemies.add(new TrapEnemy(400,850,30,17,75));
-        enemies.add(new TrapEnemy(150,180,30,17,75));
-        enemies.add(new TrapEnemy(700,400,30,17,75));
-        items = new ArrayList<>();
-        items.add(new regular(736,544,18,15,75));
-        items.add(new regular(64,544,18,15,75));
-        items.add(new regular(96,64,18,15,75));
-        items.add(new bonus(320,352,32,32,200,100,500,tileManager));
-        items.add(new bonus(704,128,32,32,200,100,100,tileManager));
-        items.add(new bonus(128,480,32,32,200,100,700,tileManager));
-
+        initEnemies();
+        // set up rewards system
+        initRewards();
+        // set up game frame
+        gameFrameInit();
 
         numRegularRewards = 3; // IMPORTANT TODO: initialize to total number of regular rewards
         doorOpen = false;
@@ -81,13 +100,6 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         gameThread = new Thread(this);
         gameThread.start();
 
-
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(850, 650);
-        frame.setResizable(true);
-        frame.addKeyListener(this);
-        frame.add(this);
-        frame.setVisible(true);
 
         try {
             AudioInputStream gameMusic = AudioSystem.getAudioInputStream(new File("assets/audio/gamemusic.wav"));
@@ -134,9 +146,6 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
             tileManager.setMapTileNum(map);
             doorOpen = true;
         }
-
-
-
     }
 
     /**
@@ -145,7 +154,6 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
     @Override
     public void render() {
         if (tileManager.isDoor(player.getX(), player.getY(), player.getWidth(), player.getHeight())) {
-
             this.gameMusicClip.stop();
             try {
                 AudioInputStream winSound = AudioSystem.getAudioInputStream(new File("assets/audio/gamewin.wav"));
@@ -168,7 +176,121 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
             frame.dispose();
             running = false;
         }
+    }
 
+    /**
+     * check runner scenario of hitting moving enemy
+     * @param enemy
+     */
+    private void hitMovingEnemy(Enemy enemy){
+        if(!enemy.getHitbox().intersects(player.getHitbox())){
+            return;
+        }
+
+        System.out.println(" player collided with moving enemy");
+        try {
+            AudioInputStream damageSound = AudioSystem.getAudioInputStream(new File("assets/audio/damage.wav"));
+            Clip damageSoundClip = AudioSystem.getClip();
+            damageSoundClip.open(damageSound);
+            damageSoundClip.start();
+        } catch (Exception e2) {
+            System.out.println("Error playing sound: " + e2.getMessage());
+        }
+
+        player.decreaseScore(enemy.getDamage());
+        healthBar.decreaseHealth(3);
+        if (healthBar.isDead()) {
+            // Player is dead, end game
+            this.gameMusicClip.stop();
+            try {
+                AudioInputStream deathSound = AudioSystem.getAudioInputStream(new File("assets/audio/gameover.wav"));
+                Clip deathSoundClip = AudioSystem.getClip();
+                deathSoundClip.open(deathSound);
+                deathSoundClip.start();
+            } catch (Exception e) {
+                System.out.println("Error playing sound: " + e.getMessage());
+            }
+
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            stateManager.setState(new DeathScreenState());
+            frame.dispose();
+            running = false;
+        }
+    }
+
+    private void hitTrapEnemy(Enemy enemy){
+        if(!enemy.getHitbox().intersects(player.getHitbox())) {
+            return;
+        }
+
+        System.out.println(" player collided with trap enemy");
+        try {
+            AudioInputStream damageSound = AudioSystem.getAudioInputStream(new File("assets/audio/damage.wav"));
+            Clip damageSoundClip = AudioSystem.getClip();
+            damageSoundClip.open(damageSound);
+            damageSoundClip.start();
+        } catch (Exception e2) {
+            System.out.println("Error playing sound: " + e2.getMessage());
+        }
+
+        player.decreaseScore(enemy.getDamage());
+        healthBar.decreaseHealth(1);
+
+        if (healthBar.isDead() || player.getScore() <= 0) {
+            // Player is dead, end game
+            this.gameMusicClip.stop();
+            stateManager.setState(new DeathScreenState());
+            frame.dispose();
+            running = false;
+        }
+        ((TrapEnemy) enemy).activate();
+        enemy.setHitbox(new Rectangle(enemy.getX(),enemy.getY(),0,0));
+    }
+
+    private void hitChestBox(Items item){
+        if(!((regular) item).getHitbox().intersects(player.getHitbox())){
+            return;
+        }
+
+        try {
+            AudioInputStream collectSound = AudioSystem.getAudioInputStream(new File("assets/audio/openchest.wav"));
+            Clip collectSoundClip = AudioSystem.getClip();
+            collectSoundClip.open(collectSound);
+            collectSoundClip.start();
+        } catch (Exception e2) {
+            System.out.println("Error playing sound: " + e2.getMessage());
+        }
+
+        System.out.println("player picked up regular reward");
+        player.addScore(((regular) item).getValue());
+        ((regular) item).pickUp();
+        numRegularRewards--;
+        ((regular) item).setHitbox(new Rectangle(((regular) item).getX(),((regular) item).getY(),0,0));
+    }
+
+    private void hitBonus(Items item){
+        if(!((bonus) item).getHitbox().intersects(player.getHitbox())){
+            return;
+        }
+
+        try {
+            AudioInputStream collectSound = AudioSystem.getAudioInputStream(new File("assets/audio/coinsound.wav"));
+            Clip collectSoundClip = AudioSystem.getClip();
+            collectSoundClip.open(collectSound);
+            collectSoundClip.start();
+        } catch (Exception e2) {
+            System.out.println("Error playing sound: " + e2.getMessage());
+        }
+
+        System.out.println("player picked up bonus reward");
+        player.addScore(((bonus) item).getValue());
+        ((bonus) item).pickUp();
+        ((bonus) item).setHitbox(new Rectangle(((bonus) item).getX(),((bonus) item).getY(),0,0));
     }
 
     /**
@@ -179,120 +301,23 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         while (running) {
             for(Enemy enemy : enemies){
                 if(enemy instanceof MovingEnemy){
-                    if(enemy.getHitbox().intersects(player.getHitbox())){
-                        //TODO: Remove debug test
-                        if(!player.canDamage())
-                            continue;
-                        player.lastDamageTime = System.currentTimeMillis();
-                        System.out.println(" player collided with moving enemy");
-
-                        try {
-                            AudioInputStream damageSound = AudioSystem.getAudioInputStream(new File("assets/audio/damage.wav"));
-                            Clip damageSoundClip = AudioSystem.getClip();
-                            damageSoundClip.open(damageSound);
-                            damageSoundClip.start();
-                        } catch (Exception e2) {
-                            System.out.println("Error playing sound: " + e2.getMessage());
-                        }
-
-                        player.decreaseScore(enemy.getDamage());
-                        healthBar.decreaseHealth(3);
-                        if (healthBar.isDead()) {
-                            // Player is dead, end game
-                            this.gameMusicClip.stop();
-                            try {
-                                AudioInputStream deathSound = AudioSystem.getAudioInputStream(new File("assets/audio/gameover.wav"));
-                                Clip deathSoundClip = AudioSystem.getClip();
-                                deathSoundClip.open(deathSound);
-                                deathSoundClip.start();
-                            } catch (Exception e) {
-                                System.out.println("Error playing sound: " + e.getMessage());
-                            }
-
-                            try {
-                                TimeUnit.SECONDS.sleep(1);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-
-                            stateManager.setState(new DeathScreenState());
-                            frame.dispose();
-                            running = false;
-                        }
-                    }
-
+                    hitMovingEnemy(enemy);
                 }
 
                 if(enemy instanceof TrapEnemy){
-                    if(enemy.getHitbox().intersects(player.getHitbox())) {
-                        System.out.println(" player collided with trap enemy");
-
-                        try {
-                            AudioInputStream damageSound = AudioSystem.getAudioInputStream(new File("assets/audio/damage.wav"));
-                            Clip damageSoundClip = AudioSystem.getClip();
-                            damageSoundClip.open(damageSound);
-                            damageSoundClip.start();
-                        } catch (Exception e2) {
-                            System.out.println("Error playing sound: " + e2.getMessage());
-                        }
-
-                        player.decreaseScore(enemy.getDamage());
-                        healthBar.decreaseHealth(1);
-
-                        if (healthBar.isDead() || player.getScore() <= 0) {
-                            // Player is dead, end game
-                            this.gameMusicClip.stop();
-                            stateManager.setState(new DeathScreenState());
-                            frame.dispose();
-                            running = false;
-                        }
-                        ((TrapEnemy) enemy).activate();
-                        enemy.setHitbox(new Rectangle(enemy.getX(),enemy.getY(),0,0));
-                    }
+                    hitTrapEnemy(enemy);
                 }
             }
             for( Items item : items){
                 if(item instanceof regular){
-                    if(((regular) item).getHitbox().intersects(player.getHitbox())){
-
-                        try {
-                            AudioInputStream collectSound = AudioSystem.getAudioInputStream(new File("assets/audio/openchest.wav"));
-                            Clip collectSoundClip = AudioSystem.getClip();
-                            collectSoundClip.open(collectSound);
-                            collectSoundClip.start();
-                        } catch (Exception e2) {
-                            System.out.println("Error playing sound: " + e2.getMessage());
-                        }
-
-                        System.out.println("player picked up regular reward");
-                        player.addScore(((regular) item).getValue());
-                        ((regular) item).pickUp();
-                        numRegularRewards--;
-                        ((regular) item).setHitbox(new Rectangle(((regular) item).getX(),((regular) item).getY(),0,0));
-                    }
+                    hitChestBox(item);
                 }
                 if(item instanceof bonus){
-                    if(((bonus) item).getHitbox().intersects(player.getHitbox())){
-
-                        try {
-                            AudioInputStream collectSound = AudioSystem.getAudioInputStream(new File("assets/audio/coinsound.wav"));
-                            Clip collectSoundClip = AudioSystem.getClip();
-                            collectSoundClip.open(collectSound);
-                            collectSoundClip.start();
-                        } catch (Exception e2) {
-                            System.out.println("Error playing sound: " + e2.getMessage());
-                        }
-
-                        System.out.println("player picked up bonus reward");
-                        player.addScore(((bonus) item).getValue());
-                        ((bonus) item).pickUp();
-                        ((bonus) item).setHitbox(new Rectangle(((bonus) item).getX(),((bonus) item).getY(),0,0));
-                    }
+                    hitBonus(item);
                 }
             }
 
             player.update();
-
 
             try {
 

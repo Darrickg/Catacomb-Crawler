@@ -14,7 +14,6 @@ public abstract class Enemy extends Entity {
     private int prevX, prevY;
     protected int damage; // amount of damage the enemy does to the player
 
-
     /**
      *
      *
@@ -34,7 +33,6 @@ public abstract class Enemy extends Entity {
         hitbox = new Rectangle(x, y, width, height);
 
     }
-
 
     /**
      * get enemy's damage
@@ -87,7 +85,6 @@ public abstract class Enemy extends Entity {
      */
     public Rectangle getHitbox(){
         return hitbox;
-
     }
 
     /**

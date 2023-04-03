@@ -163,10 +163,9 @@ public class TileManager {
                 if(mapTileNum[i][j] == 2){
                     door[0] = i;
                     door[1] = j;
-
                 }
             }
-    }
+        }
         return door;
     }
 

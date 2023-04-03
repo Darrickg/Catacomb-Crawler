@@ -19,7 +19,6 @@ import tile.TileManager;
 public class bonus extends rewards {
     private BufferedImage[] sprites;
     private boolean pickedUp;
-    private int x,y;
     private int currentFrame;
     private TileManager tileManager;
 
@@ -43,8 +42,6 @@ public class bonus extends rewards {
      */
     public bonus(int x, int y, int rewardWidth, int rewardHeight, int value, int lifespan, int respawnTime, TileManager tileManager) {
         super(x, y, rewardWidth, rewardHeight, value);
-        this.x=x;
-        this.y=y;
         this.lifespan = lifespan;
         this.respawnTime = respawnTime;
         this.isRespawning = false;
@@ -103,7 +100,6 @@ public class bonus extends rewards {
         }
         isRespawning = true;
         timeLeftToRespawn = respawnTime;
-        currentTile = new int[]{getX(), getY()};
     }
     public boolean isExpired() {
         return System.currentTimeMillis() - creationTime >= lifespan;
@@ -123,7 +119,7 @@ public class bonus extends rewards {
         setX(newPosition[0] * tileSize + xOffset);
         setY(newPosition[1] * tileSize + yOffset);
         currentTile = new int[]{newPosition[0], newPosition[1]};
-        setHitbox(new Rectangle(x, y, getWidth(), getHeight()));
+        setHitbox(new Rectangle(this.getX(), this.getY(), getWidth(), getHeight()));
     }
 
 
@@ -182,7 +178,7 @@ public class bonus extends rewards {
      * @param g2d items
      */
     public void draw(Graphics2D g2d){
-        g2d.drawImage(sprites[currentFrame], x+8, y+8, null);
+        g2d.drawImage(sprites[currentFrame], this.getX()+8, this.getY()+8, null);
     }
 
     /**
@@ -198,52 +194,6 @@ public class bonus extends rewards {
      */
     public void pickUp() {
         pickedUp = true;
-    }
-
-    /**
-     * abandon class
-     * @param x dimension x
-     * @param y dimension y
-     */
-    public void setPosition(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    /**
-     * abandon class
-     * @return x
-     */
-    @Override
-    public int getX() {
-        return x;
-    }
-
-    /**
-     * abandon class
-     * @param x x to x
-     */
-    @Override
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    /**
-     * abandon class
-     * @return y
-     */
-    @Override
-    public int getY() {
-        return y;
-    }
-
-    /**
-     * abandon setter
-     * @param y y = y
-     */
-    @Override
-    public void setY(int y) {
-        this.y = y;
     }
 
     /**
