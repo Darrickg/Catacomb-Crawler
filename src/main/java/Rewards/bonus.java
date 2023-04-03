@@ -143,7 +143,6 @@ public class bonus extends rewards {
     }
 
     /**
-     * abandon method
      * @return yes or no
      */
     public boolean isRespawning() {
@@ -151,7 +150,6 @@ public class bonus extends rewards {
     }
 
     /**
-     * abandon method
      * @return yes or no
      */
     public int[] getCurrentTile() {
@@ -159,7 +157,6 @@ public class bonus extends rewards {
     }
 
     /**
-     * abandon method
      * @param player
      */
     @Override
@@ -167,14 +164,12 @@ public class bonus extends rewards {
         if(super.getHitbox().intersects(player.getHitbox())){
             pickedUp = true;
             System.out.println("player picked up item");
-            // TODO: remove reward from screen
             this.remove();
         }
     }
 
 
     /**
-     * abandon method
      * @param g2d items
      */
     public void draw(Graphics2D g2d){
@@ -182,7 +177,6 @@ public class bonus extends rewards {
     }
 
     /**
-     * abandon method
      * @return
      */
     public boolean isPickedUp() {
@@ -190,14 +184,13 @@ public class bonus extends rewards {
     }
 
     /**
-     * abandon class
+     * make the item be picked up
      */
     public void pickUp() {
         pickedUp = true;
     }
 
     /**
-     * abandon getter
      * @return frame
      */
     public int getCurrentFrame() {
@@ -205,7 +198,6 @@ public class bonus extends rewards {
     }
 
     /**
-     * abandon class
      * @param currentFrame frame to frame
      */
     public void setCurrentFrame(int currentFrame) {
@@ -213,7 +205,6 @@ public class bonus extends rewards {
     }
 
     /**
-     * abandon class
      * @param pickedUp frame to frame
      */
     public void setPickedUp(boolean pickedUp) {
