@@ -1,5 +1,7 @@
 package Entity;
 
+import HealthBar.HealthBar;
+
 import java.awt.*;
 
 /**
@@ -41,8 +43,9 @@ public abstract class Enemy extends Entity {
     }
 
     // override the abstract method to handle moving enemy behavior
-    public void handleCollision(Player player) {
+    public boolean handleCollision(Player player, HealthBar healthBar) {
         //abstract
+        return false;
     }
 
     /**
