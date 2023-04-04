@@ -144,6 +144,14 @@ public class Player extends Entity{
         return hitbox;
     }
 
+    /***
+     * set player hitbox
+     * @param hitbox rectangle with x, y, height and width
+     */
+    public void setHitbox(Rectangle hitbox) {
+        this.hitbox = hitbox;
+    }
+
     /**
      * move player up
      */

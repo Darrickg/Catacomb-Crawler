@@ -13,6 +13,7 @@ public class rewards extends Items {
     private int x,y;
     private int width,height;
     private Rectangle hitbox;
+    private boolean pickedUp;
 
     /**
      * rewards constructor generate rewards
@@ -29,6 +30,7 @@ public class rewards extends Items {
         width = rewardWidth;
         height = rewardHeight;
         hitbox = new Rectangle(x,y,width,height);
+        pickedUp = false;
     }
 
     /**
@@ -144,5 +146,8 @@ public class rewards extends Items {
     }
     public void handleCollision(Player player) {
         //abstract
+    }
+    public void pickUp() {
+        pickedUp = true;
     }
 }

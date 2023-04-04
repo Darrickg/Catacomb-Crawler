@@ -54,7 +54,6 @@ public class regular extends rewards {
 
             pickedUp = true;
             System.out.println("player picked up item");
-            // TODO: remove reward from screen
             this.remove();
         }
     }
