@@ -3,9 +3,10 @@ import tile.TileManager;
 
 import java.util.ArrayList;
 
+/**
+ * The PathFinder class represent path finding function for enemy
+ */
 public class PathFinder {
-
-
     TileManager tileManager;
     Node[][] node;
     ArrayList<Node> openList = new ArrayList<>();
@@ -13,85 +14,99 @@ public class PathFinder {
     Node startNode, goalNode, currentNode;
     boolean goalReached = false;
     int step = 0;
-
     public int maxCol;
     public int maxRow;
-public PathFinder(){
 
+    /**
+     * PathFinder constructor
+     */
+    public PathFinder(){
     tileManager = new TileManager(null, 25, 19, 32);
     maxCol = 25;
     maxRow = 19;
     instantiateNodes();
-}
-public void instantiateNodes() {
-    node = new Node[maxCol][maxRow];
-
-    int col = 0;
-    int row = 0;
-
-    while (col < maxCol && row < maxRow) {
-
-        node[col][row] = new Node(col, row);
-        col++;
-        if (col == maxCol) {
-            col = 0;
-            row++;
-        }
     }
-}
-public void resetNodes(){
-    int col = 0;
-    int row = 0;
 
-    while (col < maxCol && row < maxRow) {
+    /**
+     * The path finding base on nodes
+     */
+    public void instantiateNodes() {
+        node = new Node[maxCol][maxRow];
+        int col = 0;
+        int row = 0;
 
-        node[col][row].open = false;
-        node[col][row].checked = false;
-        node[col][row].solid= false;
-        col++;
-        if (col == maxCol) {
-            col = 0;
-            row++;
+        while (col < maxCol && row < maxRow) {
+            node[col][row] = new Node(col, row);
+            col++;
+            if (col == maxCol) {
+                col = 0;
+                row++;
+            }
         }
     }
 
-    openList.clear();
-    pathList.clear();
-    goalReached = false;
-    step =0;
-}
+    /**
+     * Nodes re-setter, re-set nodes position
+     */
+    public void resetNodes(){
+        int col = 0;
+        int row = 0;
 
-public void setNodes(int startCol, int startRow, int goalCol, int goalRow){
-    resetNodes();
-
-    startNode= node[startCol][startRow];
-    currentNode = startNode;
-    goalNode = node[goalCol][goalRow];
-    openList.add(currentNode);
-
-    int col = 0;
-    int row = 0;
-
-    while (col < maxCol && row < maxRow) {
-        // set solid
-        int tileNum = tileManager.getMapTileNum()[row][col];
-        if(tileNum == 1 || tileNum == 7 || tileNum == 8 || tileNum == 4 || tileNum == 5 || tileNum == 6 ){//todo
-            node[col][row].solid = true;
-
+        while (col < maxCol && row < maxRow) {
+            node[col][row].open = false;
+            node[col][row].checked = false;
+            node[col][row].solid= false;
+            col++;
+            if (col == maxCol) {
+                col = 0;
+                row++;
+            }
         }
+        openList.clear();
+        pathList.clear();
+        goalReached = false;
+        step =0;
+    }
 
-        getCost(node[col][row]);
+    /**
+     * Nodes setter
+     * @param startCol the start col
+     * @param startRow the start row
+     * @param goalCol the destination col
+     * @param goalRow the destination row
+     */
+    public void setNodes(int startCol, int startRow, int goalCol, int goalRow){
+        resetNodes();
 
-        col++;
-        if(col == maxCol){
-            col=0;
-            row++;
+        startNode= node[startCol][startRow];
+        currentNode = startNode;
+        goalNode = node[goalCol][goalRow];
+        openList.add(currentNode);
+
+        int col = 0;
+        int row = 0;
+
+        while (col < maxCol && row < maxRow) {
+            // set solid
+            int tileNum = tileManager.getMapTileNum()[row][col];
+            if(tileNum == 1 || tileNum == 7 || tileNum == 8 || tileNum == 4 || tileNum == 5 || tileNum == 6 ){
+                node[col][row].solid = true;
+            }
+
+            getCost(node[col][row]);
+
+            col++;
+            if(col == maxCol){
+                col=0;
+                row++;
+            }
         }
     }
 
-
-}
-
+    /**
+     * Cost getter
+     * @param node node input
+     */
     private void getCost(Node node){
         //g cost(distance fromstart)
         int xDistance= Math.abs(node.col - startNode.col);
@@ -105,10 +120,12 @@ public void setNodes(int startCol, int startRow, int goalCol, int goalRow){
 
         // f cost ( total)
         node.fCost = node.gCost + node.hCost;
-
-
     }
 
+    /**
+     * node searcher
+     * @return True or Flase
+     */
     public Boolean search(){
         while(!goalReached){
             int col = currentNode.col;
@@ -167,6 +184,10 @@ public void setNodes(int startCol, int startRow, int goalCol, int goalRow){
         return goalReached;
     }
 
+    /**
+     * Node active status open
+     * @param node node
+     */
     private void openNode(Node node){
         if( node.open == false && node.checked ==false && node.solid ==false){
             // oif node is not opnened, add to open list
@@ -176,6 +197,9 @@ public void setNodes(int startCol, int startRow, int goalCol, int goalRow){
         }
     }
 
+    /**
+     * path tracker
+     */
     private void trackThePath(){
         Node current = goalNode;
 
