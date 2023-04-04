@@ -90,36 +90,17 @@ public class SoundTestRunningState {
     }
 
     @Test
-    public void testOpenChestSound() {
+    public void testMenuScreenMusic() {
         try {
-            AudioInputStream openChest = AudioSystem.getAudioInputStream(new File("assets/audio/openchest.wav"));
-            Clip openChestClip = AudioSystem.getClip();
-            openChestClip.open(openChest);
+            AudioInputStream startMusic = AudioSystem.getAudioInputStream(new File("assets/audio/startmusic.wav"));
+            Clip startMusicClip = AudioSystem.getClip();
+            startMusicClip.open(startMusic);
 
-            openChestClip.start();
+            startMusicClip.start();
 
-            Thread.sleep(openChestClip.getMicrosecondLength() / 1000);
+            Thread.sleep(startMusicClip.getMicrosecondLength() / 1000);
 
-            openChestClip.stop();
-
-            assertTrue(true);
-        } catch (Exception e) {
-            fail("Error playing music: " + e.getMessage());
-        }
-    }
-
-    @Test
-    public void testCoinSound() {
-        try {
-            AudioInputStream coinSound = AudioSystem.getAudioInputStream(new File("assets/audio/coinsound.wav"));
-            Clip coinSoundClip = AudioSystem.getClip();
-            coinSoundClip.open(coinSound);
-
-            coinSoundClip.start();
-
-            Thread.sleep(coinSoundClip.getMicrosecondLength() / 1000);
-
-            coinSoundClip.stop();
+            startMusicClip.stop();
 
             assertTrue(true);
         } catch (Exception e) {
