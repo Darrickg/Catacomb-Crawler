@@ -12,7 +12,6 @@ import Entity.Player;
 public class regular extends rewards {
     private BufferedImage[] sprites;
     private boolean pickedUp;
-    private int x,y;
     private int currentFrame;
 
     /**
@@ -25,11 +24,8 @@ public class regular extends rewards {
      */
     public regular(int x, int y, int rewardWidth, int rewardHeight, int value) {
         super(x, y, rewardWidth, rewardHeight, value);
-        this.x=x;
-        this.y=y;
         currentFrame = 0;
         pickedUp = false;
-
         sprites = new BufferedImage[1];
         try {
             sprites[0] = ImageIO.read(new File("assets/rewards/chest.png"));
@@ -68,7 +64,7 @@ public class regular extends rewards {
      * @param g2d items
      */
     public void draw(Graphics2D g2d){
-        g2d.drawImage(sprites[currentFrame], x, y, null);
+        g2d.drawImage(sprites[currentFrame], this.getX(), this.getY(), null);
     }
 
     /**
@@ -86,41 +82,6 @@ public class regular extends rewards {
         pickedUp = true;
     }
 
-    /**
-     * getter get dimension x
-     * @return x
-     */
-    @Override
-    public int getX() {
-        return x;
-    }
-
-    /**
-     * setter set dimension x
-     * @param x x to x
-     */
-    @Override
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    /**
-     * getter get dimension y
-     * @return y
-     */
-    @Override
-    public int getY() {
-        return y;
-    }
-
-    /**
-     * setter set dimension y
-     * @param y y to y
-     */
-    @Override
-    public void setY(int y) {
-        this.y = y;
-    }
 
     /**
      * abandon class
