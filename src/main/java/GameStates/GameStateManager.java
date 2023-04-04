@@ -17,21 +17,6 @@ public class GameStateManager extends JPanel {
         currentState.init();
 
     }
-
-    /**
-     * game state updater
-     */
-    public void update() {
-        currentState.update();
-    }
-
-    /**
-     * game state render
-     */
-    public void render() {
-        currentState.render();
-    }
-
     /**
      * game state getter
      * @return current state

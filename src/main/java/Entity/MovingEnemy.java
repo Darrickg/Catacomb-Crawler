@@ -16,9 +16,8 @@ public class MovingEnemy extends Enemy {
     private int x; // x coordinate of enemy
     private int y; // y coordinate of enemy
     private int speed; // speed of enemy
-    private int prevX, prevY;
 
-    public boolean onPath = false;
+    public boolean onPath;
     public TileManager tileManager;
 
     public PathFinder pFinder = new PathFinder();
@@ -47,8 +46,6 @@ public class MovingEnemy extends Enemy {
         tileManager = new TileManager(null, 25, 19, 32);
         this.x=x;
         this.y=y;
-        this.prevX = x;
-        this.prevY =y;
 
         onPath = true;
 
@@ -99,48 +96,6 @@ public class MovingEnemy extends Enemy {
     }
 
     /**
-     * Moving enemy's position setter
-     * @param x set dimension x to x
-     * @param y set dimension y to y
-     */
-    public void setPosition(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    /**
-     * Moving enemy's previous x dimension getter
-     * @return previous dimension x
-     */
-    public int getPrevX() {
-        return prevX;
-    }
-
-    /**
-     * Moving enemy's previous x dimension setter
-     * @param prevX set x to x
-     */
-    public void setPrevX(int prevX) {
-        this.prevX = prevX;
-    }
-
-    /**
-     * Moving enemy's previous y dimension getter
-     * @return previous dimension y
-     */
-    public int getPrevY() {
-        return prevY;
-    }
-
-    /**
-     * Moving enemy's previous y dimension setter
-     * @param prevY set y to y
-     */
-    public void setPrevY(int prevY) {
-        this.prevY = prevY;
-    }
-
-    /**
      * Moving enemy's x dimension getter
      * @return dimension x
      */
@@ -170,22 +125,6 @@ public class MovingEnemy extends Enemy {
      */
     public void setY(int y) {
         this.y = y;
-    }
-
-    /**
-     * Moving enemy's speed getter
-     * @return moving enemy's speed
-     */
-    public int getSpeed() {
-        return speed;
-    }
-
-    /**
-     * Moving enemy's speed setter
-     * @param speed set speed to speed
-     */
-    public void setSpeed(int speed) {
-        this.speed = speed;
     }
 
     /**
@@ -219,7 +158,7 @@ public class MovingEnemy extends Enemy {
         pFinder.setNodes(startCol,startRow,goalCol,goalRow);
 
         if(pFinder.search()){
-            //next worldx and worldy
+            //next world-x and world-y
             int nextX = pFinder.pathList.get(0).col * 32;
             int nextY = pFinder.pathList.get(0).row * 32;
             int enLeft = (int) x;
@@ -228,59 +167,59 @@ public class MovingEnemy extends Enemy {
             int enBottom = (int) (y + getHeight()-1);
 
             if(enTop > nextY && enLeft >= nextX && enRight <nextX + 32){
-                // can go up todo
+                // can go up
                 y = y - speed;
             }
 
             else if(enTop < nextY && enLeft >= nextX && enRight <nextX + 32){
-                // can go down todo
+                // can go down
                 y = y+ speed;
             }
 
             else if(enTop >= nextY && enBottom < nextY + 32){
                 // can go right or left
                 if(enLeft > nextX){
-                    // left todo
+                    // left
                     x = x- speed;
                 }
                 if(enLeft < nextX){
-                    //right todo
+                    //right
                     x = x + speed;
                 }
             }
             else if (enTop >nextY && enLeft >nextX){
                 //up or left
-                // we set up todo
+                // we set up
                 y = y - speed;
                 if (tileManager.isSolid(getX(), getY(), getWidth(), getHeight())) {
-                    // left todo
+                    // left
                     x = x - speed;
                 }
             }
             else if (enTop > nextY && enLeft < nextX){
                 //up or right
-                // we set up todo
+                // we set up
                 y = y - speed;
                 if (tileManager.isSolid(getX(), getY(), getWidth(), getHeight())) {
-                    // right todo
+                    // right
                     x = x + speed;
                 }
             }
             else if( enTop < nextY && enLeft > nextX){
                 // down or left
-                // set down todo
+                // set down
                 y = y+speed;
                 if (tileManager.isSolid(getX(), getY(), getWidth(), getHeight())) {
-                    // left todo
+                    // left
                     x = x - speed;
                 }
             }
             else if( enTop < nextY && enLeft < nextX){
                 // down or tight
-                // set down todo
+                // set down
                 y = y+speed;
                 if (tileManager.isSolid(getX(), getY(), getWidth(), getHeight())) {
-                    // right todo
+                    // right
                     x = x + speed;
                 }
             }

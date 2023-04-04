@@ -132,7 +132,7 @@ public class DeathScreenState extends JPanel implements GameState, ActionListene
 
     /**
      * return to stateManager
-     * @return
+     * @return GameStateManager
      */
     private GameStateManager getStateManager() {
         return stateManager;

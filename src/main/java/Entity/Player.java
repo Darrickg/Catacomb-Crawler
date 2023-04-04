@@ -16,12 +16,11 @@ import java.awt.Rectangle;
 public class Player extends Entity{
     // Attributes
     private int score = 100;
-    private int lives = 5;
-    //private ArrayList<Weapon> inventory;
+    private int lives;
     private int x; // x coordinate of player
     private int y; // y coordinate of player
-    private int vx; // velocity along x axis
-    private int vy; // velocity along y axis
+    private int vx; // velocity along x-axis
+    private int vy; // velocity along y-axis
     private int width;
     private int height;
     private Rectangle hitbox;
