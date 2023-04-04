@@ -1,6 +1,11 @@
 package Entity;
 
+import HealthBar.HealthBar;
+
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -52,7 +57,7 @@ public class TrapEnemy extends Enemy {
      * set trap enemy as active
      */
     public void activate() {
-       activated = true;
+        activated = true;
     }
 
     /**
@@ -61,34 +66,38 @@ public class TrapEnemy extends Enemy {
      */
     // override the abstract method to handle trap enemy behavior
     @Override
-    public void handleCollision(Player player) {
-        if (super.getHitbox().intersects(player.getHitbox())) {
-            activated = true;
+    public boolean handleCollision(Player player, HealthBar healthBar) {
+        if(!this.getHitbox().intersects(player.getHitbox())) {
+            return false;
         }
-        // TODO : remove the trap enemy from the game, or mark it as triggered so it won't cause damage again
-        // change current frame??
+
+        System.out.println(" player collided with trap enemy");
+        try {
+            AudioInputStream damageSound = AudioSystem.getAudioInputStream(new File("assets/audio/damage.wav"));
+            Clip damageSoundClip = AudioSystem.getClip();
+            damageSoundClip.open(damageSound);
+            damageSoundClip.start();
+        } catch (Exception e2) {
+            System.out.println("Error playing sound: " + e2.getMessage());
+        }
+
+        player.decreaseScore(this.getDamage());
+        healthBar.decreaseHealth(1);
+        this.activate();
+        this.setHitbox(new Rectangle(x,y,0,0));
+
+        return true;
     }
 
-    // trap enemies don't move, so no need for movement methods
 
 
     /**
-     * abandon method
-     * @param currentFrame frame to frame
-     */
-    public void setCurrentFrame(int currentFrame) {
-        this.currentFrame = currentFrame;
-    }
-
-    // TODO: Draw player
-
-    /**
-     * abandon method
      * @param g2d draw the object
      */
     public void draw(Graphics2D g2d){
         g2d.drawImage(sprites[currentFrame], x, y, null);
     }
+    // trap enemies don't move, so no need for movement methods
 
 
 }

@@ -1,11 +1,15 @@
 package Entity;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+import HealthBar.HealthBar;
 import astar.PathFinder;
 import tile.TileManager;
 
@@ -63,9 +67,27 @@ public class MovingEnemy extends Enemy {
      * @param player check for additional collisions or interactions with other game objects
      */
     @Override
-    public void handleCollision(Player player) {
-        player.takeDamage(damage);
-        moveTowardsPlayer(player);
+    public boolean handleCollision(Player player, HealthBar healthBar) {
+//        player.takeDamage(damage);
+//        moveTowardsPlayer(player);
+
+        if(!this.getHitbox().intersects(player.getHitbox())){
+            return false;
+        }
+
+        System.out.println(" player collided with moving enemy");
+        try {
+            AudioInputStream damageSound = AudioSystem.getAudioInputStream(new File("assets/audio/damage.wav"));
+            Clip damageSoundClip = AudioSystem.getClip();
+            damageSoundClip.open(damageSound);
+            damageSoundClip.start();
+        } catch (Exception e2) {
+            System.out.println("Error playing sound: " + e2.getMessage());
+        }
+
+        player.decreaseScore(damage);
+        healthBar.decreaseHealth(3);
+        return true;
     }
 
     /**

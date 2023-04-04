@@ -183,23 +183,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
      * @param enemy
      */
     private void hitMovingEnemy(Enemy enemy){
-        if(!enemy.getHitbox().intersects(player.getHitbox())){
-            return;
-        }
-
-        System.out.println(" player collided with moving enemy");
-        try {
-            AudioInputStream damageSound = AudioSystem.getAudioInputStream(new File("assets/audio/damage.wav"));
-            Clip damageSoundClip = AudioSystem.getClip();
-            damageSoundClip.open(damageSound);
-            damageSoundClip.start();
-        } catch (Exception e2) {
-            System.out.println("Error playing sound: " + e2.getMessage());
-        }
-
-        player.decreaseScore(enemy.getDamage());
-        healthBar.decreaseHealth(3);
-        if (healthBar.isDead()) {
+        if (enemy.handleCollision(player, healthBar) && healthBar.isDead()) {
             // Player is dead, end game
             this.gameMusicClip.stop();
             try {
@@ -224,32 +208,13 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
     }
 
     private void hitTrapEnemy(Enemy enemy){
-        if(!enemy.getHitbox().intersects(player.getHitbox())) {
-            return;
-        }
-
-        System.out.println(" player collided with trap enemy");
-        try {
-            AudioInputStream damageSound = AudioSystem.getAudioInputStream(new File("assets/audio/damage.wav"));
-            Clip damageSoundClip = AudioSystem.getClip();
-            damageSoundClip.open(damageSound);
-            damageSoundClip.start();
-        } catch (Exception e2) {
-            System.out.println("Error playing sound: " + e2.getMessage());
-        }
-
-        player.decreaseScore(enemy.getDamage());
-        healthBar.decreaseHealth(1);
-
-        if (healthBar.isDead() || player.getScore() <= 0) {
+        if (enemy.handleCollision(player, healthBar) && (healthBar.isDead() || player.getScore() <= 0)) {
             // Player is dead, end game
             this.gameMusicClip.stop();
             stateManager.setState(new DeathScreenState());
             frame.dispose();
             running = false;
         }
-        ((TrapEnemy) enemy).activate();
-        enemy.setHitbox(new Rectangle(enemy.getX(),enemy.getY(),0,0));
     }
 
     private void hitChestBox(Items item){
@@ -355,7 +320,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
                     enemy.draw(g2d);
                 }
             }else{
-            enemy.draw(g2d);}
+                enemy.draw(g2d);}
         }
         for( Items item: items){
             if(!item.isPickedUp()){
