@@ -1,13 +1,10 @@
 package Entity;
 
-import Entity.Player;
-import Entity.MovingEnemy;
 import tile.TileManager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PlayerTest {
     private Player player;

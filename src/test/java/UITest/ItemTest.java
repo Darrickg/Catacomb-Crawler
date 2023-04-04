@@ -1,4 +1,4 @@
-package OperationTest;
+package UITest;
 
 import Entity.Player;
 import Rewards.bonus;
@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ItemTest {
     private Player player;
     private rewards regular, bonus;
-    private TileManager tileManager = new TileManager(null, 25, 19, 32);
+    private final TileManager tileManager = new TileManager(null, 25, 19, 32);
 
     @BeforeEach
     public void setUp(){
