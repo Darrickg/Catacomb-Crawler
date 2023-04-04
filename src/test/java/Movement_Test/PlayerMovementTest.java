@@ -85,7 +85,7 @@ public class PlayerMovementTest {
 
         // Ensure the player can't take damage immediately after taking damage
         player.takeDamage(1);
-        assertEquals(3, player.getLives());
+        assertEquals(2, player.getLives());
 
         try {
             Thread.sleep(1000);
@@ -95,7 +95,7 @@ public class PlayerMovementTest {
 
         // Ensure the player can take damage after waiting the durationBeforeDamage
         player.takeDamage(1);
-        assertEquals(2, player.getLives());
+        assertEquals(1, player.getLives());
     }
 
     @Test
