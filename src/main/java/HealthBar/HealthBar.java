@@ -75,11 +75,4 @@ public class HealthBar extends JPanel {
         return healthIcons;
     }
 
-    /**
-     * player heart image setter
-     * @param healthIcons heart = icon
-     */
-    public void setHealthIcons(BufferedImage[] healthIcons) {
-        this.healthIcons = healthIcons;
-    }
 }

@@ -81,21 +81,4 @@ public class regular extends rewards {
     public void pickUp() {
         pickedUp = true;
     }
-
-
-    /**
-     * abandon class
-     * @return frame
-     */
-    public int getCurrentFrame() {
-        return currentFrame;
-    }
-
-    /**
-     * abandon class
-     * @param currentFrame frame to frame
-     */
-    public void setCurrentFrame(int currentFrame) {
-        this.currentFrame = currentFrame;
-    }
 }

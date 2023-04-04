@@ -5,23 +5,20 @@ package Entity;
  */
 public class Entity {
     public int x,y;
-    public int speed;
 
-    /**
-     * getter for getting entity horizontal position
-     * @return dimension x
-     */
-    public int getHorizontalPosition(){
+    public int getX() {
         return x;
     }
 
-    /**
-     * getter for getting entity vertical position
-     * @return dimension y
-     */
-    public int getVerticalPosition(){
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
         return y;
     }
 
-
+    public void setY(int y) {
+        this.y = y;
+    }
 }

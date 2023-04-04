@@ -138,15 +138,6 @@ public class Player extends Entity{
     }
 
     /**
-     * player revert position
-     */
-    public void revertPosition() {
-        // Revert the player's position to the previous position
-        x = prevX;
-        y = prevY;
-    }
-
-    /**
      * player hitBox getter
      * @return player model hitBox
      */
@@ -265,38 +256,6 @@ public class Player extends Entity{
     }
 
     /**
-     * player previous vx getter
-     * @return prev vx
-     */
-    public int getPrevX() {
-        return prevX;
-    }
-
-    /**
-     * player previous vx setters
-     * @param prevX set vx = vx
-     */
-    public void setPrevX(int prevX) {
-        this.prevX = prevX;
-    }
-
-    /**
-     * player previous vy getter
-     * @return prev vy
-     */
-    public int getPrevY() {
-        return prevY;
-    }
-
-    /**
-     * player prev vy setter
-     * @param prevY vy = vy
-     */
-    public void setPrevY(int prevY) {
-        this.prevY = prevY;
-    }
-
-    /**
      * player current frame setter
      * @param currentFrame frane = currentFrame
      */
@@ -318,10 +277,6 @@ public class Player extends Entity{
      */
     public void takeDamage(int damage) {
         lives -= damage;
-        if (lives <= 0) {
-            // TODO: player has died, handle game over condition
-            //  change to deaath frame
-        }
     }
 
     /**

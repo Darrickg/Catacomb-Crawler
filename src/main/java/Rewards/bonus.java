@@ -127,7 +127,7 @@ public class bonus extends rewards {
 
     /**
      * bonus reward random spawn finder
-     * @return
+     * @return valid tile position
      */
     private int[] findRandomValidTile() {
         int[][] map = tileManager.getMapTileNum();
@@ -177,7 +177,7 @@ public class bonus extends rewards {
     }
 
     /**
-     * @return
+     * @return boolean
      */
     public boolean isPickedUp() {
         return pickedUp;

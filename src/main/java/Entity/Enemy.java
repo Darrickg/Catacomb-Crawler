@@ -10,8 +10,6 @@ public abstract class Enemy extends Entity {
     private int y;
     private int width, height;
     private Rectangle hitbox;
-
-    private int prevX, prevY;
     protected int damage; // amount of damage the enemy does to the player
 
     /**
@@ -96,27 +94,11 @@ public abstract class Enemy extends Entity {
     }
 
     /**
-     * Enemy width setter
-     * @param width set width to width
-     */
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    /**
      * Enemy height getter
      * @return enemy's height
      */
     public int getHeight() {
         return height;
-    }
-
-    /**
-     * Enemy height setter
-     * @param height set height to height
-     */
-    public void setHeight(int height) {
-        this.height = height;
     }
 
     /**
@@ -132,48 +114,6 @@ public abstract class Enemy extends Entity {
      */
     public void setHitbox(Rectangle hitbox) {
         this.hitbox = hitbox;
-    }
-
-    /**
-     * object position setter
-     * @param x set dimension x to x
-     * @param y set dimension y to y
-     */
-    public void setPosition(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    /**
-     * Previous x getter
-     * @return previous x
-     */
-    public int getPrevX() {
-        return prevX;
-    }
-
-    /**
-     * Previous x setter
-     * @param prevX set x to x
-     */
-    public void setPrevX(int prevX) {
-        this.prevX = prevX;
-    }
-
-    /**
-     * Previous y getter
-     * @return previous y
-     */
-    public int getPrevY() {
-        return prevY;
-    }
-
-    /**
-     * Previous y setter
-     * @param prevY set y to y
-     */
-    public void setPrevY(int prevY) {
-        this.prevY = prevY;
     }
 }
 

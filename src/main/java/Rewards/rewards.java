@@ -145,8 +145,4 @@ public class rewards extends Items {
     public void handleCollision(Player player) {
         //abstract
     }
-    public void add_score() {
-        // still need to do
-        System.out.println("updated score");
-    }
 }
