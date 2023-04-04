@@ -1,16 +1,10 @@
 package Entity;
-import Entity.Player;
-import  GameStates.RunningState;
-
-import Entity.TrapEnemy;
 import HealthBar.HealthBar;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import tile.TileManager;
 
 
-import javax.swing.*;
-import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TrapEnemyTest {
