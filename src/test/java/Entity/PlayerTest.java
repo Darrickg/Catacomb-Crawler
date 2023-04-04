@@ -1,4 +1,4 @@
-package Movement_Test;
+package Entity;
 
 import Entity.Player;
 import Entity.MovingEnemy;
@@ -9,9 +9,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class PlayerMovementTest {
+public class PlayerTest {
     private Player player;
-//    private int[][] testBoard;
+    //    private int[][] testBoard;
     private TileManager tileManager = new TileManager(null, 25, 19, 32);
     @BeforeEach
     public void setUp() {
