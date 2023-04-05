@@ -20,8 +20,8 @@ class HealthBarTest {
 
     @Test
     void getImage() {
-        File heartFullImage = new File("assets/objects/heart_full.png");
-        File heartBlankImage = new File("assets/objects/heart_blank.png");
+        File heartFullImage = new File("src/test/assets/objects/heart_full.png");
+        File heartBlankImage = new File("src/test/assets/objects/heart_blank.png");
 
         assertTrue(heartFullImage.exists());
         assertTrue(heartBlankImage.exists());
@@ -58,8 +58,8 @@ class HealthBarTest {
     @Test
     void getHealthIcons() throws IOException {
         BufferedImage[] healthImages = new BufferedImage[2];
-        healthImages[0] = ImageIO.read(new File("assets/objects/heart_full.png"));
-        healthImages[1] = ImageIO.read(new File("assets/objects/heart_blank.png"));
+        healthImages[0] = ImageIO.read(new File("src/test/assets/objects/heart_full.png"));
+        healthImages[1] = ImageIO.read(new File("src/test/assets/objects/heart_blank.png"));
 
         assertEquals(healthImages[0].getSources(), healthBar.getHealthIcons()[0].getSources());
         assertEquals(healthImages[1].getSources(), healthBar.getHealthIcons()[1].getSources());

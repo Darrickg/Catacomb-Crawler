@@ -10,7 +10,7 @@ import java.io.*;
  * The tile manager class represent a manager that manage all tiles
  */
 public class TileManager {
-    private BufferedImage[] tileImages;
+    BufferedImage[] tileImages;
     private int[][] mapTileNum;
     int cellCol;
     int cellRow;
