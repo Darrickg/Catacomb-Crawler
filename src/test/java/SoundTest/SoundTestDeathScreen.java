@@ -22,7 +22,7 @@ public class SoundTestDeathScreen {
 
             endMusicClip.start();
 
-            Thread.sleep(5000);
+            Thread.sleep(3000);
 
             endMusicClip.stop();
 
@@ -41,7 +41,7 @@ public class SoundTestDeathScreen {
 
             buttonSoundClip.start();
 
-            Thread.sleep(5000);
+            Thread.sleep(3000);
 
             buttonSoundClip.stop();
 

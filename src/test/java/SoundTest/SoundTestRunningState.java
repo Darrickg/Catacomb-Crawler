@@ -22,7 +22,7 @@ public class SoundTestRunningState {
 
             gameMusicClip.start();
 
-            Thread.sleep(5000);
+            Thread.sleep(3000);
 
             gameMusicClip.stop();
 
@@ -41,7 +41,7 @@ public class SoundTestRunningState {
 
             doorOpenClip.start();
 
-            Thread.sleep(5000);
+            Thread.sleep(3000);
 
             doorOpenClip.stop();
 
@@ -60,7 +60,7 @@ public class SoundTestRunningState {
 
             winMusicClip.start();
 
-            Thread.sleep(5000);
+            Thread.sleep(3000);
 
             winMusicClip.stop();
 
@@ -79,7 +79,7 @@ public class SoundTestRunningState {
 
             gameOverClip.start();
 
-            Thread.sleep(5000);
+            Thread.sleep(3000);
 
             gameOverClip.stop();
 
@@ -98,7 +98,7 @@ public class SoundTestRunningState {
 
             startMusicClip.start();
 
-            Thread.sleep(5000);
+            Thread.sleep(3000);
 
             startMusicClip.stop();
 

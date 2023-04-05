@@ -22,7 +22,7 @@ public class SoundTestMainMenu {
 
             startMusicClip.start();
 
-            Thread.sleep(5000);
+            Thread.sleep(3000);
 
             startMusicClip.stop();
 
@@ -41,7 +41,7 @@ public class SoundTestMainMenu {
 
             buttonSoundClip.start();
 
-            Thread.sleep(5000);
+            Thread.sleep(3000);
 
             buttonSoundClip.stop();
 

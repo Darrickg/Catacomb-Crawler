@@ -22,7 +22,7 @@ public class SoundTestWinScreen {
 
             endMusicClip.start();
 
-            Thread.sleep(5000);
+            Thread.sleep(3000);
 
             endMusicClip.stop();
 
@@ -41,7 +41,7 @@ public class SoundTestWinScreen {
 
             buttonSoundClip.start();
 
-            Thread.sleep(5000);
+            Thread.sleep(3000);
 
             buttonSoundClip.stop();
 

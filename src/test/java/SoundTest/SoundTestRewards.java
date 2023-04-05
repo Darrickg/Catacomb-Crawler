@@ -21,7 +21,7 @@ public class SoundTestRewards {
 
             openChestClip.start();
 
-            Thread.sleep(5000);
+            Thread.sleep(3000);
 
             openChestClip.stop();
 
@@ -40,7 +40,7 @@ public class SoundTestRewards {
 
             coinSoundClip.start();
 
-            Thread.sleep(5000);
+            Thread.sleep(3000);
 
             coinSoundClip.stop();
 
@@ -59,7 +59,7 @@ public class SoundTestRewards {
 
             coinSpawnClip.start();
 
-            Thread.sleep(5000);
+            Thread.sleep(3000);
 
             coinSpawnClip.stop();
 
