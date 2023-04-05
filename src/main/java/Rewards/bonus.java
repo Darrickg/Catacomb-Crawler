@@ -63,7 +63,6 @@ public class bonus extends rewards {
     /**
      * bonus reward remove class
      */
-    @Override
     public void remove() {
         this.setHeight(0);
         this.setWidth(0);

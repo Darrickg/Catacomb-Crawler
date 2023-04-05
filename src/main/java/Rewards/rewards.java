@@ -33,12 +33,6 @@ public class rewards extends Items {
         pickedUp = false;
     }
 
-    /**
-     * reward remove class
-     */
-    public void remove() {
-
-    }
 
     /**
      * rewards value getter
@@ -49,13 +43,6 @@ public class rewards extends Items {
         return value;
     }
 
-    /**
-     * reward value setter
-     * @param value value to value
-     */
-    public void setValue(int value) {
-        this.value = value;
-    }
 
     /**
      * reward dimension x getter

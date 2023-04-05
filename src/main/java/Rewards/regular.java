@@ -38,7 +38,7 @@ public class regular extends rewards {
     /**
      * remove class remove regular reward on map
      */
-    @Override
+
     public void remove() {
         this.setHeight(0);
         this.setWidth(0);

@@ -30,8 +30,8 @@ public class TileManager {
         tileImages = new BufferedImage[20];
         mapTileNum = new int[cellRow][cellCol];
         getTileImage();
-        //loadMap("assets/maps/map02.txt");
-        loadMap("src/test/assets/test_map.txt"); // for testing
+        loadMap("assets/maps/map02.txt");
+        //loadMap("src/test/assets/test_map.txt"); // for testing
     }
 
     /**
