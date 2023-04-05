@@ -15,8 +15,8 @@ import java.io.File;
 public class MainMenuState extends JPanel implements GameState, ActionListener {
     private GameStateManager stateManager = new GameStateManager();
 
-    private JButton startButton;
-    private JButton exitButton;
+    JButton startButton;
+    JButton exitButton;
 
     private Clip startMusicClip;
     JFrame frame = new JFrame("Main Menu");
