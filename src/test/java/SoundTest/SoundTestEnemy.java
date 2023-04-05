@@ -22,7 +22,7 @@ public class SoundTestEnemy {
 
             damageClip.start();
 
-            Thread.sleep(damageClip.getMicrosecondLength() / 1000);
+            Thread.sleep(5000);
 
             damageClip.stop();
 
