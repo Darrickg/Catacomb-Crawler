@@ -165,8 +165,10 @@ public class MovingEnemy extends Enemy {
         return hitbox;
     }
 
+    public void setHitbox(Rectangle hit_box){
+        this.hitbox = hit_box;
+    }
 
-    // TODO: other methods for moving enemies
 
     /**
      * Moving enemy auto-findPath & avoid barriers method

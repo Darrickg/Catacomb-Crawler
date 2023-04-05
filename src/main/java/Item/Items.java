@@ -9,7 +9,7 @@ public class Items {
     private boolean pickedUp;
 
     public void remove() {
-
+        // overriden
     }
 
     /**
@@ -25,5 +25,6 @@ public class Items {
      * @param g2d items
      */
     public void draw(Graphics2D g2d) {
+        // overriden
     }
 }
