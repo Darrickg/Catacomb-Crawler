@@ -63,7 +63,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         items.add(new regular(96,64,18,15,75));
         items.add(new bonus(320,352,32,32,200,100,500,tileManager));
         items.add(new bonus(704,128,32,32,200,100,100,tileManager));
-        items.add(new bonus(128,480,32,32,200,100,700,tileManager));
+        items.add(new bonus(128,480,32,32,200,100,200,tileManager));
     }
 
     private void gameFrameInit(){

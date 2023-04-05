@@ -31,6 +31,7 @@ public class TileManager {
         mapTileNum = new int[cellRow][cellCol];
         getTileImage();
         loadMap("assets/maps/map02.txt");
+        //loadMap("src/test/assets/test_map.txt"); // for testing
     }
 
     /**

@@ -88,7 +88,7 @@ public class bonus extends rewards {
     /**
      * bonus reward start spawn setter
      */
-    private void startRespawn() {
+    public void startRespawn() {
 
         try {
             AudioInputStream spawnSound = AudioSystem.getAudioInputStream(new File("assets/audio/coinspawn.wav"));
@@ -109,7 +109,7 @@ public class bonus extends rewards {
     /**
      * bonus reward respawn setter
      */
-    private void respawn() {
+    public void respawn() {
         int tileSize = tileManager.getTileSize();
         isRespawning = false;
         timeLeftToRespawn = respawnTime;
@@ -129,7 +129,7 @@ public class bonus extends rewards {
      * bonus reward random spawn finder
      * @return valid tile position
      */
-    private int[] findRandomValidTile() {
+    public int[] findRandomValidTile() {
         int[][] map = tileManager.getMapTileNum();
         int mapWidth = map[0].length;
         int mapHeight = map.length;
@@ -212,4 +212,7 @@ public class bonus extends rewards {
     }
 
 
+    public int getTimeLeftToRespawn() {
+        return timeLeftToRespawn;
+    }
 }
