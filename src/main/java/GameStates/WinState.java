@@ -15,11 +15,11 @@ import java.io.File;
 public class WinState extends JPanel implements GameState, ActionListener {
     private GameStateManager stateManager = new GameStateManager();
 
-    private JButton restartButton;
-    private JButton exitButton;
+    public JButton restartButton;
+    public JButton exitButton;
 
-    private Clip endMusicClip;
-    JFrame frame = new JFrame("Win");
+    public Clip endMusicClip;
+    public JFrame frame = new JFrame("Win");
     public void init() {
 
         try {
@@ -91,7 +91,7 @@ public class WinState extends JPanel implements GameState, ActionListener {
      */
     @Override
     public void update() {
-
+        // does nothing
     }
 
     /**
@@ -99,14 +99,14 @@ public class WinState extends JPanel implements GameState, ActionListener {
      */
     @Override
     public void render() {
-
+        // does nothing
     }
 
     /**
      * win state game manager
      * @return game state manager
      */
-    private GameStateManager getStateManager() {
+    public GameStateManager getStateManager() {
         return stateManager;
     }
 
