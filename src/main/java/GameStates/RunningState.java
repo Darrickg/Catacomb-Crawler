@@ -41,12 +41,10 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
     private static final int TILE_SIZE = 32;
 
     private long startingTime = System.currentTimeMillis();
-    private List<Integer> downedKeyList = new ArrayList<>();
 
     private Clip gameMusicClip;
 
     private void initEnemies(){
-
         enemies = new ArrayList<>();
         enemies.add(new MovingEnemy(608, 512, 32,32, 1, 10000));
         enemies.add(new TrapEnemy(160,40));
@@ -286,7 +284,6 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
             player.update();
 
             try {
-
                 update();
                 render();
                 repaint();
@@ -347,6 +344,29 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
         long timeFromGameStart = System.currentTimeMillis() - startingTime;
 
         g2d.drawString("Time: " + timeFromGameStart / 1000 + "s", 10, 55);
+    }
+
+    // getters
+    public boolean isDoorOpen() {
+        return doorOpen;
+    }
+
+    public int[] getPlayerLocation() {
+        int[] playerLoc = new int[2];
+        playerLoc[0] = player.getX();
+        playerLoc[1] = player.getY();
+        return playerLoc;
+    }
+
+    public int getHealthbarValue()
+    {
+        return healthBar.getHealth();
+    }
+
+    // setter for injection purpose
+    void setNumRegularRewards(int num)
+    {
+        numRegularRewards = num;
     }
 
     /**
