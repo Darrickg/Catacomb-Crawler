@@ -46,6 +46,7 @@ public class RunningState extends JPanel implements GameState, Runnable, KeyList
     private Clip gameMusicClip;
 
     private void initEnemies(){
+
         enemies = new ArrayList<>();
         enemies.add(new MovingEnemy(608, 512, 32,32, 1, 10000));
         enemies.add(new TrapEnemy(160,40));
