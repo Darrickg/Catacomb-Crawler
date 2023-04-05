@@ -1,4 +1,4 @@
-package UITest;
+package ItemTest;
 
 import Entity.Player;
 import Rewards.bonus;

@@ -1,4 +1,4 @@
-package UITest;
+package ItemTest;
 
 import static org.junit.Assert.*;
 import org.junit.Before;
