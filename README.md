@@ -1,7 +1,7 @@
 # Catacomb Crawler
 Catacomb Crawler is an arcade-style game set in the dungeons. You play a cat statue trying to escape the catacombs. The objective of the game is to collect all the chests scattered around the map while avoiding the enemy and traps. Upon completion of the objective, the door will open and you can exit, winning the game.
 
-A tutorial of the game can also be found [here](https://youtu.be/b-A-jUVjmh0)
+A video tutorial of the game can also be found [here](https://youtu.be/b-A-jUVjmh0).
 
 The Game is created by Group 14: Darrick Gunawan, Mahyar Sharafi Laleh, Hanxi Chen and Boyu Zhang for the class CMPT 276 in Spring 2023 as part of the group project.
 
