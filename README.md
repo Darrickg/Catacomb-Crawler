@@ -28,6 +28,11 @@ How the game runs:
 7. if you can reach the end of the game where the door is, you will win and the win screen will apear.
 8. you will have the option to retry by pressing "restart game" or quit by pressing "exit game" after winning the game.
 
+or
+
+Navigate to the jar file from the terminal by executing
+> .\target\untitled-1.0-SNAPSHOT.jar
+
 ### Testing the game
 1. Open the shell of your choice (eg. Command Prompt(Windows users) or Terminal(macOS or Linux users))
 2. Navigate to the project directory
