@@ -1,4 +1,7 @@
 # Catacomb Crawler
+This project was created for the class CMPT: 276: Software Development.
+This repository was imported from our private University GitLab account.
+
 Catacomb Crawler is an arcade-style game set in the dungeons. You play a cat statue trying to escape the catacombs. The objective of the game is to collect all the chests scattered around the map while avoiding the enemy and traps. Upon completion of the objective, the door will open and you can exit, winning the game.
 
 A video tutorial of the game can also be found [here](https://youtu.be/b-A-jUVjmh0).
